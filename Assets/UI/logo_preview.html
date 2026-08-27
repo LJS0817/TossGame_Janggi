@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>한판 장기 - 600x600 앱 로고</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: white;
+    }
+    .logo-container {
+      width: 600px;
+      height: 600px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border-radius: 135px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      background: #fdfcf9;
+    }
+    .btn {
+      padding: 14px 32px;
+      font-size: 18px;
+      font-weight: bold;
+      background: #0d9488;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn:hover {
+      background: #0f766e;
+      transform: translateY(-1px);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container" id="container">
+    <svg id="svgElem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+      <defs>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDFCF9" />
+          <stop offset="50%" stop-color="#F3F8F6" />
+          <stop offset="100%" stop-color="#E2F2EE" />
+        </linearGradient>
+        <linearGradient id="jadeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2DD4BF" />
+          <stop offset="40%" stop-color="#0D9488" />
+          <stop offset="100%" stop-color="#0F766E" />
+        </linearGradient>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FDE047" />
+          <stop offset="50%" stop-color="#EAB308" />
+          <stop offset="100%" stop-color="#CA8A04" />
+        </linearGradient>
+        <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FFFFFF" />
+          <stop offset="100%" stop-color="#F8FAFC" />
+        </linearGradient>
+        <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.12" />
+        </filter>
+        <filter id="pieceShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#042F2C" flood-opacity="0.28" />
+        </filter>
+      </defs>
+
+      <!-- 1. 앱 아이콘 베이스 (둥근 사각형) -->
+      <rect width="600" height="600" rx="135" fill="url(#bgGrad)" />
+      <rect width="596" height="596" x="2" y="2" rx="133" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-opacity="0.8" />
+
+      <!-- 은은한 원형 배경 오라 -->
+      <circle cx="300" cy="285" r="210" fill="#0D9488" fill-opacity="0.06" />
+      <circle cx="300" cy="285" r="160" fill="#0D9488" fill-opacity="0.08" />
+
+      <!-- 2. 뒤편 덱빌딩 카드 2장 -->
+      <g transform="translate(195, 275) rotate(-14)" filter="url(#dropShadow)">
+        <rect x="-85" y="-125" width="170" height="250" rx="20" fill="url(#cardGrad)" stroke="#CBD5E1" stroke-width="3" />
+        <rect x="-72" y="-112" width="144" height="224" rx="14" fill="none" stroke="#E2E8F0" stroke-width="1.5" />
+        <circle cx="-55" cy="-82" r="12" fill="#E2E8F0" />
+        <text x="-55" y="-77" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="bold" fill="#64748B" text-anchor="middle">2</text>
+        <text x="0" y="20" font-family="'Batang', 'Gungsuh', serif" font-size="52" font-weight="bold" fill="#94A3B8" text-anchor="middle" opacity="0.4">包</text>
+      </g>
+
+      <g transform="translate(405, 275) rotate(14)" filter="url(#dropShadow)">
+        <rect x="-85" y="-125" width="170" height="250" rx="20" fill="url(#cardGrad)" stroke="#CBD5E1" stroke-width="3" />
+        <rect x="-72" y="-112" width="144" height="224" rx="14" fill="none" stroke="#E2E8F0" stroke-width="1.5" />
+        <circle cx="-55" cy="-82" r="12" fill="#E2E8F0" />
+        <text x="-55" y="-77" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="bold" fill="#64748B" text-anchor="middle">5</text>
+        <text x="0" y="20" font-family="'Batang', 'Gungsuh', serif" font-size="52" font-weight="bold" fill="#94A3B8" text-anchor="middle" opacity="0.4">車</text>
+      </g>
+
+      <!-- 3. 중앙 입체 옥(玉) 장기 기물 (8각형) -->
+      <g transform="translate(300, 270)" filter="url(#pieceShadow)">
+        <polygon points="
+          -105,-43
+          -43,-105
+          43,-105
+          105,-43
+          105,43
+          43,105
+          -43,105
+          -105,43"
+          fill="url(#jadeGrad)"
+          stroke="url(#goldGrad)"
+          stroke-width="7"
+          stroke-linejoin="round" />
+
+        <polygon points="
+          -92,-38
+          -38,-92
+          38,-92
+          92,-38
+          92,38
+          38,92
+          -38,92
+          -92,38"
+          fill="none"
+          stroke="#FDE047"
+          stroke-width="2.5"
+          stroke-opacity="0.8"
+          stroke-linejoin="round" />
+
+        <!-- 상단 반사광 하이라이트 -->
+        <path d="M -70 -70 Q 0 -95 70 -70 Q 0 -60 -70 -70 Z" fill="#FFFFFF" fill-opacity="0.3" />
+
+        <!-- 한자 '將' -->
+        <text x="0" y="44"
+              font-family="'Batang', 'Gungsuh', 'Songti SC', serif"
+              font-size="108"
+              font-weight="900"
+              fill="#064E3B"
+              text-anchor="middle"
+              opacity="0.9">將</text>
+        <text x="0" y="40"
+              font-family="'Batang', 'Gungsuh', 'Songti SC', serif"
+              font-size="108"
+              font-weight="900"
+              fill="#FEF08A"
+              stroke="#CA8A04"
+              stroke-width="1.5"
+              text-anchor="middle">將</text>
+      </g>
+
+      <!-- 4. 하단 타이틀 뱃지 영역 -->
+      <g transform="translate(300, 495)">
+        <rect x="-150" y="-32" width="300" height="64" rx="32" fill="#0F172A" filter="url(#dropShadow)" />
+        <text x="0" y="10"
+              font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+              font-size="28"
+              font-weight="900"
+              letter-spacing="4"
+              fill="#FFFFFF"
+              text-anchor="middle">한 판 장 기</text>
+      </g>
+    </svg>
+  </div>
+
+  <button class="btn" onclick="downloadPng()">PNG로 600x600 다운로드</button>
+  <div id="status" class="status"></div>
+
+  <script>
+    function downloadPng() {
+      const status = document.getElementById('status');
+      status.innerText = 'PNG 생성 중...';
+
+      const svgElem = document.getElementById('svgElem');
+      const svgXml = new XMLSerializer().serializeToString(svgElem);
+      const svgBase64 = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgXml);
+
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 600;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, 600, 600);
+        ctx.drawImage(img, 0, 0, 600, 600);
+
+        try {
+          const pngUrl = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+          link.download = 'hanpan_janggi_logo_600x600.png';
+          link.href = pngUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          status.innerText = '✅ 다운로드가 완료되었습니다!';
+        } catch (e) {
+          status.innerText = '오류: ' + e.message;
+          console.error(e);
+        }
+      };
+
+      img.onerror = function(err) {
+        status.innerText = '이미지 로드 오류가 발생했습니다.';
+        console.error(err);
+      };
+
+      img.src = svgBase64;
+    }
+  </script>
+</body>
+</html>

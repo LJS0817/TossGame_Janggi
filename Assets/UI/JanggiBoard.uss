@@ -1,0 +1,802 @@
+/* ============================================
+   장기 덱빌딩 디펜스 - 4번 테마: 산뜻한 세이지 & 코랄 & 웜 파스텔
+   (Fresh Sage Mint & Coral Rose / Warm Pastel)
+   눈이 편안하고 화사한 웜크림 + 바닐라 원목 보드 + 세이지/코랄 파스텔 기물
+   ============================================ */
+
+/* ── 최상위 루트 컨테이너 ── */
+.root-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(253, 251, 247);
+    padding: 16px 20px;
+}
+
+.screen-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* ══════════════════════════════════════════ */
+/* 1. 메인 메뉴 화면 (Main Menu Styles) */
+/* ══════════════════════════════════════════ */
+
+.main-menu-screen {
+    align-items: center;
+    justify-content: space-around;
+    padding: 36px 20px;
+    background-color: rgb(253, 251, 247);
+}
+
+.menu-title-area {
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.menu-title-hanja {
+    font-size: 70px;
+    color: rgb(13, 148, 136);
+    -unity-font-style: bold;
+    letter-spacing: 22px;
+    margin-bottom: -6px;
+}
+
+.menu-title-korean {
+    font-size: 34px;
+    color: rgb(30, 41, 59);
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.menu-subtitle {
+    font-size: 16px;
+    color: rgb(110, 125, 140);
+}
+
+/* ── 난이도 선택 영역 ── */
+.difficulty-section {
+    width: 100%;
+    max-width: 580px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: 20px;
+    color: rgb(51, 65, 85);
+    -unity-font-style: bold;
+    margin-bottom: 12px;
+}
+
+.difficulty-grid {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.diff-card {
+    width: 48%;
+    height: 96px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(230, 226, 218);
+    border-width: 2px;
+    border-radius: 14px;
+    padding: 12px 10px;
+    margin-bottom: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.diff-card:hover {
+    background-color: rgb(245, 252, 251);
+    border-color: rgb(150, 215, 205);
+}
+
+.diff-card--selected {
+    background-color: rgb(240, 253, 250);
+    border-color: rgb(13, 148, 136);
+    border-width: 2px;
+}
+
+.diff-card-title {
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+}
+
+.diff-title-easy {
+    color: rgb(16, 160, 90);
+}
+
+.diff-title-normal {
+    color: rgb(13, 148, 136);
+}
+
+.diff-title-hard {
+    color: rgb(147, 51, 234);
+}
+
+.diff-title-hell {
+    color: rgb(225, 45, 85);
+}
+
+.diff-card-desc {
+    font-size: 13px;
+    color: rgb(100, 116, 139);
+    -unity-text-align: middle-center;
+}
+
+/* ── 메인 액션 버튼 ── */
+.menu-action-area {
+    width: 100%;
+    max-width: 480px;
+    align-items: center;
+}
+
+.menu-btn {
+    width: 100%;
+    padding: 15px 0;
+    font-size: 22px;
+    -unity-font-style: bold;
+    border-radius: 12px;
+    margin: 6px 0;
+    -unity-text-align: middle-center;
+}
+
+.menu-btn-start {
+    background-color: rgb(13, 148, 136);
+    border-color: rgb(13, 148, 136);
+    border-width: 0;
+    color: rgb(255, 255, 255);
+}
+
+.menu-btn-start:hover {
+    background-color: rgb(15, 118, 110);
+}
+
+.menu-btn-rules {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(220, 225, 232);
+    border-width: 1.5px;
+    color: rgb(71, 85, 105);
+    font-size: 19px;
+}
+
+.menu-btn-rules:hover {
+    background-color: rgb(245, 248, 250);
+}
+
+/* ══════════════════════════════════════════ */
+/* 2. 인게임 플레이 화면 (Game Play Styles) */
+/* ══════════════════════════════════════════ */
+
+.game-play-screen {
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ── 헤더 영역 ── */
+.header {
+    width: 100%;
+    max-width: 1020px;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+}
+
+.header-top {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.header-buttons {
+    flex-direction: row;
+    align-items: center;
+}
+
+.game-title {
+    font-size: 32px;
+    color: rgb(30, 41, 59);
+    -unity-font-style: bold;
+    letter-spacing: 6px;
+}
+
+.turn-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.turn-label {
+    font-size: 20px;
+    color: rgb(51, 65, 85);
+    -unity-font-style: bold;
+    margin-right: 10px;
+}
+
+.status-label {
+    font-size: 18px;
+    color: rgb(225, 45, 85);
+    -unity-font-style: bold;
+}
+
+/* ── 플레이어 / AI 패널 ── */
+.player-panel {
+    width: 100%;
+    max-width: 1020px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(228, 232, 238);
+    border-width: 1.5px;
+    border-radius: 16px;
+    padding: 10px 14px;
+    margin: 3px 0;
+    flex-shrink: 0;
+}
+
+.han-panel {
+    border-color: rgba(225, 45, 85, 0.3);
+    background-color: rgb(255, 255, 255);
+}
+
+.cho-panel {
+    border-color: rgba(13, 148, 136, 0.35);
+    background-color: rgb(255, 255, 255);
+}
+
+.panel-status-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.han-status-row {
+    margin-top: 6px;
+    margin-bottom: 0px;
+}
+
+.discard-btn-spacer {
+    width: 195px;
+}
+
+.side-label {
+    font-size: 22px;
+    -unity-font-style: bold;
+}
+
+.han-label {
+    color: rgb(225, 45, 85);
+}
+
+.cho-label {
+    color: rgb(13, 148, 136);
+}
+
+.panel-metrics {
+    flex-direction: row;
+    align-items: center;
+}
+
+.cost-box {
+    background-color: rgb(245, 248, 250);
+    border-color: rgb(225, 230, 238);
+    border-width: 1px;
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+
+.field-box {
+    margin-left: 6px;
+    background-color: rgb(240, 253, 250);
+    border-color: rgb(180, 235, 225);
+}
+
+.cost-label {
+    font-size: 16px;
+    color: rgb(13, 148, 136);
+    -unity-font-style: bold;
+}
+
+.field-label {
+    color: rgb(16, 160, 90);
+}
+
+/* ── 손패 카드 컨테이너 ── */
+.hand-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.hand-card {
+    flex-grow: 1;
+    height: 98px;
+    margin: 0 4px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(228, 232, 238);
+    border-width: 2px;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 3px 4px 3px;
+    position: relative;
+}
+
+.hand-card:hover {
+    border-color: rgb(13, 148, 136);
+    background-color: rgb(245, 253, 251);
+}
+
+.hand-card--selected {
+    border-color: rgb(13, 148, 136);
+    border-width: 2px;
+    background-color: rgb(238, 251, 248);
+}
+
+.hand-card--discard-target {
+    border-color: rgb(225, 45, 85);
+    border-width: 2px;
+    background-color: rgb(255, 242, 245);
+}
+
+.hand-card--unusable {
+    opacity: 0.38;
+}
+
+/* 카드 상단 코스트 배지 */
+.card-cost-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background-color: rgb(13, 148, 136);
+    border-radius: 6px;
+    padding: 1px 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-cost-text {
+    font-size: 13px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+/* 카드 중앙 기물 한자 */
+.card-piece-label {
+    font-size: 32px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-top: 8px;
+}
+
+.card-piece-cho {
+    color: rgb(13, 148, 136);
+}
+
+.card-piece-han {
+    color: rgb(225, 45, 85);
+}
+
+/* 카드 하단 역할/이름 텍스트 */
+.card-name-label {
+    font-size: 13px;
+    color: rgb(110, 125, 140);
+    -unity-font-style: bold;
+    margin-bottom: 1px;
+}
+
+/* ── 패 버리기 & 한 수 쉼 버튼 ── */
+.cho-action-buttons {
+    flex-direction: row;
+    align-items: center;
+}
+
+.discard-btn {
+    padding: 5px 10px;
+    font-size: 15px;
+    color: rgb(71, 85, 105);
+    background-color: rgb(245, 247, 250);
+    border-color: rgb(220, 226, 234);
+    border-width: 1px;
+    border-radius: 8px;
+    -unity-font-style: bold;
+}
+
+.discard-btn:hover {
+    background-color: rgb(235, 240, 245);
+}
+
+.discard-btn--active {
+    background-color: rgb(225, 45, 85);
+    border-color: rgb(225, 45, 85);
+    color: rgb(255, 255, 255);
+}
+
+.pass-btn {
+    padding: 5px 10px;
+    font-size: 15px;
+    color: rgb(13, 148, 136);
+    background-color: rgb(240, 253, 250);
+    border-color: rgb(180, 235, 225);
+    border-width: 1px;
+    border-radius: 8px;
+    -unity-font-style: bold;
+    margin-left: 6px;
+}
+
+.pass-btn:hover {
+    background-color: rgb(225, 248, 244);
+}
+
+/* ── 중앙 보드 영역 ── */
+.board-area {
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    max-width: 1020px;
+    margin: 4px 0;
+}
+
+.board-container {
+    width: 100%;
+    background-color: rgb(245, 230, 202);
+    border-color: rgb(190, 155, 110);
+    border-width: 4px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── 격자 배경 & 교차점 ── */
+.grid-background {
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    right: 2%;
+    bottom: 2%;
+}
+
+.grid-line-h {
+    position: absolute;
+    left: 5.5555%;
+    right: 5.5555%;
+    height: 1.5px;
+    background-color: rgb(150, 115, 80);
+}
+
+.grid-line-v {
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    width: 1.5px;
+    background-color: rgb(150, 115, 80);
+}
+
+.intersections-grid {
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    right: 2%;
+    bottom: 2%;
+    flex-direction: column;
+}
+
+.board-row {
+    flex-direction: row;
+    width: 100%;
+    height: 10%;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.intersection {
+    width: 11.1111%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    position: relative;
+}
+
+.intersection:hover {
+    background-color: rgba(13, 148, 136, 0.15);
+    border-radius: 50%;
+}
+
+/* 기물 표시 (맑은 백옥알 + 세이지/코랄 폰트) */
+.piece {
+    width: 84%;
+    height: 84%;
+    border-radius: 50%;
+    border-width: 2px;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    font-size: 28px;
+    -unity-font-style: bold;
+}
+
+.piece-cho {
+    color: rgb(13, 148, 136);
+    border-color: rgb(45, 185, 170);
+}
+
+.piece-han {
+    color: rgb(225, 45, 85);
+    border-color: rgb(245, 95, 125);
+}
+
+/* 기물 상태 하이라이트 */
+.intersection--selected {
+    background-color: rgba(250, 204, 21, 0.45);
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: rgb(234, 179, 8);
+}
+
+.intersection--movable {
+    background-color: rgba(13, 148, 136, 0.35);
+    border-radius: 50%;
+}
+
+.intersection--movable:hover {
+    background-color: rgba(13, 148, 136, 0.6);
+}
+
+.intersection--attackable {
+    background-color: rgba(225, 45, 85, 0.45);
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: rgb(225, 45, 85);
+}
+
+.intersection--attackable:hover {
+    background-color: rgba(225, 45, 85, 0.7);
+}
+
+.intersection--spawnable {
+    background-color: rgba(13, 148, 136, 0.35);
+    border-width: 2px;
+    border-color: rgb(13, 148, 136);
+    border-radius: 50%;
+}
+
+.intersection--spawnable:hover {
+    background-color: rgba(13, 148, 136, 0.65);
+}
+
+.intersection--check {
+    background-color: rgba(225, 45, 85, 0.45);
+    border-radius: 50%;
+}
+
+.intersection--last-from {
+    background-color: rgba(250, 204, 21, 0.3);
+    border-radius: 50%;
+}
+
+.intersection--last-to {
+    background-color: rgba(250, 204, 21, 0.5);
+    border-radius: 50%;
+}
+
+/* ── 유틸 버튼 ── */
+.control-btn {
+    padding: 6px 12px;
+    font-size: 15px;
+    color: rgb(71, 85, 105);
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(220, 225, 232);
+    border-width: 1px;
+    border-radius: 8px;
+    -unity-font-style: bold;
+}
+
+.control-btn:hover {
+    background-color: rgb(245, 248, 250);
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.btn-difficulty {
+    margin-right: 6px;
+    color: rgb(13, 148, 136);
+    background-color: rgb(240, 253, 250);
+    border-color: rgb(180, 235, 225);
+}
+
+.btn-difficulty:hover {
+    background-color: rgb(225, 248, 244);
+}
+
+.btn-menu {
+    margin-left: 6px;
+    color: rgb(100, 116, 139);
+}
+
+/* ══════════════════════════════════════════ */
+/* 3. 모달 팝업 공통 (Modal Styles) */
+/* ══════════════════════════════════════════ */
+
+.modal-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.55);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal-card {
+    width: 86%;
+    max-width: 540px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(228, 232, 238);
+    border-width: 1.5px;
+    border-radius: 20px;
+    padding: 28px 22px;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 34px;
+    -unity-font-style: bold;
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+}
+
+.modal-title--win {
+    color: rgb(13, 148, 136);
+}
+
+.modal-title--lose {
+    color: rgb(225, 45, 85);
+}
+
+.modal-title--draw {
+    color: rgb(100, 116, 139);
+}
+
+.modal-desc {
+    font-size: 17px;
+    color: rgb(100, 116, 139);
+    margin-bottom: 18px;
+    -unity-text-align: middle-center;
+}
+
+.modal-stats {
+    width: 100%;
+    background-color: rgb(248, 250, 252);
+    border-color: rgb(226, 232, 240);
+    border-width: 1px;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+.stat-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.stat-label {
+    font-size: 16px;
+    color: rgb(100, 116, 139);
+}
+
+.stat-value {
+    font-size: 16px;
+    color: rgb(30, 41, 59);
+    -unity-font-style: bold;
+}
+
+.modal-buttons {
+    width: 100%;
+    align-items: center;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 13px 0;
+    font-size: 18px;
+    border-radius: 12px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.modal-btn-toss {
+    background-color: rgb(49, 130, 246);
+    border-width: 0;
+    color: rgb(255, 255, 255);
+}
+
+.modal-btn-toss:hover {
+    background-color: rgb(27, 100, 218);
+}
+
+.modal-btn-ad {
+    background-color: rgb(245, 158, 11);
+    border-width: 0;
+    color: rgb(255, 255, 255);
+}
+
+.modal-btn-ad:hover {
+    background-color: rgb(217, 119, 6);
+}
+
+.modal-btn-primary {
+    background-color: rgb(13, 148, 136);
+    border-width: 0;
+    color: rgb(255, 255, 255);
+}
+
+.modal-btn-primary:hover {
+    background-color: rgb(15, 118, 110);
+}
+
+.modal-btn-secondary {
+    background-color: rgb(245, 247, 250);
+    border-color: rgb(220, 226, 234);
+    border-width: 1px;
+    color: rgb(71, 85, 105);
+}
+
+.modal-btn-secondary:hover {
+    background-color: rgb(235, 240, 245);
+}
+
+/* ── 룰 가이드 모달 ── */
+.rule-modal-card {
+    width: 90%;
+    max-width: 580px;
+    max-height: 85%;
+}
+
+.rule-scroll-view {
+    width: 100%;
+    max-height: 440px;
+    margin-bottom: 18px;
+}
+
+.rule-item {
+    background-color: rgb(248, 250, 252);
+    border-color: rgb(226, 232, 240);
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+}
+
+.rule-item-title {
+    font-size: 16px;
+    color: rgb(13, 148, 136);
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+}
+
+.rule-item-desc {
+    font-size: 14px;
+    color: rgb(71, 85, 105);
+    white-space: normal;
+}
