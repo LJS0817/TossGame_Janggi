@@ -6,9 +6,15 @@ using Janggi.AI;
 
 namespace Janggi.UI
 {
+    public enum CalloutType
+    {
+        Check,  // 장군 (將軍)
+        Escape  // 멍군 (應將)
+    }
+
     /// <summary>
     /// UI Toolkit 기반 장기판 UI 컨트롤러.
-    /// Board 로직, 자원(Cost), 손패(Hand), 소환(Spawn) 구역 렌더링 및 이벤트를 총괄합니다.
+    /// Board 로직, 자원(Cost), 손패(Hand), 소환(Spawn) 구역 렌더링, 다국어 지원 및 이벤트를 총괄합니다.
     /// </summary>
     public class BoardUIController
     {
@@ -20,14 +26,24 @@ namespace Janggi.UI
         private readonly VisualElement _boardContainer;
         private readonly VisualElement _gridBackground;
         private readonly VisualElement _intersectionsGrid;
-        private readonly Label _turnLabel;
-        private readonly Label _statusLabel;
+        private readonly VisualElement _calloutBanner;
+        private readonly Label _calloutHanja;
+        private readonly Label _calloutSubtitle;
+        private IVisualElementScheduledItem _hideCalloutSchedule;
+        private readonly VisualElement _hanTurnInfo;
+        private readonly VisualElement _choTurnInfo;
+        private readonly Label _hanTurnLabel;
+        private readonly Label _choTurnLabel;
+        private readonly Label _hanStatusLabel;
+        private readonly Label _choStatusLabel;
 
         // 플레이어/AI 패널 및 손패 슬롯
         private readonly Label _hanCostLabel;
         private readonly Label _choCostLabel;
         private readonly Label _hanFieldCostLabel;
         private readonly Label _choFieldCostLabel;
+        private readonly Label _hanSideLabel;
+        private readonly Label _choSideLabel;
         private readonly VisualElement _hanHandContainer;
         private readonly VisualElement _choHandContainer;
         private readonly Button _btnDiscardMode;
@@ -37,9 +53,13 @@ namespace Janggi.UI
         private readonly VisualElement _gameOverModal;
         private readonly Label _modalTitle;
         private readonly Label _modalDesc;
+        private readonly Label _statLabelDifficulty;
         private readonly Label _statDifficulty;
+        private readonly Label _statLabelTurns;
         private readonly Label _statTurns;
+        private readonly Label _statLabelCaptures;
         private readonly Label _statCaptures;
+        private readonly Label _statLabelSummons;
         private readonly Label _statSummons;
         private readonly Button _btnModalRestart;
 
@@ -53,6 +73,15 @@ namespace Janggi.UI
         private PlayerSide _currentTurn;
         private bool _isInteractive = true;
 
+        // 마지막 모달 상태 저장 (언어 전환 시 즉시 갱신용)
+        private bool _isModalShown = false;
+        private bool _lastModalIsWin;
+        private bool _lastModalIsDraw;
+        private AIDifficulty _lastModalDiff;
+        private int _lastModalTurns;
+        private int _lastModalCaptures;
+        private int _lastModalSummons;
+
         // 선택 상태
         private Piece _selectedPiece;
         private List<BoardPosition> _highlightedMoves;
@@ -64,17 +93,43 @@ namespace Janggi.UI
         private readonly VisualElement _gamePlayScreen;
 
         // 메인 메뉴 요소
+        private readonly Label _menuTitleSub;
+        private readonly Label _menuSubtitle;
+        private readonly Label _menuDiffSectionTitle;
         private readonly VisualElement _diffCardEasy;
         private readonly VisualElement _diffCardNormal;
         private readonly VisualElement _diffCardHard;
         private readonly VisualElement _diffCardHell;
+        private readonly Label _diffEasyTitle;
+        private readonly Label _diffEasyDesc;
+        private readonly Label _diffNormalTitle;
+        private readonly Label _diffNormalDesc;
+        private readonly Label _diffHardTitle;
+        private readonly Label _diffHardDesc;
+        private readonly Label _diffHellTitle;
+        private readonly Label _diffHellDesc;
+
         private readonly Button _btnStartGame;
         private readonly Button _btnOpenRules;
+        private readonly Button _btnLanguageToggle;
         private readonly Button _btnCloseRules;
         private readonly VisualElement _ruleGuideModal;
+        private readonly Label _ruleModalTitle;
+        private readonly Label _rule1Title;
+        private readonly Label _rule1Desc;
+        private readonly Label _rule2Title;
+        private readonly Label _rule2Desc;
+        private readonly Label _rule3Title;
+        private readonly Label _rule3Desc;
+        private readonly Label _rule4Title;
+        private readonly Label _rule4Desc;
+        private readonly Label _rule5Title;
+        private readonly Label _rule5Desc;
+
         private AIDifficulty _selectedDifficulty = AIDifficulty.Normal;
 
         // 인게임 헤더 및 버튼
+        private readonly Button _btnHeaderLanguage;
         private readonly Button _btnGotoMenu;
         private readonly Button _btnNewGame;
         private readonly Button _btnModalMenu;
@@ -86,6 +141,7 @@ namespace Janggi.UI
         private int _selectedHandCardIndex = -1;
         private List<BoardPosition> _highlightedSpawnPositions;
         private bool _isDiscardMode = false;
+        private float _cachedBoardWidth = 0f;
 
         // 이벤트 콜백
         public System.Action<Piece> OnPieceSelected;
@@ -109,23 +165,60 @@ namespace Janggi.UI
             _gamePlayScreen = root.Q<VisualElement>("game-play-screen");
 
             // 2. 메인 메뉴 요소 바인딩
+            _menuTitleSub = root.Q<Label>("menu-title-sub");
+            _menuSubtitle = root.Q<Label>("menu-subtitle");
+            _menuDiffSectionTitle = root.Q<Label>("menu-diff-section-title");
+
             _diffCardEasy = root.Q<VisualElement>("diff-card-easy");
             _diffCardNormal = root.Q<VisualElement>("diff-card-normal");
             _diffCardHard = root.Q<VisualElement>("diff-card-hard");
             _diffCardHell = root.Q<VisualElement>("diff-card-hell");
+
+            _diffEasyTitle = root.Q<Label>("diff-easy-title");
+            _diffEasyDesc = root.Q<Label>("diff-easy-desc");
+            _diffNormalTitle = root.Q<Label>("diff-normal-title");
+            _diffNormalDesc = root.Q<Label>("diff-normal-desc");
+            _diffHardTitle = root.Q<Label>("diff-hard-title");
+            _diffHardDesc = root.Q<Label>("diff-hard-desc");
+            _diffHellTitle = root.Q<Label>("diff-hell-title");
+            _diffHellDesc = root.Q<Label>("diff-hell-desc");
+
             _btnStartGame = root.Q<Button>("btn-start-game");
             _btnOpenRules = root.Q<Button>("btn-open-rules");
+            _btnLanguageToggle = root.Q<Button>("btn-language-toggle");
             _btnCloseRules = root.Q<Button>("btn-close-rules");
             _ruleGuideModal = root.Q<VisualElement>("rule-guide-modal");
+
+            _ruleModalTitle = root.Q<Label>("rule-modal-title");
+            _rule1Title = root.Q<Label>("rule-1-title");
+            _rule1Desc = root.Q<Label>("rule-1-desc");
+            _rule2Title = root.Q<Label>("rule-2-title");
+            _rule2Desc = root.Q<Label>("rule-2-desc");
+            _rule3Title = root.Q<Label>("rule-3-title");
+            _rule3Desc = root.Q<Label>("rule-3-desc");
+            _rule4Title = root.Q<Label>("rule-4-title");
+            _rule4Desc = root.Q<Label>("rule-4-desc");
+            _rule5Title = root.Q<Label>("rule-5-title");
+            _rule5Desc = root.Q<Label>("rule-5-desc");
 
             // 3. 인게임 요소 바인딩
             _boardArea = root.Q<VisualElement>("board-area");
             _boardContainer = root.Q<VisualElement>("board-container");
             _gridBackground = root.Q<VisualElement>("grid-background");
             _intersectionsGrid = root.Q<VisualElement>("intersections-grid");
-            _turnLabel = root.Q<Label>("turn-label");
-            _statusLabel = root.Q<Label>("status-label");
+            _calloutBanner = root.Q<VisualElement>("callout-banner");
+            _calloutHanja = root.Q<Label>("callout-hanja");
+            _calloutSubtitle = root.Q<Label>("callout-subtitle");
 
+            _hanTurnInfo = root.Q<VisualElement>("han-turn-info");
+            _choTurnInfo = root.Q<VisualElement>("cho-turn-info");
+            _hanTurnLabel = root.Q<Label>("han-turn-label");
+            _choTurnLabel = root.Q<Label>("cho-turn-label");
+            _hanStatusLabel = root.Q<Label>("han-status-label");
+            _choStatusLabel = root.Q<Label>("cho-status-label");
+
+            _hanSideLabel = root.Q<Label>("han-side-label");
+            _choSideLabel = root.Q<Label>("cho-side-label");
             _hanCostLabel = root.Q<Label>("han-cost-label");
             _choCostLabel = root.Q<Label>("cho-cost-label");
             _hanFieldCostLabel = root.Q<Label>("han-field-cost-label");
@@ -135,6 +228,7 @@ namespace Janggi.UI
             _btnDiscardMode = root.Q<Button>("btn-discard-mode");
             _btnPassTurn = root.Q<Button>("btn-pass-turn");
             _btnDifficulty = root.Q<Button>("btn-difficulty");
+            _btnHeaderLanguage = root.Q<Button>("btn-header-language");
             _btnNewGame = root.Q<Button>("btn-new-game");
             _btnGotoMenu = root.Q<Button>("btn-goto-menu");
 
@@ -142,9 +236,13 @@ namespace Janggi.UI
             _gameOverModal = root.Q<VisualElement>("game-over-modal");
             _modalTitle = root.Q<Label>("modal-title");
             _modalDesc = root.Q<Label>("modal-desc");
+            _statLabelDifficulty = root.Q<Label>("stat-label-difficulty");
             _statDifficulty = root.Q<Label>("stat-difficulty");
+            _statLabelTurns = root.Q<Label>("stat-label-turns");
             _statTurns = root.Q<Label>("stat-turns");
+            _statLabelCaptures = root.Q<Label>("stat-label-captures");
             _statCaptures = root.Q<Label>("stat-captures");
+            _statLabelSummons = root.Q<Label>("stat-label-summons");
             _statSummons = root.Q<Label>("stat-summons");
             _btnModalRestart = root.Q<Button>("btn-modal-restart");
             _btnModalMenu = root.Q<Button>("btn-modal-menu");
@@ -159,6 +257,11 @@ namespace Janggi.UI
             BuildGrid();
             SetupButtons();
             SetupMainMenu();
+
+            // 다국어 초기 텍스트 적용 및 이벤트 구독
+            ApplyLocalization();
+            LocalizationManager.OnLanguageChanged += ApplyLocalization;
+            ApplyDifficultyTheme(_selectedDifficulty);
 
             // 반응형 보드 크기 계산
             if (_boardArea != null)
@@ -210,6 +313,11 @@ namespace Janggi.UI
             if (_btnDifficulty != null)
             {
                 _btnDifficulty.clicked += () => OnDifficultyToggled?.Invoke();
+            }
+
+            if (_btnHeaderLanguage != null)
+            {
+                _btnHeaderLanguage.clicked += () => LocalizationManager.ToggleLanguage();
             }
 
             if (_btnNewGame != null)
@@ -284,24 +392,128 @@ namespace Janggi.UI
                     if (_ruleGuideModal != null) _ruleGuideModal.style.display = DisplayStyle.None;
                 };
             }
+
+            // 4. 언어 전환 버튼
+            if (_btnLanguageToggle != null)
+            {
+                _btnLanguageToggle.clicked += () =>
+                {
+                    LocalizationManager.ToggleLanguage();
+                };
+            }
+
+            // 초기 난이도 선택 상태 동기화
+            SelectDifficulty(_selectedDifficulty);
+        }
+
+        /// <summary>
+        /// BoardUIController 리소스 및 이벤트 구독을 해제합니다.
+        /// </summary>
+        public void Dispose()
+        {
+            LocalizationManager.OnLanguageChanged -= ApplyLocalization;
+
+            if (_boardArea != null)
+            {
+                _boardArea.UnregisterCallback<GeometryChangedEvent>(OnBoardAreaGeometryChanged);
+            }
+        }
+
+        /// <summary>
+        /// 언어 설정 변경 시 모든 정적 및 동적 UI 텍스트를 즉시 갱신합니다.
+        /// </summary>
+        public void ApplyLocalization()
+        {
+            try
+            {
+                // 1. 메인 메뉴
+                if (_menuTitleSub != null && _menuTitleSub.panel != null) _menuTitleSub.text = LocalizationManager.Get("Menu_Title_Sub");
+                if (_menuSubtitle != null && _menuSubtitle.panel != null) _menuSubtitle.text = LocalizationManager.Get("Menu_Subtitle");
+                if (_menuDiffSectionTitle != null && _menuDiffSectionTitle.panel != null) _menuDiffSectionTitle.text = LocalizationManager.Get("Menu_Diff_Section");
+
+                if (_diffEasyTitle != null && _diffEasyTitle.panel != null) _diffEasyTitle.text = LocalizationManager.Get("Diff_Easy_Title");
+                if (_diffEasyDesc != null && _diffEasyDesc.panel != null) _diffEasyDesc.text = LocalizationManager.Get("Diff_Easy_Desc");
+                if (_diffNormalTitle != null && _diffNormalTitle.panel != null) _diffNormalTitle.text = LocalizationManager.Get("Diff_Normal_Title");
+                if (_diffNormalDesc != null && _diffNormalDesc.panel != null) _diffNormalDesc.text = LocalizationManager.Get("Diff_Normal_Desc");
+                if (_diffHardTitle != null && _diffHardTitle.panel != null) _diffHardTitle.text = LocalizationManager.Get("Diff_Hard_Title");
+                if (_diffHardDesc != null && _diffHardDesc.panel != null) _diffHardDesc.text = LocalizationManager.Get("Diff_Hard_Desc");
+                if (_diffHellTitle != null && _diffHellTitle.panel != null) _diffHellTitle.text = LocalizationManager.Get("Diff_Hell_Title");
+                if (_diffHellDesc != null && _diffHellDesc.panel != null) _diffHellDesc.text = LocalizationManager.Get("Diff_Hell_Desc");
+
+                if (_btnStartGame != null && _btnStartGame.panel != null) _btnStartGame.text = LocalizationManager.Get("Btn_Start_Game");
+                if (_btnOpenRules != null && _btnOpenRules.panel != null) _btnOpenRules.text = LocalizationManager.Get("Btn_Open_Rules");
+                if (_btnLanguageToggle != null && _btnLanguageToggle.panel != null) _btnLanguageToggle.text = LocalizationManager.GetLanguageToggleLabel();
+                if (_btnCloseRules != null && _btnCloseRules.panel != null) _btnCloseRules.text = LocalizationManager.Get("Btn_Close_Rules");
+
+                // 2. 규칙 모달
+                if (_ruleModalTitle != null && _ruleModalTitle.panel != null) _ruleModalTitle.text = LocalizationManager.Get("Rule_Modal_Title");
+                if (_rule1Title != null && _rule1Title.panel != null) _rule1Title.text = LocalizationManager.Get("Rule_1_Title");
+                if (_rule1Desc != null && _rule1Desc.panel != null) _rule1Desc.text = LocalizationManager.Get("Rule_1_Desc");
+                if (_rule2Title != null && _rule2Title.panel != null) _rule2Title.text = LocalizationManager.Get("Rule_2_Title");
+                if (_rule2Desc != null && _rule2Desc.panel != null) _rule2Desc.text = LocalizationManager.Get("Rule_2_Desc");
+                if (_rule3Title != null && _rule3Title.panel != null) _rule3Title.text = LocalizationManager.Get("Rule_3_Title");
+                if (_rule3Desc != null && _rule3Desc.panel != null) _rule3Desc.text = LocalizationManager.Get("Rule_3_Desc");
+                if (_rule4Title != null && _rule4Title.panel != null) _rule4Title.text = LocalizationManager.Get("Rule_4_Title");
+                if (_rule4Desc != null && _rule4Desc.panel != null) _rule4Desc.text = LocalizationManager.Get("Rule_4_Desc");
+                if (_rule5Title != null && _rule5Title.panel != null) _rule5Title.text = LocalizationManager.Get("Rule_5_Title");
+                if (_rule5Desc != null && _rule5Desc.panel != null) _rule5Desc.text = LocalizationManager.Get("Rule_5_Desc");
+
+                // 3. 인게임 헤더 및 패널
+                if (_btnHeaderLanguage != null && _btnHeaderLanguage.panel != null) _btnHeaderLanguage.text = LocalizationManager.GetHeaderLanguageToggleLabel();
+                if (_btnNewGame != null && _btnNewGame.panel != null) _btnNewGame.text = LocalizationManager.Get("Btn_Restart");
+                if (_btnGotoMenu != null && _btnGotoMenu.panel != null) _btnGotoMenu.text = LocalizationManager.Get("Btn_Menu");
+                if (_btnPassTurn != null && _btnPassTurn.panel != null) _btnPassTurn.text = LocalizationManager.Get("Btn_Pass");
+
+                if (_hanSideLabel != null && _hanSideLabel.panel != null) _hanSideLabel.text = LocalizationManager.Get("Side_Han");
+                if (_choSideLabel != null && _choSideLabel.panel != null) _choSideLabel.text = LocalizationManager.Get("Side_Cho");
+
+                UpdateDifficultyDisplay(_selectedDifficulty);
+                UpdateDiscardButtonUI();
+
+                // 4. 모달 라벨들
+                if (_statLabelDifficulty != null && _statLabelDifficulty.panel != null) _statLabelDifficulty.text = LocalizationManager.Get("Stat_Difficulty");
+                if (_statLabelTurns != null && _statLabelTurns.panel != null) _statLabelTurns.text = LocalizationManager.Get("Stat_Turns");
+                if (_statLabelCaptures != null && _statLabelCaptures.panel != null) _statLabelCaptures.text = LocalizationManager.Get("Stat_Captures");
+                if (_statLabelSummons != null && _statLabelSummons.panel != null) _statLabelSummons.text = LocalizationManager.Get("Stat_Summons");
+
+                if (_btnModalShare != null && _btnModalShare.panel != null) _btnModalShare.text = LocalizationManager.Get("Btn_Modal_Share");
+                if (_btnModalAd != null && _btnModalAd.panel != null) _btnModalAd.text = LocalizationManager.Get("Btn_Modal_Ad");
+                if (_btnModalRestart != null && _btnModalRestart.panel != null) _btnModalRestart.text = LocalizationManager.Get("Btn_Modal_Restart");
+                if (_btnModalMenu != null && _btnModalMenu.panel != null) _btnModalMenu.text = LocalizationManager.Get("Btn_Modal_Menu");
+
+                if (_isModalShown)
+                {
+                    ShowGameOverModal(_lastModalIsWin, _lastModalIsDraw, _lastModalDiff, _lastModalTurns, _lastModalCaptures, _lastModalSummons);
+                }
+
+                // 5. 인게임 동적 UI 갱신
+                RefreshAll();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning($"[BoardUIController] ApplyLocalization 중 예외 무시: {ex.Message}");
+            }
         }
 
         public void SelectDifficulty(AIDifficulty difficulty)
         {
             _selectedDifficulty = difficulty;
 
-            _diffCardEasy?.RemoveFromClassList("diff-card--selected");
-            _diffCardNormal?.RemoveFromClassList("diff-card--selected");
-            _diffCardHard?.RemoveFromClassList("diff-card--selected");
-            _diffCardHell?.RemoveFromClassList("diff-card--selected");
+            _diffCardEasy?.parent?.RemoveFromClassList("diff-card-wrapper--selected");
+            _diffCardNormal?.parent?.RemoveFromClassList("diff-card-wrapper--selected");
+            _diffCardHard?.parent?.RemoveFromClassList("diff-card-wrapper--selected");
+            _diffCardHell?.parent?.RemoveFromClassList("diff-card-wrapper--selected");
 
-            switch (difficulty)
+            VisualElement selectedCard = difficulty switch
             {
-                case AIDifficulty.Easy:   _diffCardEasy?.AddToClassList("diff-card--selected"); break;
-                case AIDifficulty.Normal: _diffCardNormal?.AddToClassList("diff-card--selected"); break;
-                case AIDifficulty.Hard:   _diffCardHard?.AddToClassList("diff-card--selected"); break;
-                case AIDifficulty.Hell:   _diffCardHell?.AddToClassList("diff-card--selected"); break;
-            }
+                AIDifficulty.Easy => _diffCardEasy,
+                AIDifficulty.Normal => _diffCardNormal,
+                AIDifficulty.Hard => _diffCardHard,
+                AIDifficulty.Hell => _diffCardHell,
+                _ => null
+            };
+
+            selectedCard?.parent?.AddToClassList("diff-card-wrapper--selected");
 
             UpdateDifficultyDisplay(difficulty);
         }
@@ -322,6 +534,14 @@ namespace Janggi.UI
 
         public void ShowGameOverModal(bool isWin, bool isDraw, AIDifficulty difficulty, int turnCount, int captures, int summons)
         {
+            _isModalShown = true;
+            _lastModalIsWin = isWin;
+            _lastModalIsDraw = isDraw;
+            _lastModalDiff = difficulty;
+            _lastModalTurns = turnCount;
+            _lastModalCaptures = captures;
+            _lastModalSummons = summons;
+
             if (_gameOverModal == null) return;
 
             if (_modalTitle != null)
@@ -332,45 +552,73 @@ namespace Janggi.UI
 
                 if (isDraw)
                 {
-                    _modalTitle.text = "무승부 (引分)";
+                    _modalTitle.text = LocalizationManager.Get("Modal_Title_Draw");
                     _modalTitle.AddToClassList("modal-title--draw");
-                    if (_modalDesc != null) _modalDesc.text = "양측의 공방 끝에 교착 상태가 되었습니다.";
+                    if (_modalDesc != null) _modalDesc.text = LocalizationManager.Get("Modal_Desc_Draw");
                 }
                 else if (isWin)
                 {
-                    _modalTitle.text = "승리 (勝利)";
+                    _modalTitle.text = LocalizationManager.Get("Modal_Title_Win");
                     _modalTitle.AddToClassList("modal-title--win");
-                    if (_modalDesc != null) _modalDesc.text = "적의 궁을 외통수로 멋지게 제압했습니다!";
+                    if (_modalDesc != null) _modalDesc.text = LocalizationManager.Get("Modal_Desc_Win");
                 }
                 else
                 {
-                    _modalTitle.text = "패배 (敗北)";
+                    _modalTitle.text = LocalizationManager.Get("Modal_Title_Lose");
                     _modalTitle.AddToClassList("modal-title--lose");
-                    if (_modalDesc != null) _modalDesc.text = "아군 궁이 외통수로 제압당했습니다...";
+                    if (_modalDesc != null) _modalDesc.text = LocalizationManager.Get("Modal_Desc_Lose");
                 }
             }
 
             if (_statDifficulty != null) _statDifficulty.text = difficulty.GetDisplayName();
-            if (_statTurns != null) _statTurns.text = $"{turnCount} 턴";
-            if (_statCaptures != null) _statCaptures.text = $"{captures} 개";
-            if (_statSummons != null) _statSummons.text = $"{summons} 개";
+            if (_statTurns != null) _statTurns.text = LocalizationManager.Get("Stat_Turns_Value", turnCount);
+            if (_statCaptures != null) _statCaptures.text = LocalizationManager.Get("Stat_Captures_Value", captures);
+            if (_statSummons != null) _statSummons.text = LocalizationManager.Get("Stat_Summons_Value", summons);
 
             _gameOverModal.style.display = DisplayStyle.Flex;
         }
 
         public void HideGameOverModal()
         {
+            _isModalShown = false;
             if (_gameOverModal != null)
             {
                 _gameOverModal.style.display = DisplayStyle.None;
             }
         }
 
-        public void UpdateDifficultyDisplay(Janggi.AI.AIDifficulty difficulty)
+        public void UpdateDifficultyDisplay(AIDifficulty difficulty)
         {
             if (_btnDifficulty != null)
             {
-                _btnDifficulty.text = $"난이도: {difficulty.GetDisplayName()}";
+                _btnDifficulty.text = $"{LocalizationManager.Get("Header_Diff_Prefix")}{difficulty.GetDisplayName()}";
+            }
+            ApplyDifficultyTheme(difficulty);
+        }
+
+        public void ApplyDifficultyTheme(AIDifficulty difficulty)
+        {
+            if (_root == null) return;
+
+            _root.RemoveFromClassList("theme-diff-easy");
+            _root.RemoveFromClassList("theme-diff-normal");
+            _root.RemoveFromClassList("theme-diff-hard");
+            _root.RemoveFromClassList("theme-diff-hell");
+
+            switch (difficulty)
+            {
+                case AIDifficulty.Easy:
+                    _root.AddToClassList("theme-diff-easy");
+                    break;
+                case AIDifficulty.Normal:
+                    _root.AddToClassList("theme-diff-normal");
+                    break;
+                case AIDifficulty.Hard:
+                    _root.AddToClassList("theme-diff-hard");
+                    break;
+                case AIDifficulty.Hell:
+                    _root.AddToClassList("theme-diff-hell");
+                    break;
             }
         }
 
@@ -400,12 +648,12 @@ namespace Janggi.UI
             if (_isDiscardMode)
             {
                 _btnDiscardMode.AddToClassList("discard-btn--active");
-                _btnDiscardMode.text = "버릴 카드 선택";
+                _btnDiscardMode.text = LocalizationManager.Get("Btn_Discard_Active");
             }
             else
             {
                 _btnDiscardMode.RemoveFromClassList("discard-btn--active");
-                _btnDiscardMode.text = "패 버리기 (-1)";
+                _btnDiscardMode.text = LocalizationManager.Get("Btn_Discard_Default");
             }
         }
 
@@ -433,6 +681,7 @@ namespace Janggi.UI
                 boardWidth = boardHeight * BoardAspectRatio;
             }
 
+            _cachedBoardWidth = boardWidth;
             _boardContainer.style.width = boardWidth;
             _boardContainer.style.height = boardHeight;
             _boardContainer.style.flexGrow = 0;
@@ -443,6 +692,8 @@ namespace Janggi.UI
 
         private void UpdatePieceFontSizes(float boardWidth)
         {
+            if (boardWidth <= 0) return;
+            _cachedBoardWidth = boardWidth;
             int fontSize = Mathf.Max(12, Mathf.RoundToInt(boardWidth * PieceFontRatio));
 
             for (int col = 0; col < BoardPosition.MaxCol; col++)
@@ -546,21 +797,31 @@ namespace Janggi.UI
                 }
             }
 
+            // 직전 수의 이전 위치만 노란색 하이라이트 표시
             if (_lastMoveFrom.HasValue)
             {
                 var fromEl = _intersectionElements[_lastMoveFrom.Value.Col, _lastMoveFrom.Value.Row];
                 fromEl.AddToClassList("intersection--last-from");
             }
-            if (_lastMoveTo.HasValue)
+
+            // 보드 크기가 이미 계산되어 있으면 즉시 동기적으로 폰트 크기 보정
+            float currentWidth = _cachedBoardWidth > 0 ? _cachedBoardWidth : _boardContainer.resolvedStyle.width;
+            if (currentWidth <= 0 && _boardArea != null)
             {
-                var toEl = _intersectionElements[_lastMoveTo.Value.Col, _lastMoveTo.Value.Row];
-                toEl.AddToClassList("intersection--last-to");
+                currentWidth = _boardArea.resolvedStyle.width;
             }
 
-            _boardContainer.RegisterCallbackOnce<GeometryChangedEvent>(evt =>
+            if (currentWidth > 0)
             {
-                UpdatePieceFontSizes(evt.newRect.width);
-            });
+                UpdatePieceFontSizes(currentWidth);
+            }
+            else
+            {
+                _boardContainer.RegisterCallbackOnce<GeometryChangedEvent>(evt =>
+                {
+                    UpdatePieceFontSizes(evt.newRect.width);
+                });
+            }
         }
 
         private void ClearIntersection(VisualElement element)
@@ -568,6 +829,10 @@ namespace Janggi.UI
             var existingPiece = element.Q<Label>(className: "piece");
             if (existingPiece != null)
                 element.Remove(existingPiece);
+
+            var existingShadow = element.Q<VisualElement>(className: "piece-shadow");
+            if (existingShadow != null)
+                element.Remove(existingShadow);
 
             element.RemoveFromClassList("intersection--selected");
             element.RemoveFromClassList("intersection--movable");
@@ -580,10 +845,25 @@ namespace Janggi.UI
 
         private void RenderPiece(VisualElement intersection, Piece piece)
         {
+            // 1. 기물 뒤에 깔리는 전용 솔리드 섀도우 엘리먼트
+            var shadow = new VisualElement();
+            shadow.AddToClassList("piece-shadow");
+            shadow.AddToClassList(piece.Side == PlayerSide.Cho ? "piece-shadow-cho" : "piece-shadow-han");
+            intersection.Add(shadow);
+
+            // 2. 기물 본체 라벨 (완벽한 정원형)
             var pieceLabel = new Label();
             pieceLabel.AddToClassList("piece");
             pieceLabel.AddToClassList(piece.Side == PlayerSide.Cho ? "piece-cho" : "piece-han");
             pieceLabel.text = piece.GetDisplayName();
+
+            // 캐시된 폰트 크기가 있으면 생성 즉시 설정
+            if (_cachedBoardWidth > 0)
+            {
+                int fontSize = Mathf.Max(12, Mathf.RoundToInt(_cachedBoardWidth * PieceFontRatio));
+                pieceLabel.style.fontSize = fontSize;
+            }
+
             intersection.Add(pieceLabel);
         }
 
@@ -596,18 +876,18 @@ namespace Janggi.UI
             if (_choState != null)
             {
                 if (_choCostLabel != null)
-                    _choCostLabel.text = $"코스트: {_choState.CurrentCost} / {PlayerState.MaxCost}";
+                    _choCostLabel.text = LocalizationManager.Get("Cost_Format", _choState.CurrentCost, PlayerState.MaxCost);
                 if (_choFieldCostLabel != null)
-                    _choFieldCostLabel.text = $"전력: {_board?.GetTotalPieceCost(PlayerSide.Cho) ?? 0} / {PlayerState.MaxFieldCost}";
+                    _choFieldCostLabel.text = LocalizationManager.Get("Power_Format", _board?.GetTotalPieceCost(PlayerSide.Cho) ?? 0, PlayerState.MaxFieldCost);
                 RenderHand(_choHandContainer, _choState, PlayerSide.Cho, isInteractive: _currentTurn == PlayerSide.Cho);
             }
 
             if (_hanState != null)
             {
                 if (_hanCostLabel != null)
-                    _hanCostLabel.text = $"코스트: {_hanState.CurrentCost} / {PlayerState.MaxCost}";
+                    _hanCostLabel.text = LocalizationManager.Get("Cost_Format", _hanState.CurrentCost, PlayerState.MaxCost);
                 if (_hanFieldCostLabel != null)
-                    _hanFieldCostLabel.text = $"전력: {_board?.GetTotalPieceCost(PlayerSide.Han) ?? 0} / {PlayerState.MaxFieldCost}";
+                    _hanFieldCostLabel.text = LocalizationManager.Get("Power_Format", _board?.GetTotalPieceCost(PlayerSide.Han) ?? 0, PlayerState.MaxFieldCost);
                 RenderHand(_hanHandContainer, _hanState, PlayerSide.Han, isInteractive: false);
             }
         }
@@ -623,6 +903,15 @@ namespace Janggi.UI
                 var pieceType = state.Hand[index];
                 int cost = pieceType.GetCost();
 
+                var cardWrapper = new VisualElement();
+                cardWrapper.AddToClassList("hand-card-wrapper");
+
+                // 카드 뒤에 깔리는 전용 솔리드 섀도우
+                var cardShadow = new VisualElement();
+                cardShadow.AddToClassList("hand-card-shadow");
+                cardShadow.AddToClassList(side == PlayerSide.Cho ? "hand-card-shadow-cho" : "hand-card-shadow-han");
+                cardWrapper.Add(cardShadow);
+
                 var card = new VisualElement();
                 card.AddToClassList("hand-card");
 
@@ -630,13 +919,17 @@ namespace Janggi.UI
                 if (_selectedHandCardIndex == index && side == PlayerSide.Cho)
                 {
                     card.AddToClassList("hand-card--selected");
+                    cardShadow.AddToClassList("hand-card-shadow--selected");
                 }
 
                 if (_isDiscardMode && side == PlayerSide.Cho)
                 {
                     card.AddToClassList("hand-card--discard-target");
+                    cardShadow.AddToClassList("hand-card-shadow--discard");
                 }
-                else if (side == PlayerSide.Cho && !state.CanSummon(_board, pieceType) && !_isDiscardMode)
+
+                bool isUnusable = side == PlayerSide.Cho && !state.CanSummon(_board, pieceType) && !_isDiscardMode;
+                if (isUnusable)
                 {
                     card.AddToClassList("hand-card--unusable");
                 }
@@ -655,10 +948,18 @@ namespace Janggi.UI
                 pieceLabel.AddToClassList(side == PlayerSide.Cho ? "card-piece-cho" : "card-piece-han");
                 card.Add(pieceLabel);
 
-                // 기물 한국어 이름 라벨
-                var nameLabel = new Label(GetPieceTypeName(pieceType));
+                // 기물 로컬라이즈된 이름 라벨 (한국어: 졸/마/상/포/차, 영어: Pawn/Horse/Elephant/Cannon/Chariot)
+                var nameLabel = new Label(LocalizationManager.GetPieceName(pieceType, side));
                 nameLabel.AddToClassList("card-name-label");
                 card.Add(nameLabel);
+
+                // 소환 불가 시 카드 표면에만 딤드 오버레이 적용 (뒤 섀도우 박스 투과 방지)
+                if (isUnusable)
+                {
+                    var disabledOverlay = new VisualElement();
+                    disabledOverlay.AddToClassList("hand-card-disabled-overlay");
+                    card.Add(disabledOverlay);
+                }
 
                 // 클릭 이벤트 바인딩 (플레이어 손패만 인터랙션 가능)
                 if (isInteractive)
@@ -669,20 +970,8 @@ namespace Janggi.UI
                     });
                 }
 
-                container.Add(card);
-            }
-        }
-
-        private string GetPieceTypeName(PieceType type)
-        {
-            switch (type)
-            {
-                case PieceType.Pawn: return "졸";
-                case PieceType.Horse: return "마";
-                case PieceType.Elephant: return "상";
-                case PieceType.Cannon: return "포";
-                case PieceType.Chariot: return "차";
-                default: return "";
+                cardWrapper.Add(card);
+                container.Add(cardWrapper);
             }
         }
 
@@ -710,11 +999,11 @@ namespace Janggi.UI
             if (!_choState.CanSummon(_board, pieceType))
             {
                 if (_choState.HasSummonedThisTurn)
-                    ShowStatus("이번 턴 소환을 이미 완료했습니다.");
+                    ShowStatus(LocalizationManager.Get("Msg_Already_Summoned"));
                 else if (_board != null && _board.GetTotalPieceCost(PlayerSide.Cho) + pieceType.GetCost() > PlayerState.MaxFieldCost)
-                    ShowStatus($"필드 전력 한도({PlayerState.MaxFieldCost})를 초과하여 소환할 수 없습니다!");
+                    ShowStatus(LocalizationManager.Get("Msg_Power_Limit_Exceeded", PlayerState.MaxFieldCost));
                 else
-                    ShowStatus("코스트가 부족합니다!");
+                    ShowStatus(LocalizationManager.Get("Msg_Cost_Insufficient"));
                 return;
             }
 
@@ -737,7 +1026,7 @@ namespace Janggi.UI
             }
 
             RefreshPlayerPanels();
-            ShowStatus($"[{GetPieceTypeName(pieceType)}] 소환할 빈 칸을 선택하세요.");
+            ShowStatus(LocalizationManager.Get("Msg_Select_Spawn_Cell", LocalizationManager.GetPieceName(pieceType, PlayerSide.Cho)));
         }
 
         // ──────────────────────────────────────────────
@@ -844,17 +1133,45 @@ namespace Janggi.UI
         public void UpdateTurnDisplay(PlayerSide currentTurn)
         {
             _currentTurn = currentTurn;
-            if (_turnLabel != null)
+
+            if (currentTurn == PlayerSide.Cho)
             {
-                string sideName = currentTurn == PlayerSide.Cho ? "초(楚)" : "한(漢)";
-                _turnLabel.text = $"{sideName}의 차례";
+                // 플레이어(楚) 턴: 하단(2번째) 턴 텍스트 노출, 상단(1번째) 숨김 (높이는 상시 유지하여 보드 위치 고정)
+                if (_choTurnInfo != null)
+                {
+                    _choTurnInfo.style.display = DisplayStyle.Flex;
+                    _choTurnInfo.style.visibility = Visibility.Visible;
+                }
+                if (_hanTurnInfo != null)
+                {
+                    _hanTurnInfo.style.display = DisplayStyle.Flex;
+                    _hanTurnInfo.style.visibility = Visibility.Hidden;
+                }
+
+                if (_choTurnLabel != null) _choTurnLabel.text = LocalizationManager.Get("Turn_Cho");
+            }
+            else
+            {
+                // AI(漢) 턴: 상단(1번째) 턴 텍스트 노출, 하단(2번째) 숨김 (높이는 상시 유지하여 보드 위치 고정)
+                if (_hanTurnInfo != null)
+                {
+                    _hanTurnInfo.style.display = DisplayStyle.Flex;
+                    _hanTurnInfo.style.visibility = Visibility.Visible;
+                }
+                if (_choTurnInfo != null)
+                {
+                    _choTurnInfo.style.display = DisplayStyle.Flex;
+                    _choTurnInfo.style.visibility = Visibility.Hidden;
+                }
+
+                if (_hanTurnLabel != null) _hanTurnLabel.text = LocalizationManager.Get("Turn_Han");
             }
         }
 
         public void ShowStatus(string message)
         {
-            if (_statusLabel != null)
-                _statusLabel.text = message;
+            if (_choStatusLabel != null) _choStatusLabel.text = message;
+            if (_hanStatusLabel != null) _hanStatusLabel.text = message;
         }
 
         private void ShowCheckWarning()
@@ -882,6 +1199,72 @@ namespace Janggi.UI
         {
             _lastMoveFrom = null;
             _lastMoveTo = null;
+        }
+
+        // ──────────────────────────────────────────────
+        // 장군 / 멍군 다이내믹 알림 배너 (자동 Fade In/Out)
+        // ──────────────────────────────────────────────
+
+        /// <summary>
+        /// 장군(將軍) 또는 멍군(應將) 배너를 보드 중앙에 팝업하여 페이드인/아웃으로 연출합니다.
+        /// </summary>
+        public void ShowCallout(CalloutType type)
+        {
+            if (_calloutBanner == null) return;
+
+            // 기존 예약된 타이머 취소
+            _hideCalloutSchedule?.Pause();
+
+            // 스타일 및 텍스트 설정
+            _calloutBanner.RemoveFromClassList("callout-banner--check");
+            _calloutBanner.RemoveFromClassList("callout-banner--escape");
+
+            if (type == CalloutType.Check)
+            {
+                _calloutBanner.AddToClassList("callout-banner--check");
+                if (_calloutHanja != null) _calloutHanja.text = "將 軍";
+                if (_calloutSubtitle != null)
+                {
+                    _calloutSubtitle.text = LocalizationManager.CurrentLanguage == Language.Korean ? "장군!" : "Check!";
+                }
+            }
+            else
+            {
+                _calloutBanner.AddToClassList("callout-banner--escape");
+                if (_calloutHanja != null) _calloutHanja.text = "應 將";
+                if (_calloutSubtitle != null)
+                {
+                    _calloutSubtitle.text = LocalizationManager.CurrentLanguage == Language.Korean ? "멍군!" : "Escape!";
+                }
+            }
+
+            // 1. 활성화 및 초기 투명 상태 리셋
+            _calloutBanner.style.display = DisplayStyle.Flex;
+            _calloutBanner.RemoveFromClassList("callout-banner--visible");
+            _calloutBanner.AddToClassList("callout-banner--hidden");
+
+            // 2. 즉시 트랜지션을 통해 페이드인 & 스케일업
+            _calloutBanner.schedule.Execute(() =>
+            {
+                _calloutBanner.RemoveFromClassList("callout-banner--hidden");
+                _calloutBanner.AddToClassList("callout-banner--visible");
+            }).StartingIn(20);
+
+            // 3. 1초간 유지 후 페이드아웃 & 스케일다운
+            _hideCalloutSchedule = _calloutBanner.schedule.Execute(() =>
+            {
+                _calloutBanner.RemoveFromClassList("callout-banner--visible");
+                _calloutBanner.AddToClassList("callout-banner--hidden");
+
+                // 4. 애니메이션 완료 후 display: none 처리
+                _calloutBanner.schedule.Execute(() =>
+                {
+                    if (_calloutBanner.ClassListContains("callout-banner--hidden"))
+                    {
+                        _calloutBanner.style.display = DisplayStyle.None;
+                    }
+                }).StartingIn(320);
+            }).StartingIn(1000);
         }
     }
 }

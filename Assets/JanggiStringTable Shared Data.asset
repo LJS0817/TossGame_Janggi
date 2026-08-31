@@ -1,0 +1,392 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: JanggiStringTable Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: JanggiStringTable
+  m_TableCollectionNameGuidString: 9016a8dd527514c918f86a41e0fba6dd
+  m_Entries:
+  - m_Id: 493253287936
+    m_Key: Menu_Title_Sub
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493316202496
+    m_Key: Menu_Subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396800
+    m_Key: Menu_Diff_Section
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396801
+    m_Key: Diff_Easy_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396802
+    m_Key: Diff_Easy_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396803
+    m_Key: Diff_Normal_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396804
+    m_Key: Diff_Normal_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396805
+    m_Key: Diff_Hard_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396806
+    m_Key: Diff_Hard_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396807
+    m_Key: Diff_Hell_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396808
+    m_Key: Diff_Hell_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396809
+    m_Key: Btn_Start_Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396810
+    m_Key: Btn_Open_Rules
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396811
+    m_Key: Btn_Close_Rules
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396812
+    m_Key: Rule_Modal_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396813
+    m_Key: Rule_1_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396814
+    m_Key: Rule_1_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396815
+    m_Key: Rule_2_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591104
+    m_Key: Rule_2_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591105
+    m_Key: Rule_3_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591106
+    m_Key: Rule_3_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591107
+    m_Key: Rule_4_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591108
+    m_Key: Rule_4_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591109
+    m_Key: Rule_5_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591110
+    m_Key: Rule_5_Desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591111
+    m_Key: Header_Diff_Prefix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591112
+    m_Key: Btn_Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591113
+    m_Key: Btn_Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591114
+    m_Key: Side_Cho
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591115
+    m_Key: Side_Han
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591116
+    m_Key: Cost_Format
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591117
+    m_Key: Power_Format
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591118
+    m_Key: Btn_Discard_Default
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591119
+    m_Key: Btn_Discard_Active
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591120
+    m_Key: Btn_Pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591121
+    m_Key: Turn_Cho
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591122
+    m_Key: Turn_Han
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591123
+    m_Key: Piece_Pawn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591124
+    m_Key: Piece_Pawn_Han
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591125
+    m_Key: Piece_Horse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591126
+    m_Key: Piece_Elephant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591127
+    m_Key: Piece_Cannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591128
+    m_Key: Piece_Chariot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591129
+    m_Key: Piece_King
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591130
+    m_Key: Piece_Advisor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591131
+    m_Key: Modal_Title_Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591132
+    m_Key: Modal_Desc_Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591133
+    m_Key: Modal_Title_Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591134
+    m_Key: Modal_Desc_Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591135
+    m_Key: Modal_Title_Draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591136
+    m_Key: Modal_Desc_Draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591137
+    m_Key: Stat_Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591138
+    m_Key: Stat_Turns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591139
+    m_Key: Stat_Turns_Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591140
+    m_Key: Stat_Captures
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591141
+    m_Key: Stat_Captures_Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591142
+    m_Key: Stat_Summons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591143
+    m_Key: Stat_Summons_Value
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591144
+    m_Key: Btn_Modal_Share
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591145
+    m_Key: Btn_Modal_Ad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591146
+    m_Key: Btn_Modal_Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591147
+    m_Key: Btn_Modal_Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591148
+    m_Key: Msg_Game_Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591149
+    m_Key: Msg_Cannot_Spawn_Here
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591150
+    m_Key: Msg_Power_Limit_Exceeded
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591151
+    m_Key: Msg_Cost_Or_Already_Summoned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591152
+    m_Key: Msg_Summon_Success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591153
+    m_Key: Msg_Cost_Insufficient_Discard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591154
+    m_Key: Msg_Discard_Success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591155
+    m_Key: Msg_Cannot_Pass_In_Check
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591156
+    m_Key: Msg_Player_Passed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591157
+    m_Key: Msg_Checkmate_Winner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591158
+    m_Key: Msg_Stalemate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591159
+    m_Key: Msg_Check_Warning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591160
+    m_Key: Msg_AI_Thinking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591161
+    m_Key: Msg_AI_Summoned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591162
+    m_Key: Msg_AI_Moved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591163
+    m_Key: Msg_Diff_Changed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591164
+    m_Key: Msg_Share_Opened
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591165
+    m_Key: Msg_Ad_Loading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591166
+    m_Key: Msg_Ad_Success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591167
+    m_Key: Msg_Ad_Cancelled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591168
+    m_Key: Msg_Already_Summoned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591169
+    m_Key: Msg_Cost_Insufficient
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591170
+    m_Key: Msg_Select_Spawn_Cell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591171
+    m_Key: Msg_Winner_Player
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591172
+    m_Key: Msg_Winner_AI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591173
+    m_Key: Msg_Side_Cho_Short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591174
+    m_Key: Msg_Side_Han_Short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591175
+    m_Key: Share_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591176
+    m_Key: Share_Desc
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3145372523381916375
+  references:
+    version: 2
+    RefIds:
+    - rid: 3145372523381916375
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1788166276298

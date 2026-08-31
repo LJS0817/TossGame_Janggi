@@ -1,203 +1,243 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
-    xsi="http://www.w3.org/2001/XMLSchema-instance"
-    engine="UnityEngine.UIElements"
-    editor="UnityEditor.UIElements"
-    noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
-    editor-extension-mode="False">
-
-    <Style src="project://database/Assets/UI/JanggiBoard.uss" />
-
-    <!-- 최상위 컨테이너 -->
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/JanggiBoard.uss?fileID=7433441132597879392&amp;guid=b4c8e242873614840ba05f4623d5caa8&amp;type=3#JanggiBoard"/>
     <ui:VisualElement name="root-container" class="root-container">
-
-        <!-- ══════════════════════════════════════════ -->
-        <!-- 1. 메인 메뉴 화면 (Main Menu Screen) -->
-        <!-- ══════════════════════════════════════════ -->
+        <!-- 1. 메인 메뉴 화면 -->
         <ui:VisualElement name="main-menu-screen" class="screen-container main-menu-screen">
-            <!-- 장식용 상단 타이틀 영역 -->
-            <ui:VisualElement class="menu-title-area">
-                <ui:Label text="將 棋" class="menu-title-hanja" />
-                <ui:Label text="장기 덱빌딩 디펜스" class="menu-title-korean" />
-                <ui:Label text="AI와 맞서는 실시간 전략 덱빌딩 장기" class="menu-subtitle" />
+            <ui:VisualElement class="menu-title-area" style="height: 272px; width: 620px;">
+                <ui:Label text="將 棋" class="menu-title-hanja" style="font-size: 170px;"/>
+                <ui:Label name="menu-title-sub" text="장기 덱빌딩 디펜스" class="menu-title-korean" style="font-size: 44px;"/>
+                <ui:Label name="menu-subtitle" text="혼자하는 장기 미니게임" class="menu-subtitle" style="font-size: 27px;"/>
             </ui:VisualElement>
-
-            <!-- 난이도 선택 영역 -->
-            <ui:VisualElement class="difficulty-section">
-                <ui:Label text="AI 난이도 선택" class="section-title" />
-                <ui:VisualElement class="difficulty-grid">
-                    <!-- 하 (입문) -->
-                    <ui:VisualElement name="diff-card-easy" class="diff-card">
-                        <ui:Label text="🟢 하 (입문)" class="diff-card-title diff-title-easy" />
-                        <ui:Label text="1수 탐색 / 무작위 소환&#10;초보자 추천" class="diff-card-desc" />
+            
+            <ui:VisualElement class="difficulty-section" style="height: 528px;">
+                <ui:Label name="menu-diff-section-title" text="AI 난이도 선택" class="section-title" style="font-size: 35px;"/>
+                <ui:VisualElement class="difficulty-grid" style="align-items: stretch; height: 458px; align-content: center; align-self: center; justify-content: space-between;">
+                    <ui:VisualElement class="diff-card-wrapper">
+                        <ui:VisualElement class="diff-card-shadow"/>
+                        <ui:VisualElement name="diff-card-easy" class="diff-card">
+                            <ui:Label name="diff-easy-title" text="🟢 하 (입문)" class="diff-card-title diff-title-easy"/>
+                            <ui:Label name="diff-easy-desc" text="무작위 소환&#10;초보자 추천" class="diff-card-desc"/>
+                        </ui:VisualElement>
                     </ui:VisualElement>
 
-                    <!-- 중 (보통) - 기본 선택 -->
-                    <ui:VisualElement name="diff-card-normal" class="diff-card diff-card--selected">
-                        <ui:Label text="🔵 중 (보통)" class="diff-card-title diff-title-normal" />
-                        <ui:Label text="3수 Minimax / 자원 비축&#10;표준 밸런스" class="diff-card-desc" />
+                    <ui:VisualElement class="diff-card-wrapper">
+                        <ui:VisualElement class="diff-card-shadow"/>
+                        <ui:VisualElement name="diff-card-normal" class="diff-card">
+                            <ui:Label name="diff-normal-title" text="🔵 중 (보통)" class="diff-card-title diff-title-normal"/>
+                            <ui:Label name="diff-normal-desc" text="자원 비축&#10;표준 밸런스" class="diff-card-desc"/>
+                        </ui:VisualElement>
                     </ui:VisualElement>
 
-                    <!-- 상 (숙련) -->
-                    <ui:VisualElement name="diff-card-hard" class="diff-card">
-                        <ui:Label text="🟣 상 (숙련)" class="diff-card-title diff-title-hard" />
-                        <ui:Label text="4수 연계 / 소환 스나이핑&#10;스폰 블로킹" class="diff-card-desc" />
+                    <ui:VisualElement class="diff-card-wrapper">
+                        <ui:VisualElement class="diff-card-shadow"/>
+                        <ui:VisualElement name="diff-card-hard" class="diff-card">
+                            <ui:Label name="diff-hard-title" text="🟣 상 (숙련)" class="diff-card-title diff-title-hard"/>
+                            <ui:Label name="diff-hard-desc" text="연계&#10;스폰 블로킹" class="diff-card-desc"/>
+                        </ui:VisualElement>
                     </ui:VisualElement>
 
-                    <!-- 극악 (신) -->
-                    <ui:VisualElement name="diff-card-hell" class="diff-card">
-                        <ui:Label text="🔴 극악 (신)" class="diff-card-title diff-title-hell" />
-                        <ui:Label text="심층 MCTS / 외통수 올인&#10;완벽한 수비" class="diff-card-desc" />
+                    <ui:VisualElement class="diff-card-wrapper">
+                        <ui:VisualElement class="diff-card-shadow"/>
+                        <ui:VisualElement name="diff-card-hell" class="diff-card">
+                            <ui:Label name="diff-hell-title" text="⚫ 극악 (신)" class="diff-card-title diff-title-hell"/>
+                            <ui:Label name="diff-hell-desc" text="외통수 올인&#10;완벽한 수비" class="diff-card-desc"/>
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
 
-            <!-- 메뉴 하단 액션 버튼 -->
             <ui:VisualElement class="menu-action-area">
-                <ui:Button name="btn-start-game" text="⚔️ 게임 시작" class="menu-btn menu-btn-start" />
-                <ui:Button name="btn-open-rules" text="📜 게임 방법 / 규칙" class="menu-btn menu-btn-rules" />
+                <ui:VisualElement class="menu-btn-wrapper">
+                    <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-start"/>
+                    <ui:Button name="btn-start-game" text="⚔️ 게임 시작" class="menu-btn menu-btn-start"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-btn-wrapper">
+                    <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-rules"/>
+                    <ui:Button name="btn-open-rules" text="📜 게임 방법 / 규칙" class="menu-btn menu-btn-rules"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-btn-wrapper">
+                    <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-language"/>
+                    <ui:Button name="btn-language-toggle" text="🌐 언어: 한국어 (KO)" class="menu-btn menu-btn-language"/>
+                </ui:VisualElement>
             </ui:VisualElement>
 
-            <!-- 규칙 가이드 팝업 모달 -->
             <ui:VisualElement name="rule-guide-modal" class="modal-overlay" style="display: none;">
-                <ui:VisualElement class="modal-card rule-modal-card">
-                    <ui:Label text="📜 게임 규칙 안내" class="modal-title modal-title--win" />
-                    <ui:ScrollView class="rule-scroll-view">
-                        <ui:VisualElement class="rule-item">
-                            <ui:Label text="1. 턴 순서 및 자원 (Cost)" class="rule-item-title" />
-                            <ui:Label text="• 매 턴 시작 시 코스트 +2 회복 (최대 10 코스트)&#10;• [선택] 손패에서 코스트를 지불하여 기물 1개 소환&#10;• [필수] 보드 위 아군 기물 1개 이동 (이동 완료 시 턴 종료)" class="rule-item-desc" />
+                <ui:VisualElement class="modal-card-wrapper">
+                    <ui:VisualElement class="modal-card-shadow"/>
+                    <ui:VisualElement class="modal-card rule-modal-card">
+                        <ui:Label name="rule-modal-title" text="📜 게임 규칙 안내" class="modal-title modal-title--win" style="margin-bottom: 14px;"/>
+                        <ui:ScrollView class="rule-scroll-view">
+                            <ui:VisualElement class="rule-item">
+                                <ui:Label name="rule-1-title" text="1. 턴 순서 및 자원 (Cost)" class="rule-item-title"/>
+                                <ui:Label name="rule-1-desc" text="• 매 턴 시작 시 코스트 +2 회복 (최대 10 코스트)&#10;• [선택] 손패에서 코스트를 지불하여 기물 1개 소환&#10;• [필수] 보드 위 아군 기물 1개 이동 (이동 완료 시 턴 종료)" class="rule-item-desc"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="rule-item">
+                                <ui:Label name="rule-2-title" text="2. 소환 구역 (Spawn Zones)" class="rule-item-title"/>
+                                <ui:Label name="rule-2-desc" text="• 졸/병: 아군 4선 전방 라인 빈칸&#10;• 포: 아군 2곳의 포진지 빈칸&#10;• 차/마/상: 아군 1선 최후방 라인 빈칸&#10;• 소환 즉시 장군이 되는 칸에는 소환 불가" class="rule-item-desc"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="rule-item">
+                                <ui:Label name="rule-3-title" text="3. 필드 전력 상한 (20 코스트)" class="rule-item-title"/>
+                                <ui:Label name="rule-3-desc" text="• 판 위에 존재하는 아군 기물 총 코스트는 최대 20까지만 유지 가능&#10;• 차(6), 포(4), 마(2), 상(2), 졸(1)&#10;• 기물이 전사해야 새 기물을 추가 소환 가능" class="rule-item-desc"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="rule-item">
+                                <ui:Label name="rule-4-title" text="4. 패 버리기 (-1 코스트)" class="rule-item-title"/>
+                                <ui:Label name="rule-4-desc" text="• 1 코스트를 소모하여 원하지 않는 손패를 버리고 즉시 새 카드로 리필 가능" class="rule-item-desc"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="rule-item">
+                                <ui:Label name="rule-5-title" text="5. 한 수 쉼 (한 턴 쉬기)" class="rule-item-title"/>
+                                <ui:Label name="rule-5-desc" text="• 기물을 이동하지 않고 [한 수 쉼] 버튼을 눌러 턴을 상대에게 넘길 수 있습니다.&#10;• 단, 장군(Check) 상태에서는 쉴 수 없습니다." class="rule-item-desc"/>
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                        <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 67px;">
+                            <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-primary"/>
+                            <ui:Button name="btn-close-rules" text="확인" class="modal-btn modal-btn-primary"/>
                         </ui:VisualElement>
-
-                        <ui:VisualElement class="rule-item">
-                            <ui:Label text="2. 소환 구역 (Spawn Zones)" class="rule-item-title" />
-                            <ui:Label text="• 졸/병: 아군 4선 전방 라인 빈칸&#10;• 포: 아군 2곳의 포진지 빈칸&#10;• 차/마/상: 아군 1선 최후방 라인 빈칸&#10;• 소환 즉시 장군이 되는 칸에는 소환 불가" class="rule-item-desc" />
-                        </ui:VisualElement>
-
-                        <ui:VisualElement class="rule-item">
-                            <ui:Label text="3. 필드 전력 상한 (20 코스트)" class="rule-item-title" />
-                            <ui:Label text="• 판 위에 존재하는 아군 기물 총 코스트는 최대 20까지만 유지 가능&#10;• 차(6), 포(4), 마(2), 상(2), 졸(1)&#10;• 기물이 전사해야 새 기물을 추가 소환 가능" class="rule-item-desc" />
-                        </ui:VisualElement>
-
-                        <ui:VisualElement class="rule-item">
-                            <ui:Label text="4. 패 버리기 (-1 코스트)" class="rule-item-title" />
-                            <ui:Label text="• 1 코스트를 소모하여 원하지 않는 손패를 버리고 즉시 새 카드로 리필 가능" class="rule-item-desc" />
-                        </ui:VisualElement>
-
-                        <ui:VisualElement class="rule-item">
-                            <ui:Label text="5. 한 수 쉼 (한 턴 쉬기)" class="rule-item-title" />
-                            <ui:Label text="• 기물을 이동하지 않고 [한 수 쉼] 버튼을 눌러 턴을 상대에게 넘길 수 있습니다.&#10;• 단, 장군(Check) 상태에서는 쉴 수 없습니다." class="rule-item-desc" />
-                        </ui:VisualElement>
-                    </ui:ScrollView>
-                    <ui:Button name="btn-close-rules" text="확인" class="modal-btn modal-btn-primary" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
 
-        <!-- ══════════════════════════════════════════ -->
-        <!-- 2. 인게임 플레이 화면 (Game Play Screen) -->
-        <!-- ══════════════════════════════════════════ -->
+        <!-- 2. 인게임 플레이 화면 -->
         <ui:VisualElement name="game-play-screen" class="screen-container game-play-screen" style="display: none;">
-
-            <!-- 게임 정보 헤더 -->
             <ui:VisualElement name="header" class="header">
-                <ui:VisualElement name="header-top" class="header-top">
-                    <ui:Label name="game-title" text="將棋" class="game-title" />
-                    <ui:VisualElement name="header-buttons" class="header-buttons">
-                        <ui:Button name="btn-difficulty" text="난이도: 중" class="control-btn btn-sm btn-difficulty" />
-                        <ui:Button name="btn-new-game" text="재시작" class="control-btn btn-sm" />
-                        <ui:Button name="btn-goto-menu" text="메뉴" class="control-btn btn-sm btn-menu" />
+                <ui:VisualElement class="header-top-wrapper">
+                    <ui:VisualElement class="header-top-shadow"/>
+                    <ui:VisualElement name="header-top" class="header-top">
+                        <ui:Label name="game-title" text="將棋" class="game-title"/>
+                        <ui:VisualElement name="header-buttons" class="header-buttons">
+                            <ui:Button name="btn-difficulty" text="난이도: 중" class="control-btn btn-sm btn-difficulty"/>
+                            <ui:Button name="btn-header-language" text="🌐 KO" class="control-btn btn-sm btn-language"/>
+                            <ui:Button name="btn-new-game" text="재시작" class="control-btn btn-sm"/>
+                            <ui:Button name="btn-goto-menu" text="메뉴" class="control-btn btn-sm btn-menu"/>
+                        </ui:VisualElement>
                     </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="turn-info" class="turn-info">
-                    <ui:Label name="turn-label" text="초(楚)의 차례" class="turn-label" />
-                    <ui:Label name="status-label" text="" class="status-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
 
-            <!-- AI(한) 영역: 상하 대칭 (손패 4장이 위, 상태행이 보드 쪽) -->
-            <ui:VisualElement name="han-panel" class="player-panel han-panel">
-                <ui:VisualElement name="han-hand-container" class="hand-container" />
-                <ui:VisualElement name="han-status-row" class="panel-status-row han-status-row">
-                    <ui:Label name="han-side-label" text="漢 (적 AI)" class="side-label han-label" />
-                    <ui:VisualElement class="panel-metrics">
-                        <ui:VisualElement name="han-cost-box" class="cost-box">
-                            <ui:Label name="han-cost-label" text="코스트: 2 / 10" class="cost-label" />
+            <!-- 漢 (적 AI) 패널 -->
+            <ui:VisualElement class="player-panel-wrapper">
+                <ui:VisualElement class="player-panel-shadow han-panel-shadow"/>
+                <ui:VisualElement name="han-panel" class="player-panel han-panel">
+                    <ui:VisualElement name="han-hand-container" class="hand-container"/>
+                    <ui:VisualElement name="han-status-row" class="panel-status-row han-status-row">
+                        <ui:Label name="han-side-label" text="漢 (적 AI)" class="side-label han-label"/>
+                        <ui:VisualElement class="panel-metrics">
+                            <ui:VisualElement name="han-cost-box" class="cost-box">
+                                <ui:Label name="han-cost-label" text="코스트: 2 / 10" class="cost-label"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="han-field-box" class="cost-box field-box">
+                                <ui:Label name="han-field-cost-label" text="전력: 0 / 20" class="cost-label field-label"/>
+                            </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="han-field-box" class="cost-box field-box">
-                            <ui:Label name="han-field-cost-label" text="전력: 0 / 20" class="cost-label field-label" />
-                        </ui:VisualElement>
+                        <ui:VisualElement class="discard-btn-spacer"/>
                     </ui:VisualElement>
-                    <ui:VisualElement class="discard-btn-spacer" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <!-- 漢 (적 AI) 턴 인디케이터 (상단 패널과 보드 사이) -->
+            <ui:VisualElement name="han-turn-info" class="turn-info han-turn-info" style="visibility: hidden;">
+                <ui:Label name="han-turn-label" text="漢 (적 AI)의 차례" class="turn-label han-turn-label"/>
+                <ui:Label name="han-status-label" text="" class="status-label"/>
+            </ui:VisualElement>
 
-            <!-- 중앙 장기판 영역 -->
+            <!-- 중앙 보드 영역 -->
             <ui:VisualElement name="board-area" class="board-area">
-                <!-- 장기판 본체: 크기는 BoardUIController가 동적으로 설정 -->
-                <ui:VisualElement name="board-container" class="board-container">
-                    <!-- 격자 배경 (선을 그리기 위한 레이어) -->
-                    <ui:VisualElement name="grid-background" class="grid-background" />
-
-                    <!-- 교차점 버튼 그리드 (10행 × 9열 = 90칸) -->
-                    <ui:VisualElement name="intersections-grid" class="intersections-grid" />
+                <ui:VisualElement class="board-wrapper">
+                    <ui:VisualElement class="board-shadow"/>
+                    <ui:VisualElement name="board-container" class="board-container">
+                        <ui:VisualElement name="grid-background" class="grid-background"/>
+                        <ui:VisualElement name="intersections-grid" class="intersections-grid"/>
+                        <ui:VisualElement name="callout-banner" class="callout-banner callout-banner--hidden">
+                            <ui:VisualElement class="callout-card-frame">
+                                <ui:Label name="callout-hanja" text="將 軍" class="callout-hanja"/>
+                                <ui:VisualElement class="callout-divider-line"/>
+                                <ui:Label name="callout-subtitle" text="장군!" class="callout-subtitle"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
 
-            <!-- 플레이어(초) 영역: 코스트 + 필드 전력 + 패버리기/한수쉼 + 손패 4장 -->
-            <ui:VisualElement name="cho-panel" class="player-panel cho-panel">
-                <ui:VisualElement name="cho-status-row" class="panel-status-row">
-                    <ui:Label name="cho-side-label" text="楚 (플레이어)" class="side-label cho-label" />
-                    <ui:VisualElement class="panel-metrics">
-                        <ui:VisualElement name="cho-cost-box" class="cost-box">
-                            <ui:Label name="cho-cost-label" text="코스트: 2 / 10" class="cost-label" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="cho-field-box" class="cost-box field-box">
-                            <ui:Label name="cho-field-cost-label" text="전력: 0 / 20" class="cost-label field-label" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement class="cho-action-buttons">
-                        <ui:Button name="btn-discard-mode" text="패 버리기 (-1)" class="discard-btn" />
-                        <ui:Button name="btn-pass-turn" text="한 수 쉼" class="pass-btn" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="cho-hand-container" class="hand-container" />
+            <!-- 楚 (플레이어) 턴 인디케이터 (보드와 하단 패널 사이) -->
+            <ui:VisualElement name="cho-turn-info" class="turn-info cho-turn-info">
+                <ui:Label name="cho-turn-label" text="楚 (플레이어)의 차례" class="turn-label cho-turn-label"/>
+                <ui:Label name="cho-status-label" text="" class="status-label"/>
             </ui:VisualElement>
 
-            <!-- 게임 오버 결과 모달 팝업 -->
+            <!-- 楚 (플레이어) 패널 -->
+            <ui:VisualElement class="player-panel-wrapper">
+                <ui:VisualElement class="player-panel-shadow cho-panel-shadow"/>
+                <ui:VisualElement name="cho-panel" class="player-panel cho-panel">
+                    <ui:VisualElement name="cho-status-row" class="panel-status-row">
+                        <ui:Label name="cho-side-label" text="楚 (플레이어)" class="side-label cho-label"/>
+                        <ui:VisualElement class="panel-metrics">
+                            <ui:VisualElement name="cho-cost-box" class="cost-box">
+                                <ui:Label name="cho-cost-label" text="코스트: 2 / 10" class="cost-label"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="cho-field-box" class="cost-box field-box">
+                                <ui:Label name="cho-field-cost-label" text="전력: 0 / 20" class="cost-label field-label"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="cho-action-buttons">
+                            <ui:VisualElement class="action-btn-wrapper">
+                                <ui:VisualElement class="action-btn-shadow discard-btn-shadow"/>
+                                <ui:Button name="btn-discard-mode" text="패 버리기 (-1)" class="action-btn discard-btn"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="action-btn-wrapper" style="margin-left: 8px;">
+                                <ui:VisualElement class="action-btn-shadow pass-btn-shadow"/>
+                                <ui:Button name="btn-pass-turn" text="한 수 쉼" class="action-btn pass-btn"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="cho-hand-container" class="hand-container"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- 게임 오버 모달 -->
             <ui:VisualElement name="game-over-modal" class="modal-overlay" style="display: none;">
-                <ui:VisualElement name="modal-card" class="modal-card">
-                    <ui:Label name="modal-title" text="승리 (勝利)" class="modal-title modal-title--win" />
-                    <ui:Label name="modal-desc" text="적의 궁을 외통수로 제압했습니다!" class="modal-desc" />
-                    
-                    <ui:VisualElement name="modal-stats" class="modal-stats">
-                        <ui:VisualElement class="stat-row">
-                            <ui:Label text="난이도" class="stat-label" />
-                            <ui:Label name="stat-difficulty" text="중 (보통)" class="stat-value" />
+                <ui:VisualElement class="modal-card-wrapper">
+                    <ui:VisualElement class="modal-card-shadow"/>
+                    <ui:VisualElement name="modal-card" class="modal-card">
+                        <ui:Label name="modal-title" text="승리 (勝利)" class="modal-title modal-title--win"/>
+                        <ui:Label name="modal-desc" text="적의 궁을 외통수로 제압했습니다!" class="modal-desc"/>
+                        <ui:VisualElement name="modal-stats" class="modal-stats">
+                            <ui:VisualElement class="stat-row">
+                                <ui:Label name="stat-label-difficulty" text="난이도" class="stat-label"/>
+                                <ui:Label name="stat-difficulty" text="중 (보통)" class="stat-value"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="stat-row">
+                                <ui:Label name="stat-label-turns" text="소요 턴수" class="stat-label"/>
+                                <ui:Label name="stat-turns" text="1 턴" class="stat-value"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="stat-row">
+                                <ui:Label name="stat-label-captures" text="처치한 적 기물" class="stat-label"/>
+                                <ui:Label name="stat-captures" text="0 개" class="stat-value"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="stat-row">
+                                <ui:Label name="stat-label-summons" text="소환한 아군 기물" class="stat-label"/>
+                                <ui:Label name="stat-summons" text="0 개" class="stat-value"/>
+                            </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement class="stat-row">
-                            <ui:Label text="소요 턴수" class="stat-label" />
-                            <ui:Label name="stat-turns" text="1 턴" class="stat-value" />
+                        <ui:VisualElement class="modal-buttons" style="width: 100%;">
+                            <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
+                                <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-share"/>
+                                <ui:Button name="btn-modal-share" text="💬 토스 친구에게 자랑하기" class="modal-btn modal-btn-share"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
+                                <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-ad"/>
+                                <ui:Button name="btn-modal-ad" text="📺 광고 보고 코스트 +5 충전" class="modal-btn modal-btn-ad"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
+                                <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-primary"/>
+                                <ui:Button name="btn-modal-restart" text="새 게임 시작하기" class="modal-btn modal-btn-primary"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
+                                <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
+                                <ui:Button name="btn-modal-menu" text="메인 메뉴로" class="modal-btn modal-btn-secondary"/>
+                            </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement class="stat-row">
-                            <ui:Label text="처치한 적 기물" class="stat-label" />
-                            <ui:Label name="stat-captures" text="0 개" class="stat-value" />
-                        </ui:VisualElement>
-                        <ui:VisualElement class="stat-row">
-                            <ui:Label text="소환한 아군 기물" class="stat-label" />
-                            <ui:Label name="stat-summons" text="0 개" class="stat-value" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-
-                    <ui:VisualElement class="modal-buttons">
-                        <ui:Button name="btn-modal-share" text="💬 토스 친구에게 자랑하기" class="modal-btn modal-btn-toss" />
-                        <ui:Button name="btn-modal-ad" text="📺 광고 보고 코스트 +5 충전" class="modal-btn modal-btn-ad" style="margin-top: 8px;" />
-                        <ui:Button name="btn-modal-restart" text="새 게임 시작하기" class="modal-btn modal-btn-primary" style="margin-top: 8px;" />
-                        <ui:Button name="btn-modal-menu" text="메인 메뉴로" class="modal-btn modal-btn-secondary" style="margin-top: 8px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-
         </ui:VisualElement>
-
     </ui:VisualElement>
-
 </ui:UXML>

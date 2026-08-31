@@ -1,0 +1,384 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: JanggiStringTable_ko-KR
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: ko-KR
+  m_SharedData: {fileID: 11400000, guid: 9016a8dd527514c918f86a41e0fba6dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 493253287936
+    m_Localized: 장기 덱빌딩 디펜스
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493316202496
+    m_Localized: 혼자하는 장기 미니게임
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396800
+    m_Localized: AI 난이도 선택
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396801
+    m_Localized: "🟢 하 (입문)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396802
+    m_Localized: "무작위 소환\n초보자 추천"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396803
+    m_Localized: "🔵 중 (보통)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396804
+    m_Localized: "자원 비축\n표준 밸런스"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396805
+    m_Localized: "🟣 상 (숙련)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396806
+    m_Localized: "연계\n스폰 블로킹"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396807
+    m_Localized: "⚫ 극악 (신)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396808
+    m_Localized: "외통수\n완벽한 수비"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396809
+    m_Localized: "⚔️ 게임 시작"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396810
+    m_Localized: "📜 게임 방법 / 규칙"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396811
+    m_Localized: 확인
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396812
+    m_Localized: "📜 게임 규칙 안내"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396813
+    m_Localized: "1. 턴 순서 및 자원 (Cost)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396814
+    m_Localized: "• 매 턴 시작 시 코스트 +2 회복 (최대 10 코스트)\n• [선택] 손패에서 코스트를 지불하여 기물 1개 소환\n• [필수] 보드 위 아군 기물 1개 이동 (이동 완료 시 턴 종료)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396815
+    m_Localized: "2. 소환 구역 (Spawn Zones)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591104
+    m_Localized: "• 졸/병: 아군 4선 전방 라인 빈칸\n• 포: 아군 2곳의 포진지 빈칸\n• 차/마/상: 아군 1선 최후방 라인 빈칸\n• 소환 즉시 장군이 되는 칸에는 소환 불가"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591105
+    m_Localized: "3. 필드 전력 상한 (20 코스트)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591106
+    m_Localized: "• 판 위에 존재하는 아군 기물 총 코스트는 최대 20까지만 유지 가능\n• 차(6), 포(4), 마(2), 상(2), 졸(1)\n• 기물이 전사해야 새 기물을 추가 소환 가능"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591107
+    m_Localized: "4. 패 버리기 (-1 코스트)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591108
+    m_Localized: "• 1 코스트를 소모하여 원하지 않는 손패를 버리고 즉시 새 카드로 리필 가능"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591109
+    m_Localized: "5. 한 수 쉼 (한 턴 쉬기)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591110
+    m_Localized: "• 기물을 이동하지 않고 [한 수 쉼] 버튼을 눌러 턴을 상대에게 넘길 수 있습니다.\n• 단, 장군(Check) 상태에서는 쉴 수 없습니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591111
+    m_Localized: "난이도: "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591112
+    m_Localized: 재시작
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591113
+    m_Localized: 메뉴
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591114
+    m_Localized: "楚 (플레이어)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591115
+    m_Localized: "漢 (적 AI)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591116
+    m_Localized: "코스트: {0} / {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591117
+    m_Localized: "전력: {0} / {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591118
+    m_Localized: "패 버리기 (-1)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591119
+    m_Localized: 버릴 카드 선택
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591120
+    m_Localized: 한 수 쉼
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591121
+    m_Localized: "초(楚)의 차례"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591122
+    m_Localized: "한(漢)의 차례"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591123
+    m_Localized: 졸
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591124
+    m_Localized: 병
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591125
+    m_Localized: 마
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591126
+    m_Localized: 상
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591127
+    m_Localized: 포
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591128
+    m_Localized: 차
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591129
+    m_Localized: 궁
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591130
+    m_Localized: 사
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591131
+    m_Localized: "승리!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591132
+    m_Localized: "외통수로 제압했습니다!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591133
+    m_Localized: "패배!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591134
+    m_Localized: "외통수로 제압당했습니다..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591135
+    m_Localized: "무승부!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591136
+    m_Localized: "양측의 공방 끝에 교착 상태가 되었습니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591137
+    m_Localized: 난이도
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591138
+    m_Localized: 소요 턴수
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591139
+    m_Localized: "{0} 턴"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591140
+    m_Localized: 처치한 적 기물
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591141
+    m_Localized: "{0} 개"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591142
+    m_Localized: 소환한 아군 기물
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591143
+    m_Localized: "{0} 개"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591144
+    m_Localized: "💬 토스 친구에게 자랑하기"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591145
+    m_Localized: "📺 광고 보고 코스트 +5 충전"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591146
+    m_Localized: 새 게임 시작하기
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591147
+    m_Localized: 메인 메뉴로
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591148
+    m_Localized: "게임 시작! 초(楚)의 차례입니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591149
+    m_Localized: 해당 위치에는 소환할 수 없습니다.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591150
+    m_Localized: "필드 전력 한도({0})를 초과하여 소환할 수 없습니다!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591151
+    m_Localized: 코스트가 부족하거나 이미 소환을 완료했습니다.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591152
+    m_Localized: "[{0}] 소환 완료! 이동할 기물을 선택하세요."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591153
+    m_Localized: 패를 버릴 코스트(1)가 부족합니다.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591154
+    m_Localized: "[{0}] 카드를 버리고 새 카드를 뽑았습니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591155
+    m_Localized: "장군 상태에서는 한 수 쉴 수 없습니다! 왕을 지키세요."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591156
+    m_Localized: "초(楚) 플레이어가 한 수 쉬었습니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591157
+    m_Localized: "외통수! {0} 승리!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591158
+    m_Localized: "교착 상태! 무승부!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591159
+    m_Localized: "장군! {0}이(가) 위험합니다!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591160
+    m_Localized: "적 AI가 수를 고민 중입니다..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591161
+    m_Localized: "적 AI가 [{0}] 소환! (AI 남은 코스트: {1})"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591162
+    m_Localized: "적 AI가 [{0}]을(를) 이동합니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591163
+    m_Localized: "난이도가 [{0}]로 변경되었습니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591164
+    m_Localized: 토스 공유 시트를 열었습니다.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591165
+    m_Localized: 광고를 불러오는 중입니다...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591166
+    m_Localized: "📺 광고 보상 지급 완료! 아군 코스트 +5가 충전되었습니다."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591167
+    m_Localized: 광고 시청이 취소되었습니다.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591168
+    m_Localized: 이번 턴 소환을 이미 완료했습니다.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591169
+    m_Localized: 코스트가 부족합니다!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591170
+    m_Localized: "[{0}] 소환할 빈 칸을 선택하세요."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591171
+    m_Localized: "초(楚) 플레이어"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591172
+    m_Localized: "한(漢) 적 AI"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591173
+    m_Localized: "초(楚)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591174
+    m_Localized: "한(漢)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591175
+    m_Localized: "將棋: AI 장기 덱빌딩 디펜스"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591176
+    m_Localized: "AI 난이도 [{0}]에서 {1}턴 만에 승리했습니다! 지금 도전해보세요."
+    m_Metadata:
+      m_Items: []

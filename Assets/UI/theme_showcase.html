@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장기 디펜스 - 8대 테마 종합 쇼케이스</title>
+  <style>
+    :root {
+      --font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background: #080b12;
+      color: #f1f5f9;
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    /* 테마 탭 네비게이션 */
+    .theme-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: #111726;
+      padding: 6px;
+      border-radius: 20px;
+      border: 1px solid #1e293b;
+      margin-bottom: 24px;
+      max-width: 980px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .theme-tab {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .theme-tab:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .theme-tab.active {
+      background: #3b82f6;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+    }
+
+    /* 레이아웃 컨테이너 */
+    .showcase-container {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* 스마트폰 기기 목업 */
+    .phone-mockup {
+      width: 390px;
+      height: 820px;
+      border-radius: 48px;
+      padding: 12px;
+      background: #181d28;
+      border: 4px solid #334155;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 36px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px 12px;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       1. CONCEPT 5: 사이버 잉크 & 테크웨어 메카닉 (Cyber Techwear Mecha)
+       (명일방주, 젠레스존제로 감성의 힙한 택티컬 전술 모니터)
+       ════════════════════════════════════════════════════════════ */
+    .theme-techwear {
+      background: #0d0f14;
+      --tw-yellow: #facc15;
+      --tw-red: #ef4444;
+      --tw-cyan: #06b6d4;
+    }
+
+    .theme-techwear .game-header {
+      background: #161a22;
+      border-left: 4px solid #facc15;
+      border-bottom: 1px solid #334155;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: monospace;
+    }
+
+    .theme-techwear .player-panel-han {
+      background: rgba(30, 15, 20, 0.95);
+      border: 1.5px solid #ef4444;
+      border-top: 3px solid #ef4444;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .theme-techwear .player-panel-cho {
+      background: rgba(12, 25, 35, 0.95);
+      border: 1.5px solid #06b6d4;
+      border-bottom: 3px solid #06b6d4;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .theme-techwear .board-frame {
+      background: #11141c;
+      border: 2px solid #334155;
+      border-radius: 10px;
+      position: relative;
+      height: 390px;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      padding: 10px;
+    }
+
+    .theme-techwear .card-item {
+      background: #161b26;
+      border: 1.5px solid #06b6d4;
+      border-radius: 6px;
+      height: 84px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .theme-techwear .card-item:hover {
+      transform: translateY(-5px);
+      background: #1e293b;
+      border-color: #38bdf8;
+    }
+
+    .theme-techwear .piece-stone-han {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      background: #ef4444;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      font-family: monospace;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
+    }
+
+    .theme-techwear .piece-stone-cho {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      background: #06b6d4;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      font-family: monospace;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.7);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       2. CONCEPT 6: 천문 타로 & 아르누보 별자리 (Astrolabe & Tarot)
+       (페르소나 5, 슬레이더스파이어 감성의 황금 점성술 테마)
+       ════════════════════════════════════════════════════════════ */
+    .theme-tarot {
+      background: radial-gradient(circle at 50% 30%, #1e1035 0%, #0a0514 100%);
+    }
+
+    .theme-tarot .game-header {
+      background: rgba(36, 18, 62, 0.85);
+      border: 1px solid #d97706;
+      border-radius: 16px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .theme-tarot .player-panel-han {
+      background: rgba(50, 15, 30, 0.9);
+      border: 1.5px solid #e11d48;
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 0 18px rgba(225, 29, 72, 0.3);
+    }
+
+    .theme-tarot .player-panel-cho {
+      background: rgba(20, 25, 55, 0.9);
+      border: 1.5px solid #6366f1;
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 0 18px rgba(99, 102, 241, 0.3);
+    }
+
+    .theme-tarot .board-frame {
+      background: #110920;
+      border: 2px solid #d97706;
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(217, 119, 6, 0.25), inset 0 0 15px rgba(0, 0, 0, 0.8);
+      position: relative;
+      height: 390px;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      padding: 10px;
+    }
+
+    .theme-tarot .card-item {
+      background: linear-gradient(180deg, #231438, #130a20);
+      border: 1.5px solid #fbbf24;
+      border-radius: 12px;
+      height: 84px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .theme-tarot .card-item:hover {
+      transform: translateY(-6px);
+      border-color: #fde68a;
+      box-shadow: 0 0 18px rgba(251, 191, 36, 0.5);
+    }
+
+    .theme-tarot .piece-stone-han {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #4c0519;
+      border: 2px solid #fb7185;
+      color: #ffe4e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 0 10px rgba(251, 113, 133, 0.7);
+    }
+
+    .theme-tarot .piece-stone-cho {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #1e1b4b;
+      border: 2px solid #818cf8;
+      color: #e0e7ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 0 10px rgba(129, 140, 248, 0.7);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       3. CONCEPT 7: 페이퍼 크래프트 & 디오라마 (Papercraft Diorama)
+       (요시 크래프트, 페이퍼마리오 감성의 따뜻한 오리가미 공예)
+       ════════════════════════════════════════════════════════════ */
+    .theme-paper {
+      background: #d6c7b2;
+      color: #443728;
+    }
+
+    .theme-paper .game-header {
+      background: #f4ece1;
+      border: 2px dashed #a8947d;
+      border-radius: 14px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 0 #baa891;
+    }
+
+    .theme-paper .player-panel-han {
+      background: #f87171;
+      border: 2px dashed #ef4444;
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 4px 0 #dc2626;
+      color: #fff;
+    }
+
+    .theme-paper .player-panel-cho {
+      background: #38bdf8;
+      border: 2px dashed #0284c7;
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 4px 0 #0369a1;
+      color: #fff;
+    }
+
+    .theme-paper .board-frame {
+      background: #faf5ed;
+      border: 4px solid #b8a690;
+      border-radius: 18px;
+      box-shadow: 0 6px 0 #9c8a74, inset 0 2px 8px rgba(0, 0, 0, 0.06);
+      position: relative;
+      height: 390px;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      padding: 10px;
+    }
+
+    .theme-paper .card-item {
+      background: #ffffff;
+      border: 2px solid #38bdf8;
+      border-radius: 12px;
+      height: 84px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      box-shadow: 0 4px 0 #0284c7;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .theme-paper .card-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 7px 0 #0284c7;
+    }
+
+    .theme-paper .piece-stone-han {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #ef4444;
+      border: 2px solid #fee2e2;
+      box-shadow: 0 3px 0 #b91c1c;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .theme-paper .piece-stone-cho {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #0284c7;
+      border: 2px solid #e0f2fe;
+      box-shadow: 0 3px 0 #0369a1;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       4. CONCEPT 8: 모노크롬 그래픽 누아르 (Monochrome Graphic Noir)
+       (신시티, 림보 감성의 극단적인 흑백 잉크 & 루비/에메랄드 포인트)
+       ════════════════════════════════════════════════════════════ */
+    .theme-noir {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    .theme-noir .game-header {
+      background: #0a0a0a;
+      border: 2px solid #ffffff;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .theme-noir .player-panel-han {
+      background: #0a0a0a;
+      border: 2px solid #ff0055;
+      padding: 10px;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
+    }
+
+    .theme-noir .player-panel-cho {
+      background: #0a0a0a;
+      border: 2px solid #00ffff;
+      padding: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    }
+
+    .theme-noir .board-frame {
+      background: #050505;
+      border: 3px solid #ffffff;
+      position: relative;
+      height: 390px;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      padding: 10px;
+    }
+
+    .theme-noir .card-item {
+      background: #000000;
+      border: 2px solid #00ffff;
+      height: 84px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .theme-noir .card-item:hover {
+      transform: translateY(-5px);
+      background: #00ffff;
+      color: #000;
+    }
+
+    .theme-noir .piece-stone-han {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #ff0055;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 0 12px #ff0055;
+    }
+
+    .theme-noir .piece-stone-cho {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #00ffff;
+      border: 2px solid #ffffff;
+      color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 0 12px #00ffff;
+    }
+
+    /* 공통 레이아웃 */
+    .row-metrics {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .cards-row {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .cost-badge {
+      position: absolute;
+      top: 3px;
+      left: 4px;
+      font-size: 10px;
+      font-weight: 900;
+      color: #fff;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .card-hanja {
+      font-size: 26px;
+      font-weight: 900;
+      margin-top: 6px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* 상세 설명 패널 */
+    .theme-details-panel {
+      flex: 1;
+      background: #111726;
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 900;
+      background: #3b82f6;
+      color: #fff;
+      align-self: flex-start;
+    }
+
+    .details-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .details-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #94a3b8;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .feature-list li {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #cbd5e1;
+    }
+
+    .feature-list li strong {
+      color: #f8fafc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎮 플레이스토어 게임 스타일 테마 쇼케이스</h1>
+    <p class="subtitle">모바일 게임 씬의 완전히 새로운 트렌디 테마 4종을 탭으로 즉시 비교해보세요</p>
+  </header>
+
+  <nav class="theme-nav">
+    <button class="theme-tab active" onclick="switchTheme('techwear', this)">⚡ 1. 사이버 테크웨어 (메카닉)</button>
+    <button class="theme-tab" onclick="switchTheme('tarot', this)">🔮 2. 천문 타로 & 별자리</button>
+    <button class="theme-tab" onclick="switchTheme('paper', this)">✂️ 3. 페이퍼 크래프트 (디오라마)</button>
+    <button class="theme-tab" onclick="switchTheme('noir', this)">🖤 4. 모노크롬 그래픽 누아르</button>
+  </nav>
+
+  <main class="showcase-container">
+    <!-- 모바일 기기 목업 뷰어 -->
+    <div class="phone-mockup">
+      <div id="phone-screen" class="phone-screen theme-techwear">
+
+        <!-- 상단 헤더 -->
+        <div class="game-header">
+          <span style="font-weight:800; font-size:13px;">[TACTICAL DEFENSE] LV.3</span>
+          <span style="font-size:12px; opacity:0.9;">T-07</span>
+        </div>
+
+        <!-- 한(漢) 적 AI 패널 -->
+        <div class="player-panel-han">
+          <div class="row-metrics">
+            <span style="font-weight:900; font-size:15px; color:#ef4444;">ENEMY: HAN</span>
+            <span style="font-size:12px; font-weight:800; color:#fca5a5;">COST: 4/10 | PWR: 12/20</span>
+          </div>
+          <div class="cards-row">
+            <div class="card-item" style="opacity: 0.85; border-color:#ef4444;">
+              <div class="cost-badge" style="background:#ef4444;">4</div><span class="card-hanja"
+                style="color:#ef4444;">車</span><span class="card-label" style="color:#94a3b8;">차</span>
+            </div>
+            <div class="card-item" style="opacity: 0.85; border-color:#ef4444;">
+              <div class="cost-badge" style="background:#ef4444;">3</div><span class="card-hanja"
+                style="color:#ef4444;">包</span><span class="card-label" style="color:#94a3b8;">포</span>
+            </div>
+            <div class="card-item" style="opacity: 0.85; border-color:#ef4444;">
+              <div class="cost-badge" style="background:#ef4444;">2</div><span class="card-hanja"
+                style="color:#ef4444;">馬</span><span class="card-label" style="color:#94a3b8;">마</span>
+            </div>
+            <div class="card-item" style="opacity: 0.85; border-color:#ef4444;">
+              <div class="cost-badge" style="background:#ef4444;">1</div><span class="card-hanja"
+                style="color:#ef4444;">兵</span><span class="card-label" style="color:#94a3b8;">병</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 중앙 장기 보드 프레임 -->
+        <div class="board-frame">
+          <div style="grid-column: 5; grid-row: 2; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-han">將</div>
+          </div>
+          <div style="grid-column: 1; grid-row: 1; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-han">車</div>
+          </div>
+          <div style="grid-column: 9; grid-row: 1; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-han">車</div>
+          </div>
+          <div style="grid-column: 2; grid-row: 3; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-han">包</div>
+          </div>
+          <div style="grid-column: 8; grid-row: 3; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-han">包</div>
+          </div>
+
+          <div style="grid-column: 3; grid-row: 7; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-cho">包</div>
+          </div>
+          <div style="grid-column: 1; grid-row: 10; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-cho">車</div>
+          </div>
+          <div style="grid-column: 5; grid-row: 9; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-cho">楚</div>
+          </div>
+          <div style="grid-column: 5; grid-row: 7; display:flex; justify-content:center; align-items:center;">
+            <div class="piece-stone-cho">卒</div>
+          </div>
+        </div>
+
+        <!-- 초(楚) 플레이어 패널 -->
+        <div class="player-panel-cho">
+          <div class="row-metrics">
+            <span style="font-weight:900; font-size:15px; color:#06b6d4;">PLAYER: CHO</span>
+            <span style="font-size:12px; font-weight:800; color:#7dd3fc;">COST: 6/10 | PWR: 14/20</span>
+          </div>
+          <div class="cards-row">
+            <div class="card-item">
+              <div class="cost-badge" style="background:#06b6d4; color:#000;">4</div><span class="card-hanja"
+                style="color:#06b6d4;">車</span><span class="card-label" style="color:#94a3b8;">차</span>
+            </div>
+            <div class="card-item">
+              <div class="cost-badge" style="background:#06b6d4; color:#000;">3</div><span class="card-hanja"
+                style="color:#06b6d4;">包</span><span class="card-label" style="color:#94a3b8;">포</span>
+            </div>
+            <div class="card-item">
+              <div class="cost-badge" style="background:#06b6d4; color:#000;">2</div><span class="card-hanja"
+                style="color:#06b6d4;">象</span><span class="card-label" style="color:#94a3b8;">상</span>
+            </div>
+            <div class="card-item">
+              <div class="cost-badge" style="background:#06b6d4; color:#000;">1</div><span class="card-hanja"
+                style="color:#06b6d4;">卒</span><span class="card-label" style="color:#94a3b8;">졸</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 우측 상세 정보 패널 -->
+    <div class="theme-details-panel">
+      <div id="badge-pill" class="badge-pill">CONCEPT 1: TECHWEAR</div>
+      <h2 id="details-title" class="details-title">1. 사이버 테크웨어 & 메카닉 전술 (Cyber Techwear)</h2>
+      <p id="details-desc" class="details-desc">
+        명일방주, 젠레스 존 제로 감성의 세련되고 힙한 메카닉 전술 인터페이스입니다. 다크 카본 바탕에 옐로우 경고 라인과 정밀한 사이안/레드 HUD로 미래지향적인 특수 작전 느낌을 부여합니다.
+      </p>
+
+      <ul id="feature-list" class="feature-list">
+        <li>⚡ <strong>비주얼 무드:</strong> 힙하고 감각적인 사이버펑크 택티컬 HUD</li>
+        <li>💻 <strong>장기판:</strong> 모니터 그리드 라인과 정밀 메카닉 격자선</li>
+        <li>🃏 <strong>카드 & UI:</strong> 테크웨어 칩셋 카드 & 모노스페이스 바코드 라벨</li>
+        <li>🎯 <strong>플레이스토어 타겟:</strong> 서브컬처/사이버펑크 전략 게임 매니아</li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    const themes = {
+      techwear: {
+        className: 'theme-techwear',
+        pill: 'CONCEPT 1: TECHWEAR',
+        title: '1. 사이버 테크웨어 & 메카닉 전술 (Cyber Techwear)',
+        desc: '명일방주, 젠레스 존 제로 감성의 세련되고 힙한 메카닉 전술 인터페이스입니다. 다크 카본 바탕에 옐로우 경고 라인과 정밀한 사이안/레드 HUD로 미래지향적인 특수 작전 느낌을 부여합니다.',
+        features: [
+          '⚡ <strong>비주얼 무드:</strong> 힙하고 감각적인 사이버펑크 택티컬 HUD',
+          '💻 <strong>장기판:</strong> 모니터 그리드 라인과 정밀 메카닉 격자선',
+          '🃏 <strong>카드 & UI:</strong> 테크웨어 칩셋 카드 & 모노스페이스 바코드 라벨',
+          '🎯 <strong>플레이스토어 타겟:</strong> 서브컬처/사이버펑크 전략 게임 매니아'
+        ]
+      },
+      tarot: {
+        className: 'theme-tarot',
+        pill: 'CONCEPT 2: ASTROLABE',
+        title: '2. 천문 타로 & 별자리 시계 (Celestial Astrolabe)',
+        desc: '페르소나 5, 슬레이 더 스파이어 감성의 황금 점성술 테마입니다. 깊은 벨벳 퍼플 밤하늘 배경 위로 정교한 황금 별자리 시계와 신비로운 타로 카드 프레임이 어우러집니다.',
+        features: [
+          '🔮 <strong>비주얼 무드:</strong> 신비롭고 몽환적인 황금 아르누보 점성술',
+          '🌌 <strong>장기판:</strong> 별자리가 회전하는 천문 시계 제단 보드',
+          '🃏 <strong>카드 & UI:</strong> 황금빛 별자리 타로 카드 & 앰버 젬',
+          '🎯 <strong>플레이스토어 타겟:</strong> 덱빌딩/판타지 카드 게임 매니아'
+        ]
+      },
+      paper: {
+        className: 'theme-paper',
+        pill: 'CONCEPT 3: PAPERCRAFT',
+        title: '3. 페이퍼 크래프트 & 디오라마 (Papercraft)',
+        desc: '요시 크래프트 월드, 페이퍼 마리오 감성의 따뜻한 수제 종이접기 공예 스타일입니다. 스티치 점선과 골판지 입체 그림자로 따뜻하고 독창적인 동양 디오라마를 연출합니다.',
+        features: [
+          '✂️ <strong>비주얼 무드:</strong> 따뜻하고 감성적인 수제 종이공예 디오라마',
+          '📦 <strong>장기판:</strong> 크라프트 종이와 스티치 점선 보드',
+          '🃏 <strong>카드 & UI:</strong> 도톰한 종이접기 카드와 귀여운 크래프트 버튼',
+          '🎯 <strong>플레이스토어 타겟:</strong> 글로벌 구글 인디/피처드 감성의 게이머'
+        ]
+      },
+      noir: {
+        className: 'theme-noir',
+        pill: 'CONCEPT 4: GRAPHIC NOIR',
+        title: '4. 모노크롬 그래픽 누아르 (Graphic Noir)',
+        desc: '신 시티, 림보 감성의 극단적인 흑백 고대비 그래픽 노블 스타일입니다. 칠흑 같은 어둠 속에 선명한 네온 루비 & 시안 빛만 번뜩이는 압도적인 긴장감을 선사합니다.',
+        features: [
+          '🖤 <strong>비주얼 무드:</strong> 압도적인 흑백 고대비 & 만화 잉크 스플래시',
+          '🏁 <strong>장기판:</strong> 흑백 잉크 라인과 강렬한 대비의 격자 보드',
+          '🃏 <strong>카드 & UI:</strong> 흑백 미니멀 네온 프레임 카드',
+          '🎯 <strong>플레이스토어 타겟:</strong> 감각적이고 스타일리시한 다크 게이머'
+        ]
+      }
+    };
+
+    function switchTheme(key, btnEl) {
+      document.querySelectorAll('.theme-tab').forEach((btn) => {
+        btn.classList.remove('active');
+      });
+      if (btnEl) btnEl.classList.add('active');
+
+      const screen = document.getElementById('phone-screen');
+      screen.className = 'phone-screen ' + themes[key].className;
+
+      document.getElementById('badge-pill').innerText = themes[key].pill;
+      document.getElementById('details-title').innerText = themes[key].title;
+      document.getElementById('details-desc').innerHTML = themes[key].desc;
+
+      const list = document.getElementById('feature-list');
+      list.innerHTML = themes[key].features.map(f => `<li>${f}</li>`).join('');
+    }
+  </script>
+</body>
+
+</html>

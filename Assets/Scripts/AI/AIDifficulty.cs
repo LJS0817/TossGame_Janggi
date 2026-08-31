@@ -1,3 +1,5 @@
+using Janggi.Core;
+
 namespace Janggi.AI
 {
     /// <summary>
@@ -19,14 +21,7 @@ namespace Janggi.AI
     {
         public static string GetDisplayName(this AIDifficulty difficulty)
         {
-            switch (difficulty)
-            {
-                case AIDifficulty.Easy:   return "하 (입문)";
-                case AIDifficulty.Normal: return "중 (보통)";
-                case AIDifficulty.Hard:   return "상 (숙련)";
-                case AIDifficulty.Hell:   return "극악 (신)";
-                default:                  return difficulty.ToString();
-            }
+            return LocalizationManager.GetDifficultyName(difficulty);
         }
     }
 }

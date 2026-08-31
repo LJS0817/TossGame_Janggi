@@ -33,6 +33,7 @@ namespace Janggi
         private int _playerCaptures = 0;
         private int _playerSummons = 0;
         private bool _isInGame = false;
+        private bool _wasCurrentSideInCheckBeforeTurn = false;
 
         // UI 컨트롤러
         private BoardUIController _uiController;
@@ -54,10 +55,52 @@ namespace Janggi
                 _panelRenderer.UnregisterUIReloadCallback(OnUIReload);
             }
 
+            _uiController?.Dispose();
+            _uiController = null;
+
             if (_aiCoroutine != null)
             {
                 StopCoroutine(_aiCoroutine);
                 _aiCoroutine = null;
+            }
+        }
+
+        private void Update()
+        {
+            if (!_isInGame) return;
+
+            bool spacePressed = false;
+            bool aPressed = false;
+
+#if ENABLE_INPUT_SYSTEM
+            if (UnityEngine.InputSystem.Keyboard.current != null)
+            {
+                spacePressed = UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame;
+                aPressed = UnityEngine.InputSystem.Keyboard.current.aKey.wasPressedThisFrame;
+            }
+#endif
+
+            try
+            {
+                if (Input.GetKeyDown(KeyCode.Space)) spacePressed = true;
+                if (Input.GetKeyDown(KeyCode.A)) aPressed = true;
+            }
+            catch
+            {
+                // New Input System 전용 모드일 때 Legacy Input 예외 방지
+            }
+
+            if (spacePressed)
+            {
+                Debug.Log("[Test] 스페이스바 입력: 장군(將軍) 테스트 연출 실행");
+                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Warning);
+                _uiController?.ShowCallout(CalloutType.Check);
+            }
+            else if (aPressed)
+            {
+                Debug.Log("[Test] A 키 입력: 멍군(應將) 테스트 연출 실행");
+                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+                _uiController?.ShowCallout(CalloutType.Escape);
             }
         }
 
@@ -66,6 +109,9 @@ namespace Janggi
         /// </summary>
         private void OnUIReload(PanelRenderer renderer, VisualElement root)
         {
+            // 이전 컨트롤러 리소스 및 이벤트 구독 해제
+            _uiController?.Dispose();
+
             _uiController = new BoardUIController(root);
             _uiController.SetGameState(_board, _choState, _hanState, _currentTurn);
             _uiController.SelectDifficulty(_aiDifficulty);
@@ -136,7 +182,7 @@ namespace Janggi
             }
 
             _uiController?.SelectDifficulty(_aiDifficulty);
-            _uiController?.ShowStatus($"난이도가 [{_aiDifficulty.GetDisplayName()}]로 변경되었습니다.");
+            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Diff_Changed", _aiDifficulty.GetDisplayName()));
             Debug.Log($"[Janggi] AI 난이도 변경: {_aiDifficulty}");
         }
 
@@ -167,6 +213,7 @@ namespace Janggi
             _turnCount = 1;
             _playerCaptures = 0;
             _playerSummons = 0;
+            _wasCurrentSideInCheckBeforeTurn = false;
 
             // UI 갱신
             if (_uiController != null)
@@ -178,7 +225,7 @@ namespace Janggi
                 _uiController.ClearLastMove();
                 _uiController.SetGameState(_board, _choState, _hanState, _currentTurn);
                 _uiController.UpdateDifficultyDisplay(_aiDifficulty);
-                _uiController.ShowStatus("게임 시작! 초(楚)의 차례입니다.");
+                _uiController.ShowStatus(LocalizationManager.Get("Msg_Game_Start"));
             }
 
             Debug.Log("[Janggi] 게임 초기화 완료. 초(楚) 코스트: " + _choState.CurrentCost + ", 손패 4장 세팅.");
@@ -202,21 +249,21 @@ namespace Janggi
             // 소환 구역 및 코스트 유효성 검증
             if (!SpawnRuleValidator.CanSpawnAt(_board, _currentTurn, pieceType, spawnPos))
             {
-                _uiController?.ShowStatus("해당 위치에는 소환할 수 없습니다.");
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Cannot_Spawn_Here"));
                 return;
             }
 
             // 필드 전력 상한(20) 검증
             if (_board.GetTotalPieceCost(_currentTurn) + pieceType.GetCost() > PlayerState.MaxFieldCost)
             {
-                _uiController?.ShowStatus($"필드 전력 한도({PlayerState.MaxFieldCost})를 초과하여 소환할 수 없습니다!");
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Power_Limit_Exceeded", PlayerState.MaxFieldCost));
                 return;
             }
 
             // 코스트 지불 및 카드 소모 (새 카드로 즉시 보충)
-            if (!currentState.ConsumeCardForSummon(handIndex))
+            if (!currentState.ConsumeCardForSummon(handIndex, _board))
             {
-                _uiController?.ShowStatus("코스트가 부족하거나 이미 소환을 완료했습니다.");
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Cost_Or_Already_Summoned"));
                 return;
             }
 
@@ -234,7 +281,7 @@ namespace Janggi
             _uiController.ClearSelection();
             _uiController.RefreshBoardPieces();
             _uiController.RefreshPlayerPanels();
-            _uiController.ShowStatus($"[{newPiece.GetDisplayName()}] 소환 완료! 이동할 기물을 선택하세요.");
+            _uiController.ShowStatus(LocalizationManager.Get("Msg_Summon_Success", newPiece.GetDisplayName()));
         }
 
         // ──────────────────────────────────────────────
@@ -247,7 +294,7 @@ namespace Janggi
 
             if (_choState.CurrentCost < PlayerState.DiscardCost)
             {
-                _uiController?.ShowStatus("패를 버릴 코스트(1)가 부족합니다.");
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Cost_Insufficient_Discard"));
                 return;
             }
 
@@ -259,7 +306,7 @@ namespace Janggi
             _uiController.SetDiscardMode(false);
             _uiController.ClearSelection();
             _uiController.RefreshPlayerPanels();
-            _uiController.ShowStatus($"[{discardedType.GetKoreanName(PlayerSide.Cho)}] 카드를 버리고 새 카드를 뽑았습니다.");
+            _uiController.ShowStatus(LocalizationManager.Get("Msg_Discard_Success", discardedType.GetKoreanName(PlayerSide.Cho)));
 
             Debug.Log($"[Janggi] 패 버리기 완료: {discardedType} -> 남은 코스트: {_choState.CurrentCost}");
         }
@@ -276,7 +323,7 @@ namespace Janggi
             if (GameRuleValidator.IsInCheck(_board, PlayerSide.Cho))
             {
                 TossSDKManager.Instance.TriggerHaptic(TossHapticType.Warning);
-                _uiController?.ShowStatus("장군(Check) 상태에서는 한 수 쉴 수 없습니다! 왕을 지키세요.");
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Cannot_Pass_In_Check"));
                 return;
             }
 
@@ -284,7 +331,7 @@ namespace Janggi
 
             _uiController.ClearSelection();
             _uiController.SetDiscardMode(false);
-            _uiController.ShowStatus("초(楚) 플레이어가 한 수 쉬었습니다.");
+            _uiController.ShowStatus(LocalizationManager.Get("Msg_Player_Passed"));
 
             Debug.Log("[Janggi] 초(楚) 한 수 쉼 선택 -> 턴 종료");
             ProcessPostMove();
@@ -366,7 +413,7 @@ namespace Janggi
             {
                 _gameOver = true;
                 bool isPlayerWin = _currentTurn == PlayerSide.Cho;
-                string winner = isPlayerWin ? "초(楚) 플레이어" : "한(漢) 적 AI";
+                string winner = isPlayerWin ? LocalizationManager.Get("Msg_Winner_Player") : LocalizationManager.Get("Msg_Winner_AI");
                 
                 if (isPlayerWin)
                 {
@@ -377,7 +424,7 @@ namespace Janggi
                     TossSDKManager.Instance.TriggerHaptic(TossHapticType.Error);
                 }
 
-                _uiController.ShowStatus($"외통수! {winner} 승리!");
+                _uiController.ShowStatus(LocalizationManager.Get("Msg_Checkmate_Winner", winner));
                 _uiController.ShowGameOverModal(isWin: isPlayerWin, isDraw: false, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons);
                 Debug.Log($"[Janggi] 외통수! {winner} 승리!");
                 return;
@@ -388,16 +435,26 @@ namespace Janggi
             {
                 _gameOver = true;
                 TossSDKManager.Instance.TriggerHaptic(TossHapticType.Medium);
-                _uiController.ShowStatus("교착 상태! 무승부!");
+                _uiController.ShowStatus(LocalizationManager.Get("Msg_Stalemate"));
                 _uiController.ShowGameOverModal(isWin: false, isDraw: true, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons);
                 Debug.Log("[Janggi] 교착 상태(Stalemate) — 무승부!");
                 return;
             }
 
-            // 3-1. 장군(Check) 경고 햅틱
-            if (GameRuleValidator.IsInCheck(_board, nextTurn))
+            // 3-1. 장군(Check) / 멍군(Escape) 판단 및 배너 연출
+            bool isOpponentInCheck = GameRuleValidator.IsInCheck(_board, nextTurn);
+
+            if (isOpponentInCheck)
             {
+                // 상대 왕을 장군(Check)으로 위협!
                 TossSDKManager.Instance.TriggerHaptic(TossHapticType.Warning);
+                _uiController?.ShowCallout(CalloutType.Check);
+            }
+            else if (_wasCurrentSideInCheckBeforeTurn)
+            {
+                // 장군 상태에서 성공적으로 벗어남 (멍군!)
+                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+                _uiController?.ShowCallout(CalloutType.Escape);
             }
 
             // 4. 턴 교대 및 새 턴 자원 충전 (+2, gemini.md §3)
@@ -410,6 +467,9 @@ namespace Janggi
             var nextState = GetCurrentPlayerState();
             nextState.StartTurn();
 
+            // 다음 턴 플레이어의 시작 시점 장군 여부 기록
+            _wasCurrentSideInCheckBeforeTurn = GameRuleValidator.IsInCheck(_board, _currentTurn);
+
             _uiController.SetDiscardMode(false);
             _uiController.ClearSelection();
             _uiController.SetGameState(_board, _choState, _hanState, _currentTurn);
@@ -417,8 +477,10 @@ namespace Janggi
             // 5. 장군 상태 알림
             if (GameRuleValidator.IsInCheck(_board, _currentTurn))
             {
-                string checkedSide = _currentTurn == PlayerSide.Cho ? "초(楚)" : "한(漢)";
-                _uiController.ShowStatus($"장군! {checkedSide}이(가) 위험합니다!");
+                string checkedSide = _currentTurn == PlayerSide.Cho
+                    ? LocalizationManager.Get("Msg_Side_Cho_Short")
+                    : LocalizationManager.Get("Msg_Side_Han_Short");
+                _uiController.ShowStatus(LocalizationManager.Get("Msg_Check_Warning", checkedSide));
             }
             else
             {
@@ -445,7 +507,7 @@ namespace Janggi
 
         private IEnumerator ExecuteAITurnCoroutine()
         {
-            _uiController.ShowStatus("적 AI(漢)가 수를 고민 중입니다...");
+            _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Thinking"));
             yield return new WaitForSeconds(0.6f);
 
             if (_gameOver) yield break;
@@ -459,14 +521,14 @@ namespace Janggi
                 if (SpawnRuleValidator.CanSpawnAt(_board, PlayerSide.Han, pieceType, spawnPos))
                 {
                     // 코스트 차감 및 소환 1회 완료 검증
-                    if (_hanState.ConsumeCardForSummon(handIndex))
+                    if (_hanState.ConsumeCardForSummon(handIndex, _board))
                     {
                         var aiNewPiece = new Piece(pieceType, PlayerSide.Han, spawnPos);
                         _board.PlacePiece(aiNewPiece);
 
                         _uiController.RefreshBoardPieces();
                         _uiController.RefreshPlayerPanels();
-                        _uiController.ShowStatus($"적 AI(漢)가 [{aiNewPiece.GetDisplayName()}] 소환! (AI 남은 코스트: {_hanState.CurrentCost})");
+                        _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Summoned", aiNewPiece.GetDisplayName(), _hanState.CurrentCost));
 
                         Debug.Log($"[Janggi] AI {pieceType} 소환 완료 (소모: {pieceType.GetCost()}, 남은 코스트: {_hanState.CurrentCost})");
                         yield return new WaitForSeconds(0.5f);
@@ -481,7 +543,7 @@ namespace Janggi
 
             if (bestPiece != null)
             {
-                _uiController.ShowStatus($"적 AI(漢)가 [{bestPiece.GetDisplayName()}]을(를) 이동합니다.");
+                _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Moved", bestPiece.GetDisplayName()));
                 yield return new WaitForSeconds(0.3f);
 
                 ExecuteMove(bestPiece, bestTargetPos);
@@ -517,16 +579,16 @@ namespace Janggi
 
         private void OnTossShareRequested()
         {
-            string title = "將棋: AI 장기 덱빌딩 디펜스";
-            string desc = $"AI 난이도 [{_aiDifficulty.GetDisplayName()}]에서 {_turnCount}턴 만에 승리했습니다! 지금 도전해보세요.";
+            string title = LocalizationManager.Get("Share_Title");
+            string desc = LocalizationManager.Get("Share_Desc", _aiDifficulty.GetDisplayName(), _turnCount);
             
             TossSDKManager.Instance.ShareGameResult(title, desc);
-            _uiController?.ShowStatus("토스 공유 시트를 열었습니다.");
+            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Share_Opened"));
         }
 
         private void OnTossAdRequested()
         {
-            _uiController?.ShowStatus("광고를 불러오는 중입니다...");
+            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Loading"));
 
             TossSDKManager.Instance.ShowRewardedAd(isSuccess =>
             {
@@ -535,13 +597,13 @@ namespace Janggi
                     // 보상: 코스트 +5 즉시 충전 (최대 10까지)
                     _choState.AddCost(5);
                     _uiController?.RefreshPlayerPanels();
-                    _uiController?.ShowStatus("📺 광고 보상 지급 완료! 아군 코스트 +5가 충전되었습니다.");
+                    _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Success"));
                     TossSDKManager.Instance.TriggerHaptic(TossHapticType.Success);
                     Debug.Log($"[TossSDK] 광고 보상 지급: 초(楚) 코스트 -> {_choState.CurrentCost}");
                 }
                 else
                 {
-                    _uiController?.ShowStatus("광고 시청이 취소되었습니다.");
+                    _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Cancelled"));
                 }
             });
         }

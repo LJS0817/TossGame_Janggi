@@ -1,0 +1,402 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: JanggiStringTable_en-US
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 9016a8dd527514c918f86a41e0fba6dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 493253287936
+    m_Localized: Janggi Deckbuilding Defense
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493316202496
+    m_Localized: Single-player Janggi Strategy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396800
+    m_Localized: Select AI Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396801
+    m_Localized: "\U0001F7E2 Easy (Novice)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396802
+    m_Localized: 'Random summon
+
+      Recommended for beginners'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396803
+    m_Localized: "\U0001F535 Normal (Standard)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396804
+    m_Localized: 'Resource hoarding
+
+      Balanced AI'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396805
+    m_Localized: "\U0001F7E3 Hard (Veteran)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396806
+    m_Localized: 'Combo strikes
+
+      Spawn blocking'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396807
+    m_Localized: "\u26AB Hell (Master)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396808
+    m_Localized: 'Checkmate all-in
+
+      Flawless defense'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396809
+    m_Localized: "\u2694\uFE0F Start Game"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396810
+    m_Localized: "\U0001F4DC How to Play / Rules"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396811
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396812
+    m_Localized: "\U0001F4DC Game Rules Guide"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396813
+    m_Localized: 1. Turn Sequence & Cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396814
+    m_Localized: "\u2022 Gain +2 Cost at start of turn (Max 10 Cost)\n\u2022 [Optional]
+      Spend cost to summon 1 piece from hand\n\u2022 [Mandatory] Move 1 allied piece
+      on board (Ends turn)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493320396815
+    m_Localized: 2. Spawn Zones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591104
+    m_Localized: "\u2022 Pawn/Soldier: Empty cell on 4th front rank\n\u2022 Cannon:
+      Empty cell on 2 cannon starting positions\n\u2022 Chariot/Horse/Elephant: Empty
+      cell on 1st back rank\n\u2022 Cannot summon to cells that cause direct check"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591105
+    m_Localized: 3. Field Power Limit (20 Cost)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591106
+    m_Localized: "\u2022 Total cost of allied pieces on board is capped at 20\n\u2022
+      Chariot(6), Cannon(4), Horse(2), Elephant(2), Pawn(1)\n\u2022 Pieces must be
+      lost before summoning more"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591107
+    m_Localized: 4. Discard Card (-1 Cost)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591108
+    m_Localized: "\u2022 Spend 1 Cost to discard an unwanted card and redraw immediately"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591109
+    m_Localized: 5. Pass Turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591110
+    m_Localized: "\u2022 Pass your turn without moving by clicking [Pass Turn].\n\u2022
+      You cannot pass while in Check."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591111
+    m_Localized: 'Difficulty: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591112
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591113
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591114
+    m_Localized: Cho (Player)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591115
+    m_Localized: Han (Enemy AI)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591116
+    m_Localized: 'Cost: {0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591117
+    m_Localized: 'Power: {0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591118
+    m_Localized: Discard (-1)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591119
+    m_Localized: Select to Discard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591120
+    m_Localized: Pass Turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591121
+    m_Localized: Cho's Turn (Player)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591122
+    m_Localized: Han's Turn (AI)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591123
+    m_Localized: Pawn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591124
+    m_Localized: Soldier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591125
+    m_Localized: Horse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591126
+    m_Localized: Elephant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591127
+    m_Localized: Cannon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591128
+    m_Localized: Chariot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591129
+    m_Localized: King
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591130
+    m_Localized: Advisor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591131
+    m_Localized: VICTORY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591132
+    m_Localized: Checkmate! You have defeated the enemy King!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591133
+    m_Localized: DEFEAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591134
+    m_Localized: Checkmate! Your King has fallen...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591135
+    m_Localized: DRAW
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591136
+    m_Localized: Stalemate! The game ended in a draw.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591137
+    m_Localized: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591138
+    m_Localized: Turns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591139
+    m_Localized: '{0} Turns'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591140
+    m_Localized: Captures
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591141
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591142
+    m_Localized: Summons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591143
+    m_Localized: '{0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591144
+    m_Localized: "\U0001F4AC Share with Toss Friends"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591145
+    m_Localized: "\U0001F4FA Watch Ad for +5 Cost"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591146
+    m_Localized: Play Again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591147
+    m_Localized: Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591148
+    m_Localized: Game start! Cho's (Player) turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591149
+    m_Localized: Cannot summon to this position.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591150
+    m_Localized: Exceeds field power limit ({0})!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591151
+    m_Localized: Not enough cost or already summoned this turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591152
+    m_Localized: '[{0}] summoned! Select a piece to move.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591153
+    m_Localized: Not enough cost (1) to discard.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591154
+    m_Localized: Discarded [{0}] and drew a new card.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591155
+    m_Localized: Cannot pass while in Check! Protect your King.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591156
+    m_Localized: Cho (Player) passed the turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591157
+    m_Localized: Checkmate! {0} wins!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591158
+    m_Localized: Stalemate! Draw!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591159
+    m_Localized: Check! {0} is in danger!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591160
+    m_Localized: Enemy AI (Han) is thinking...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591161
+    m_Localized: 'Enemy AI (Han) summoned [{0}]! (Cost left: {1})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591162
+    m_Localized: Enemy AI moves [{0}].
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591163
+    m_Localized: Difficulty changed to [{0}].
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591164
+    m_Localized: Opened Toss share sheet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591165
+    m_Localized: Loading ad...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591166
+    m_Localized: "\U0001F4FA Ad reward granted! +5 Cost charged."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591167
+    m_Localized: Ad was cancelled.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591168
+    m_Localized: Already summoned a piece this turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591169
+    m_Localized: Not enough cost!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591170
+    m_Localized: Select an empty cell to summon [{0}].
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591171
+    m_Localized: Cho (Player)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591172
+    m_Localized: Han (Enemy AI)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591173
+    m_Localized: Cho (Blue)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591174
+    m_Localized: Han (Red)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591175
+    m_Localized: 'Janggi: AI Deckbuilding Defense'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591176
+    m_Localized: Defeated AI on [{0}] difficulty in {1} turns! Try it now.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

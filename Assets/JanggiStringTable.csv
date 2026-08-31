@@ -1,0 +1,116 @@
+Key,Id,SharedComments,ko-KR,Comments(ko-KR),en-US,Comments(en-US)
+Menu_Title_Sub,493253287936,,장기 덱빌딩 디펜스,,Janggi Deckbuilding Defense,
+Menu_Subtitle,493316202496,,혼자하는 장기 미니게임,,Single-player Janggi Strategy,
+Menu_Diff_Section,493320396800,,AI 난이도 선택,,Select AI Difficulty,
+Diff_Easy_Title,493320396801,,🟢 하 (입문),,🟢 Easy (Novice),
+Diff_Easy_Desc,493320396802,,"무작위 소환
+초보자 추천",,"Random summon
+Recommended for beginners",
+Diff_Normal_Title,493320396803,,🔵 중 (보통),,🔵 Normal (Standard),
+Diff_Normal_Desc,493320396804,,"자원 비축
+표준 밸런스",,"Resource hoarding
+Balanced AI",
+Diff_Hard_Title,493320396805,,🟣 상 (숙련),,🟣 Hard (Veteran),
+Diff_Hard_Desc,493320396806,,"연계
+스폰 블로킹",,"Combo strikes
+Spawn blocking",
+Diff_Hell_Title,493320396807,,⚫ 극악 (신),,⚫ Hell (Master),
+Diff_Hell_Desc,493320396808,,"외통수 올인
+완벽한 수비",,"Checkmate all-in
+Flawless defense",
+Btn_Start_Game,493320396809,,⚔️ 게임 시작,,⚔️ Start Game,
+Btn_Open_Rules,493320396810,,📜 게임 방법 / 규칙,,📜 How to Play / Rules,
+Btn_Close_Rules,493320396811,,확인,,Close,
+Rule_Modal_Title,493320396812,,📜 게임 규칙 안내,,📜 Game Rules Guide,
+Rule_1_Title,493320396813,,1. 턴 순서 및 자원 (Cost),,1. Turn Sequence & Cost,
+Rule_1_Desc,493320396814,,"• 매 턴 시작 시 코스트 +2 회복 (최대 10 코스트)
+• [선택] 손패에서 코스트를 지불하여 기물 1개 소환
+• [필수] 보드 위 아군 기물 1개 이동 (이동 완료 시 턴 종료)",,"• Gain +2 Cost at start of turn (Max 10 Cost)
+• [Optional] Spend cost to summon 1 piece from hand
+• [Mandatory] Move 1 allied piece on board (Ends turn)",
+Rule_2_Title,493320396815,,2. 소환 구역 (Spawn Zones),,2. Spawn Zones,
+Rule_2_Desc,493324591104,,"• 졸/병: 아군 4선 전방 라인 빈칸
+• 포: 아군 2곳의 포진지 빈칸
+• 차/마/상: 아군 1선 최후방 라인 빈칸
+• 소환 즉시 장군이 되는 칸에는 소환 불가",,"• Pawn/Soldier: Empty cell on 4th front rank
+• Cannon: Empty cell on 2 cannon starting positions
+• Chariot/Horse/Elephant: Empty cell on 1st back rank
+• Cannot summon to cells that cause direct check",
+Rule_3_Title,493324591105,,3. 필드 전력 상한 (20 코스트),,3. Field Power Limit (20 Cost),
+Rule_3_Desc,493324591106,,"• 판 위에 존재하는 아군 기물 총 코스트는 최대 20까지만 유지 가능
+• 차(6), 포(4), 마(2), 상(2), 졸(1)
+• 기물이 전사해야 새 기물을 추가 소환 가능",,"• Total cost of allied pieces on board is capped at 20
+• Chariot(6), Cannon(4), Horse(2), Elephant(2), Pawn(1)
+• Pieces must be lost before summoning more",
+Rule_4_Title,493324591107,,4. 패 버리기 (-1 코스트),,4. Discard Card (-1 Cost),
+Rule_4_Desc,493324591108,,• 1 코스트를 소모하여 원하지 않는 손패를 버리고 즉시 새 카드로 리필 가능,,• Spend 1 Cost to discard an unwanted card and redraw immediately,
+Rule_5_Title,493324591109,,5. 한 수 쉼 (한 턴 쉬기),,5. Pass Turn,
+Rule_5_Desc,493324591110,,"• 기물을 이동하지 않고 [한 수 쉼] 버튼을 눌러 턴을 상대에게 넘길 수 있습니다.
+• 단, 장군(Check) 상태에서는 쉴 수 없습니다.",,"• Pass your turn without moving by clicking [Pass Turn].
+• You cannot pass while in Check.",
+Header_Diff_Prefix,493324591111,,"난이도: ",,"Difficulty: ",
+Btn_Restart,493324591112,,재시작,,Restart,
+Btn_Menu,493324591113,,메뉴,,Menu,
+Side_Cho,493324591114,,楚 (플레이어),,Cho (Player),
+Side_Han,493324591115,,漢 (적 AI),,Han (Enemy AI),
+Cost_Format,493324591116,,코스트: {0} / {1},,Cost: {0} / {1},
+Power_Format,493324591117,,전력: {0} / {1},,Power: {0} / {1},
+Btn_Discard_Default,493324591118,,패 버리기 (-1),,Discard (-1),
+Btn_Discard_Active,493324591119,,버릴 카드 선택,,Select to Discard,
+Btn_Pass,493324591120,,한 수 쉼,,Pass Turn,
+Turn_Cho,493324591121,,초(楚)의 차례,,Cho's Turn (Player),
+Turn_Han,493324591122,,한(漢)의 차례,,Han's Turn (AI),
+Piece_Pawn,493324591123,,졸,,Pawn,
+Piece_Pawn_Han,493324591124,,병,,Soldier,
+Piece_Horse,493324591125,,마,,Horse,
+Piece_Elephant,493324591126,,상,,Elephant,
+Piece_Cannon,493324591127,,포,,Cannon,
+Piece_Chariot,493324591128,,차,,Chariot,
+Piece_King,493324591129,,궁,,King,
+Piece_Advisor,493324591130,,사,,Advisor,
+Modal_Title_Win,493324591131,,승리 (勝利),,VICTORY,
+Modal_Desc_Win,493324591132,,적의 궁을 외통수로 멋지게 제압했습니다!,,Checkmate! You have defeated the enemy King!,
+Modal_Title_Lose,493324591133,,패배 (敗北),,DEFEAT,
+Modal_Desc_Lose,493324591134,,아군 궁이 외통수로 제압당했습니다...,,Checkmate! Your King has fallen...,
+Modal_Title_Draw,493324591135,,무승부 (引分),,DRAW,
+Modal_Desc_Draw,493324591136,,양측의 공방 끝에 교착 상태가 되었습니다.,,Stalemate! The game ended in a draw.,
+Stat_Difficulty,493324591137,,난이도,,Difficulty,
+Stat_Turns,493324591138,,소요 턴수,,Turns,
+Stat_Turns_Value,493324591139,,{0} 턴,,{0} Turns,
+Stat_Captures,493324591140,,처치한 적 기물,,Captures,
+Stat_Captures_Value,493324591141,,{0} 개,,{0},
+Stat_Summons,493324591142,,소환한 아군 기물,,Summons,
+Stat_Summons_Value,493324591143,,{0} 개,,{0},
+Btn_Modal_Share,493324591144,,💬 토스 친구에게 자랑하기,,💬 Share with Toss Friends,
+Btn_Modal_Ad,493324591145,,📺 광고 보고 코스트 +5 충전,,📺 Watch Ad for +5 Cost,
+Btn_Modal_Restart,493324591146,,새 게임 시작하기,,Play Again,
+Btn_Modal_Menu,493324591147,,메인 메뉴로,,Main Menu,
+Msg_Game_Start,493324591148,,게임 시작! 초(楚)의 차례입니다.,,Game start! Cho's (Player) turn.,
+Msg_Cannot_Spawn_Here,493324591149,,해당 위치에는 소환할 수 없습니다.,,Cannot summon to this position.,
+Msg_Power_Limit_Exceeded,493324591150,,필드 전력 한도({0})를 초과하여 소환할 수 없습니다!,,Exceeds field power limit ({0})!,
+Msg_Cost_Or_Already_Summoned,493324591151,,코스트가 부족하거나 이미 소환을 완료했습니다.,,Not enough cost or already summoned this turn.,
+Msg_Summon_Success,493324591152,,[{0}] 소환 완료! 이동할 기물을 선택하세요.,,[{0}] summoned! Select a piece to move.,
+Msg_Cost_Insufficient_Discard,493324591153,,패를 버릴 코스트(1)가 부족합니다.,,Not enough cost (1) to discard.,
+Msg_Discard_Success,493324591154,,[{0}] 카드를 버리고 새 카드를 뽑았습니다.,,Discarded [{0}] and drew a new card.,
+Msg_Cannot_Pass_In_Check,493324591155,,장군(Check) 상태에서는 한 수 쉴 수 없습니다! 왕을 지키세요.,,Cannot pass while in Check! Protect your King.,
+Msg_Player_Passed,493324591156,,초(楚) 플레이어가 한 수 쉬었습니다.,,Cho (Player) passed the turn.,
+Msg_Checkmate_Winner,493324591157,,외통수! {0} 승리!,,Checkmate! {0} wins!,
+Msg_Stalemate,493324591158,,교착 상태! 무승부!,,Stalemate! Draw!,
+Msg_Check_Warning,493324591159,,장군! {0}이(가) 위험합니다!,,Check! {0} is in danger!,
+Msg_AI_Thinking,493324591160,,적 AI(漢)가 수를 고민 중입니다...,,Enemy AI (Han) is thinking...,
+Msg_AI_Summoned,493324591161,,적 AI(漢)가 [{0}] 소환! (AI 남은 코스트: {1}),,Enemy AI (Han) summoned [{0}]! (Cost left: {1}),
+Msg_AI_Moved,493324591162,,적 AI(漢)가 [{0}]을(를) 이동합니다.,,Enemy AI moves [{0}].,
+Msg_Diff_Changed,493324591163,,난이도가 [{0}]로 변경되었습니다.,,Difficulty changed to [{0}].,
+Msg_Share_Opened,493324591164,,토스 공유 시트를 열었습니다.,,Opened Toss share sheet.,
+Msg_Ad_Loading,493324591165,,광고를 불러오는 중입니다...,,Loading ad...,
+Msg_Ad_Success,493324591166,,📺 광고 보상 지급 완료! 아군 코스트 +5가 충전되었습니다.,,📺 Ad reward granted! +5 Cost charged.,
+Msg_Ad_Cancelled,493324591167,,광고 시청이 취소되었습니다.,,Ad was cancelled.,
+Msg_Already_Summoned,493324591168,,이번 턴 소환을 이미 완료했습니다.,,Already summoned a piece this turn.,
+Msg_Cost_Insufficient,493324591169,,코스트가 부족합니다!,,Not enough cost!,
+Msg_Select_Spawn_Cell,493324591170,,[{0}] 소환할 빈 칸을 선택하세요.,,Select an empty cell to summon [{0}].,
+Msg_Winner_Player,493324591171,,초(楚) 플레이어,,Cho (Player),
+Msg_Winner_AI,493324591172,,한(漢) 적 AI,,Han (Enemy AI),
+Msg_Side_Cho_Short,493324591173,,초(楚),,Cho (Blue),
+Msg_Side_Han_Short,493324591174,,한(漢),,Han (Red),
+Share_Title,493324591175,,將棋: AI 장기 덱빌딩 디펜스,,Janggi: AI Deckbuilding Defense,
+Share_Desc,493324591176,,AI 난이도 [{0}]에서 {1}턴 만에 승리했습니다! 지금 도전해보세요.,,Defeated AI on [{0}] difficulty in {1} turns! Try it now.,

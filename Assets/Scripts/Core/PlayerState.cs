@@ -103,15 +103,24 @@ namespace Janggi.Core
 
         /// <summary>
         /// 손패의 카드를 사용하여 소환을 완료하고 새 카드를 즉시 보충합니다.
+        /// 필드 전력 상한(20)을 포함한 모든 소환 조건을 검증합니다.
         /// </summary>
-        public bool ConsumeCardForSummon(int handIndex)
+        public bool ConsumeCardForSummon(int handIndex, Board board = null)
         {
             if (handIndex < 0 || handIndex >= Hand.Count) return false;
 
             var pieceType = Hand[handIndex];
             int cost = pieceType.GetCost();
 
-            if (!CanSummon(pieceType)) return false;
+            // Board가 제공된 경우 필드 전력 20 상한을 포함한 전체 검증 수행
+            if (board != null)
+            {
+                if (!CanSummon(board, pieceType)) return false;
+            }
+            else
+            {
+                if (!CanSummon(pieceType)) return false;
+            }
 
             SpendCost(cost);
             HasSummonedThisTurn = true;
