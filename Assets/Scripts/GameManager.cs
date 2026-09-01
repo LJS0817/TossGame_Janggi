@@ -25,14 +25,15 @@ namespace Janggi
         private PlayerState _choState; // 플레이어 (초)
         private PlayerState _hanState; // 적 AI (한)
         private PlayerSide _currentTurn;
-        private bool _gameOver;
+        private bool _gameOver = false;
+        private bool _isInGame = false;
+        private bool _hasUsedAdChance = false;
         private Coroutine _aiCoroutine;
 
         // 전투 통계
         private int _turnCount = 1;
         private int _playerCaptures = 0;
         private int _playerSummons = 0;
-        private bool _isInGame = false;
         private bool _wasCurrentSideInCheckBeforeTurn = false;
 
         // UI 컨트롤러
@@ -93,13 +94,13 @@ namespace Janggi
             if (spacePressed)
             {
                 Debug.Log("[Test] 스페이스바 입력: 장군(將軍) 테스트 연출 실행");
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Warning);
+                MobileHapticManager.Instance.Trigger(HapticType.Warning);
                 _uiController?.ShowCallout(CalloutType.Check);
             }
             else if (aPressed)
             {
                 Debug.Log("[Test] A 키 입력: 멍군(應將) 테스트 연출 실행");
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+                MobileHapticManager.Instance.Trigger(HapticType.Light);
                 _uiController?.ShowCallout(CalloutType.Escape);
             }
         }
@@ -126,8 +127,9 @@ namespace Janggi
             _uiController.OnRestartRequested = InitializeGame;
             _uiController.OnStartGameRequested = StartGame;
             _uiController.OnReturnToMenuRequested = ReturnToMainMenu;
-            _uiController.OnShareRequested = OnTossShareRequested;
-            _uiController.OnAdRequested = OnTossAdRequested;
+            _uiController.OnAdChanceRequested = OnAdChanceRequested;
+            _uiController.OnEliminateTargetSelected = OnEliminateTargetSelected;
+            _uiController.SetAdChanceButtonState(_hasUsedAdChance, true);
 
             if (_isInGame)
             {
@@ -214,6 +216,7 @@ namespace Janggi
             _playerCaptures = 0;
             _playerSummons = 0;
             _wasCurrentSideInCheckBeforeTurn = false;
+            _hasUsedAdChance = false;
 
             // UI 갱신
             if (_uiController != null)
@@ -225,6 +228,7 @@ namespace Janggi
                 _uiController.ClearLastMove();
                 _uiController.SetGameState(_board, _choState, _hanState, _currentTurn);
                 _uiController.UpdateDifficultyDisplay(_aiDifficulty);
+                _uiController.SetAdChanceButtonState(false, true);
                 _uiController.ShowStatus(LocalizationManager.Get("Msg_Game_Start"));
             }
 
@@ -273,7 +277,7 @@ namespace Janggi
             var newPiece = new Piece(pieceType, _currentTurn, spawnPos);
             _board.PlacePiece(newPiece);
 
-            TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+            MobileHapticManager.Instance.Trigger(HapticType.Light);
 
             Debug.Log($"[Janggi] {_currentTurn} {pieceType} 소환됨 @ {spawnPos} (남은 코스트: {currentState.CurrentCost})");
 
@@ -301,7 +305,7 @@ namespace Janggi
             var discardedType = _choState.Hand[handIndex];
             _choState.DiscardCard(handIndex);
 
-            TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+            MobileHapticManager.Instance.Trigger(HapticType.Light);
 
             _uiController.SetDiscardMode(false);
             _uiController.ClearSelection();
@@ -322,12 +326,12 @@ namespace Janggi
             // 장군(Check) 상태에서는 한 수 쉼 불가
             if (GameRuleValidator.IsInCheck(_board, PlayerSide.Cho))
             {
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Warning);
+                MobileHapticManager.Instance.Trigger(HapticType.Warning);
                 _uiController?.ShowStatus(LocalizationManager.Get("Msg_Cannot_Pass_In_Check"));
                 return;
             }
 
-            TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+            MobileHapticManager.Instance.Trigger(HapticType.Light);
 
             _uiController.ClearSelection();
             _uiController.SetDiscardMode(false);
@@ -384,12 +388,12 @@ namespace Janggi
             if (captured != null)
             {
                 if (_currentTurn == PlayerSide.Cho) _playerCaptures++;
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Medium);
+                MobileHapticManager.Instance.Trigger(HapticType.Medium);
                 Debug.Log($"[Janggi] {captured} 잡힘! (플레이어 총 처치: {_playerCaptures})");
             }
             else
             {
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+                MobileHapticManager.Instance.Trigger(HapticType.Light);
             }
 
             Debug.Log($"[Janggi] {_currentTurn} {piece.Type}: {from} → {to}");
@@ -417,11 +421,11 @@ namespace Janggi
                 
                 if (isPlayerWin)
                 {
-                    TossSDKManager.Instance.TriggerHaptic(TossHapticType.Success);
+                    MobileHapticManager.Instance.Trigger(HapticType.Success);
                 }
                 else
                 {
-                    TossSDKManager.Instance.TriggerHaptic(TossHapticType.Error);
+                    MobileHapticManager.Instance.Trigger(HapticType.Error);
                 }
 
                 _uiController.ShowStatus(LocalizationManager.Get("Msg_Checkmate_Winner", winner));
@@ -434,7 +438,7 @@ namespace Janggi
             if (GameRuleValidator.IsStalemate(_board, nextTurn))
             {
                 _gameOver = true;
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Medium);
+                MobileHapticManager.Instance.Trigger(HapticType.Medium);
                 _uiController.ShowStatus(LocalizationManager.Get("Msg_Stalemate"));
                 _uiController.ShowGameOverModal(isWin: false, isDraw: true, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons);
                 Debug.Log("[Janggi] 교착 상태(Stalemate) — 무승부!");
@@ -447,13 +451,13 @@ namespace Janggi
             if (isOpponentInCheck)
             {
                 // 상대 왕을 장군(Check)으로 위협!
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Warning);
+                MobileHapticManager.Instance.Trigger(HapticType.Warning);
                 _uiController?.ShowCallout(CalloutType.Check);
             }
             else if (_wasCurrentSideInCheckBeforeTurn)
             {
                 // 장군 상태에서 성공적으로 벗어남 (멍군!)
-                TossSDKManager.Instance.TriggerHaptic(TossHapticType.Light);
+                MobileHapticManager.Instance.Trigger(HapticType.Light);
                 _uiController?.ShowCallout(CalloutType.Escape);
             }
 
@@ -574,38 +578,86 @@ namespace Janggi
         public bool IsGameOver() => _gameOver;
 
         // ──────────────────────────────────────────────
-        // 6. 토스 SDK 이벤트 핸들러
+        // 6. 구글 광고 찬스 (적 기물 제거)
         // ──────────────────────────────────────────────
 
-        private void OnTossShareRequested()
+        private void OnAdChanceRequested()
         {
-            string title = LocalizationManager.Get("Share_Title");
-            string desc = LocalizationManager.Get("Share_Desc", _aiDifficulty.GetDisplayName(), _turnCount);
-            
-            TossSDKManager.Instance.ShareGameResult(title, desc);
-            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Share_Opened"));
-        }
+            if (_gameOver) return;
 
-        private void OnTossAdRequested()
-        {
+            if (_currentTurn != PlayerSide.Cho)
+            {
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Not_Player_Turn"));
+                return;
+            }
+
+            if (_hasUsedAdChance)
+            {
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Already_Used"));
+                return;
+            }
+
+            var validTargets = _board.GetPiecesBySide(PlayerSide.Han)
+                .FindAll(p => p.IsAlive && p.Type != PieceType.King && p.Type != PieceType.Advisor);
+
+            if (validTargets == null || validTargets.Count == 0)
+            {
+                _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_No_Target"));
+                return;
+            }
+
             _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Loading"));
 
-            TossSDKManager.Instance.ShowRewardedAd(isSuccess =>
+            _uiController?.ShowAdPlaybackModal(() =>
             {
-                if (isSuccess)
+                GoogleAdManager.Instance.ShowRewardedAd(isSuccess =>
                 {
-                    // 보상: 코스트 +5 즉시 충전 (최대 10까지)
-                    _choState.AddCost(5);
-                    _uiController?.RefreshPlayerPanels();
-                    _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Success"));
-                    TossSDKManager.Instance.TriggerHaptic(TossHapticType.Success);
-                    Debug.Log($"[TossSDK] 광고 보상 지급: 초(楚) 코스트 -> {_choState.CurrentCost}");
-                }
-                else
-                {
-                    _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Cancelled"));
-                }
+                    if (isSuccess)
+                    {
+                        _hasUsedAdChance = true;
+                        _uiController?.SetAdChanceButtonState(true, false);
+
+                        // 다시 유효 대상 검색 (광고 시청 사이 보드 상태 대비)
+                        var currentTargets = _board.GetPiecesBySide(PlayerSide.Han)
+                            .FindAll(p => p.IsAlive && p.Type != PieceType.King && p.Type != PieceType.Advisor);
+
+                        if (currentTargets.Count > 0)
+                        {
+                            var targetPositions = currentTargets.ConvertAll(p => p.Position);
+                            _uiController?.SetEliminationMode(true, targetPositions);
+                            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Select_Target"));
+                            MobileHapticManager.Instance.Trigger(HapticType.Success);
+                        }
+                        else
+                        {
+                            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_No_Target"));
+                        }
+                    }
+                    else
+                    {
+                        _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Cancelled"));
+                    }
+                });
             });
+        }
+
+        private void OnEliminateTargetSelected(Piece targetPiece)
+        {
+            if (targetPiece == null || !targetPiece.IsAlive) return;
+
+            var removedType = targetPiece.Type;
+            _board.RemovePiece(targetPiece);
+            _playerCaptures++;
+
+            MobileHapticManager.Instance.Trigger(HapticType.Heavy);
+            _uiController?.RefreshAll();
+
+            string pieceName = LocalizationManager.GetPieceName(removedType, PlayerSide.Han);
+            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Eliminated", pieceName));
+            Debug.Log($"[Janggi] 광고 찬스: 적 기물 [{pieceName}] 제거됨! -> 턴 종료 및 턴 교대");
+
+            // 기물 제거 완료 후 승패 판정 및 턴 교대
+            ProcessPostMove();
         }
     }
 }

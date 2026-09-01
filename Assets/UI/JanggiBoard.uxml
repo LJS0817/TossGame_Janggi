@@ -157,10 +157,36 @@
                 </ui:VisualElement>
             </ui:VisualElement>
 
-            <!-- 楚 (플레이어) 턴 인디케이터 (보드와 하단 패널 사이) -->
+            <!-- 楚 (플레이어) 턴 인디케이터 및 액션 바 (보드와 하단 패널 사이) -->
             <ui:VisualElement name="cho-turn-info" class="turn-info cho-turn-info">
-                <ui:Label name="cho-turn-label" text="楚 (플레이어)의 차례" class="turn-label cho-turn-label"/>
-                <ui:Label name="cho-status-label" text="" class="status-label"/>
+                <!-- 중앙: 턴 및 상태 안내 텍스트 -->
+                <ui:VisualElement class="turn-text-group">
+                    <ui:Label name="cho-turn-label" text="楚 (플레이어)의 차례" class="turn-label cho-turn-label"/>
+                    <ui:Label name="cho-status-label" text="" class="status-label"/>
+                </ui:VisualElement>
+
+                <!-- 좌우 절대배치 액션 버튼 바 (광고 찬스: 좌측, 패 버리기/한 수 쉼: 우측) -->
+                <ui:VisualElement class="cho-action-buttons" picking-mode="Ignore">
+                    <!-- 좌측: 📺 광고 찬스 -->
+                    <ui:VisualElement class="action-btn-group-left" picking-mode="Position">
+                        <ui:VisualElement class="action-btn-wrapper">
+                            <ui:VisualElement class="action-btn-shadow ad-chance-btn-shadow"/>
+                            <ui:Button name="btn-ad-chance" text="📺 광고 찬스" class="action-btn ad-chance-btn"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- 우측: 패 버리기 & 한 수 쉼 -->
+                    <ui:VisualElement class="action-btn-group-right" picking-mode="Position">
+                        <ui:VisualElement class="action-btn-wrapper">
+                            <ui:VisualElement class="action-btn-shadow discard-btn-shadow"/>
+                            <ui:Button name="btn-discard-mode" text="패 버리기 (-1)" class="action-btn discard-btn"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="action-btn-wrapper" style="margin-left: 8px;">
+                            <ui:VisualElement class="action-btn-shadow pass-btn-shadow"/>
+                            <ui:Button name="btn-pass-turn" text="한 수 쉼" class="action-btn pass-btn"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
 
             <!-- 楚 (플레이어) 패널 -->
@@ -177,18 +203,24 @@
                                 <ui:Label name="cho-field-cost-label" text="전력: 0 / 20" class="cost-label field-label"/>
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement class="cho-action-buttons">
-                            <ui:VisualElement class="action-btn-wrapper">
-                                <ui:VisualElement class="action-btn-shadow discard-btn-shadow"/>
-                                <ui:Button name="btn-discard-mode" text="패 버리기 (-1)" class="action-btn discard-btn"/>
-                            </ui:VisualElement>
-                            <ui:VisualElement class="action-btn-wrapper" style="margin-left: 8px;">
-                                <ui:VisualElement class="action-btn-shadow pass-btn-shadow"/>
-                                <ui:Button name="btn-pass-turn" text="한 수 쉼" class="action-btn pass-btn"/>
-                            </ui:VisualElement>
-                        </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="cho-hand-container" class="hand-container"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- 광고 시청 모달 (AdMob 시뮬레이터 / 연출) -->
+            <ui:VisualElement name="ad-view-modal" class="modal-overlay" style="display: none;">
+                <ui:VisualElement class="modal-card-wrapper" style="width: 85%; max-width: 480px;">
+                    <ui:VisualElement class="modal-card-shadow"/>
+                    <ui:VisualElement class="modal-card ad-modal-card" style="align-items: center; padding: 24px 16px;">
+                        <ui:Label text="📺 Google AdMob" class="ad-modal-badge"/>
+                        <ui:Label name="ad-modal-title" text="보상형 광고 재생 중..." class="modal-title" style="font-size: 26px; margin: 12px 0 6px 0; color: rgb(30, 41, 59);"/>
+                        <ui:Label name="ad-modal-desc" text="광고 시청 완료 시 적 기물(왕/사 제외)을 파괴할 수 있습니다." class="modal-desc" style="font-size: 16px; margin-bottom: 20px; color: rgb(100, 116, 139);"/>
+                        <ui:VisualElement class="ad-progress-bar-bg" style="width: 90%; height: 12px; background-color: rgb(226, 232, 240); border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
+                            <ui:VisualElement name="ad-progress-bar-fill" class="ad-progress-bar-fill" style="width: 0%; height: 100%; background-color: rgb(245, 158, 11); border-radius: 6px;"/>
+                        </ui:VisualElement>
+                        <ui:Label name="ad-modal-status" text="광고를 불러오는 중..." style="font-size: 15px; color: rgb(217, 119, 6); -unity-font-style: bold;"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
 
@@ -218,14 +250,6 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement class="modal-buttons" style="width: 100%;">
-                            <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
-                                <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-share"/>
-                                <ui:Button name="btn-modal-share" text="💬 토스 친구에게 자랑하기" class="modal-btn modal-btn-share"/>
-                            </ui:VisualElement>
-                            <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
-                                <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-ad"/>
-                                <ui:Button name="btn-modal-ad" text="📺 광고 보고 코스트 +5 충전" class="modal-btn modal-btn-ad"/>
-                            </ui:VisualElement>
                             <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 52px; margin: 4px 0;">
                                 <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-primary"/>
                                 <ui:Button name="btn-modal-restart" text="새 게임 시작하기" class="modal-btn modal-btn-primary"/>

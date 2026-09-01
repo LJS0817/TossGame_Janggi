@@ -73,3 +73,5 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+a-1.0-v1-IL2CPP.symbols.zip
+/a_BackUpThisFolder_ButDontShipItWithYourGame

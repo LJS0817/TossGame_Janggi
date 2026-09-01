@@ -133,14 +133,21 @@ namespace Janggi.UI
         private readonly Button _btnGotoMenu;
         private readonly Button _btnNewGame;
         private readonly Button _btnModalMenu;
-        private readonly Button _btnModalShare;
-        private readonly Button _btnModalAd;
         private readonly Button _btnPassTurn;
+        private readonly Button _btnAdChance;
 
-        // 소환 선택 상태
+        // 광고 시청 모달 요소
+        private readonly VisualElement _adViewModal;
+        private readonly VisualElement _adProgressBarFill;
+        private readonly Label _adModalStatus;
+
+        // 소환 및 찬스 선택 상태
         private int _selectedHandCardIndex = -1;
         private List<BoardPosition> _highlightedSpawnPositions;
         private bool _isDiscardMode = false;
+        private bool _isEliminateMode = false;
+        private List<BoardPosition> _eliminateTargets;
+        private bool _hasUsedAdChance = false;
         private float _cachedBoardWidth = 0f;
 
         // 이벤트 콜백
@@ -153,8 +160,8 @@ namespace Janggi.UI
         public System.Action<AIDifficulty> OnStartGameRequested;
         public System.Action OnReturnToMenuRequested;
         public System.Action OnPassRequested;
-        public System.Action OnShareRequested;
-        public System.Action OnAdRequested;
+        public System.Action OnAdChanceRequested;
+        public System.Action<Piece> OnEliminateTargetSelected;
 
         public BoardUIController(VisualElement root)
         {
@@ -227,12 +234,17 @@ namespace Janggi.UI
             _choHandContainer = root.Q<VisualElement>("cho-hand-container");
             _btnDiscardMode = root.Q<Button>("btn-discard-mode");
             _btnPassTurn = root.Q<Button>("btn-pass-turn");
+            _btnAdChance = root.Q<Button>("btn-ad-chance");
             _btnDifficulty = root.Q<Button>("btn-difficulty");
             _btnHeaderLanguage = root.Q<Button>("btn-header-language");
             _btnNewGame = root.Q<Button>("btn-new-game");
             _btnGotoMenu = root.Q<Button>("btn-goto-menu");
 
             // 4. 모달 팝업 바인딩
+            _adViewModal = root.Q<VisualElement>("ad-view-modal");
+            _adProgressBarFill = root.Q<VisualElement>("ad-progress-bar-fill");
+            _adModalStatus = root.Q<Label>("ad-modal-status");
+
             _gameOverModal = root.Q<VisualElement>("game-over-modal");
             _modalTitle = root.Q<Label>("modal-title");
             _modalDesc = root.Q<Label>("modal-desc");
@@ -246,12 +258,11 @@ namespace Janggi.UI
             _statSummons = root.Q<Label>("stat-summons");
             _btnModalRestart = root.Q<Button>("btn-modal-restart");
             _btnModalMenu = root.Q<Button>("btn-modal-menu");
-            _btnModalShare = root.Q<Button>("btn-modal-share");
-            _btnModalAd = root.Q<Button>("btn-modal-ad");
 
             _intersectionElements = new VisualElement[BoardPosition.MaxCol, BoardPosition.MaxRow];
             _highlightedMoves = new List<BoardPosition>();
             _highlightedSpawnPositions = new List<BoardPosition>();
+            _eliminateTargets = new List<BoardPosition>();
 
             BuildGridLines();
             BuildGrid();
@@ -268,6 +279,10 @@ namespace Janggi.UI
             {
                 _boardArea.RegisterCallback<GeometryChangedEvent>(OnBoardAreaGeometryChanged);
             }
+
+            // Safe Area(노치/카메라홀/상태바) 동적 패딩 적용 (헤더/UI가 가려지지 않도록 보호)
+            ApplySafeArea();
+            _root.RegisterCallback<GeometryChangedEvent>(evt => ApplySafeArea());
         }
 
         private void BuildGridLines()
@@ -310,6 +325,11 @@ namespace Janggi.UI
                 _btnPassTurn.clicked += () => OnPassRequested?.Invoke();
             }
 
+            if (_btnAdChance != null)
+            {
+                _btnAdChance.clicked += () => OnAdChanceRequested?.Invoke();
+            }
+
             if (_btnDifficulty != null)
             {
                 _btnDifficulty.clicked += () => OnDifficultyToggled?.Invoke();
@@ -346,16 +366,6 @@ namespace Janggi.UI
                     HideGameOverModal();
                     OnReturnToMenuRequested?.Invoke();
                 };
-            }
-
-            if (_btnModalShare != null)
-            {
-                _btnModalShare.clicked += () => OnShareRequested?.Invoke();
-            }
-
-            if (_btnModalAd != null)
-            {
-                _btnModalAd.clicked += () => OnAdRequested?.Invoke();
             }
         }
 
@@ -469,6 +479,7 @@ namespace Janggi.UI
 
                 UpdateDifficultyDisplay(_selectedDifficulty);
                 UpdateDiscardButtonUI();
+                SetAdChanceButtonState(_hasUsedAdChance, true);
 
                 // 4. 모달 라벨들
                 if (_statLabelDifficulty != null && _statLabelDifficulty.panel != null) _statLabelDifficulty.text = LocalizationManager.Get("Stat_Difficulty");
@@ -476,8 +487,6 @@ namespace Janggi.UI
                 if (_statLabelCaptures != null && _statLabelCaptures.panel != null) _statLabelCaptures.text = LocalizationManager.Get("Stat_Captures");
                 if (_statLabelSummons != null && _statLabelSummons.panel != null) _statLabelSummons.text = LocalizationManager.Get("Stat_Summons");
 
-                if (_btnModalShare != null && _btnModalShare.panel != null) _btnModalShare.text = LocalizationManager.Get("Btn_Modal_Share");
-                if (_btnModalAd != null && _btnModalAd.panel != null) _btnModalAd.text = LocalizationManager.Get("Btn_Modal_Ad");
                 if (_btnModalRestart != null && _btnModalRestart.panel != null) _btnModalRestart.text = LocalizationManager.Get("Btn_Modal_Restart");
                 if (_btnModalMenu != null && _btnModalMenu.panel != null) _btnModalMenu.text = LocalizationManager.Get("Btn_Modal_Menu");
 
@@ -585,6 +594,95 @@ namespace Janggi.UI
             {
                 _gameOverModal.style.display = DisplayStyle.None;
             }
+        }
+
+        /// <summary>
+        /// 광고 시청 화면을 1.2초간 시각적으로 표시하고 완료 콜백을 실행합니다.
+        /// </summary>
+        public void ShowAdPlaybackModal(System.Action onFinished)
+        {
+            if (_adViewModal == null)
+            {
+                onFinished?.Invoke();
+                return;
+            }
+
+            _adViewModal.style.display = DisplayStyle.Flex;
+            if (_adProgressBarFill != null) _adProgressBarFill.style.width = Length.Percent(0);
+            if (_adModalStatus != null) _adModalStatus.text = "광고 재생 중... (1.5s)";
+
+            // 프로그레스 바 차오름 연출 시작
+            _adViewModal.schedule.Execute(() =>
+            {
+                if (_adProgressBarFill != null) _adProgressBarFill.style.width = Length.Percent(100);
+            }).StartingIn(50);
+
+            // 1.2초 후 완료 및 닫기
+            _adViewModal.schedule.Execute(() =>
+            {
+                if (_adModalStatus != null) _adModalStatus.text = "보상 지급 완료!";
+
+                _adViewModal.schedule.Execute(() =>
+                {
+                    _adViewModal.style.display = DisplayStyle.None;
+                    if (_adProgressBarFill != null) _adProgressBarFill.style.width = Length.Percent(0);
+                    onFinished?.Invoke();
+                }).StartingIn(300);
+            }).StartingIn(1200);
+        }
+
+        /// <summary>
+        /// 모바일 기기의 노치/카메라 홀/상태바(Safe Area)에 헤더 및 UI가 겹치지 않도록 안전 영역 패딩을 동적으로 적용합니다.
+        /// </summary>
+        public void ApplySafeArea()
+        {
+            if (_root == null) return;
+
+            var rootContainer = _root.Q<VisualElement>("root-container") ?? _root;
+            if (rootContainer == null) return;
+
+            Rect safeArea = Screen.safeArea;
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+
+            if (screenWidth <= 0 || screenHeight <= 0) return;
+
+            // 스크린 픽셀 기준 Safe Area 바깥 Inset 계산
+            float topInsetPx = screenHeight - (safeArea.y + safeArea.height);
+            float bottomInsetPx = safeArea.y;
+            float leftInsetPx = safeArea.x;
+            float rightInsetPx = screenWidth - (safeArea.x + safeArea.width);
+
+            float padTop = 16f;
+            float padBottom = 16f;
+            float padLeft = 20f;
+            float padRight = 20f;
+
+            if (rootContainer.panel != null)
+            {
+                // UI Toolkit Panel 좌표계로 변환 (pt 단위)
+                Vector2 panelTopLeft = RuntimePanelUtils.ScreenToPanel(rootContainer.panel, new Vector2(leftInsetPx, topInsetPx));
+                Vector2 panelBottomRight = RuntimePanelUtils.ScreenToPanel(rootContainer.panel, new Vector2(rightInsetPx, bottomInsetPx));
+
+                padTop = Mathf.Max(16f, panelTopLeft.y);
+                padBottom = Mathf.Max(16f, panelBottomRight.y);
+                padLeft = Mathf.Max(20f, panelTopLeft.x);
+                padRight = Mathf.Max(20f, panelBottomRight.x);
+            }
+            else
+            {
+                // 패널 미초기화 시 비율(Percent) 또는 픽셀 스케일 환산
+                float scale = rootContainer.resolvedStyle.height > 0 ? (rootContainer.resolvedStyle.height / screenHeight) : 1f;
+                padTop = Mathf.Max(16f, topInsetPx * scale);
+                padBottom = Mathf.Max(16f, bottomInsetPx * scale);
+                padLeft = Mathf.Max(20f, leftInsetPx * scale);
+                padRight = Mathf.Max(20f, rightInsetPx * scale);
+            }
+
+            rootContainer.style.paddingTop = padTop;
+            rootContainer.style.paddingBottom = padBottom;
+            rootContainer.style.paddingLeft = padLeft;
+            rootContainer.style.paddingRight = padRight;
         }
 
         public void UpdateDifficultyDisplay(AIDifficulty difficulty)
@@ -797,12 +895,8 @@ namespace Janggi.UI
                 }
             }
 
-            // 직전 수의 이전 위치만 노란색 하이라이트 표시
-            if (_lastMoveFrom.HasValue)
-            {
-                var fromEl = _intersectionElements[_lastMoveFrom.Value.Col, _lastMoveFrom.Value.Row];
-                fromEl.AddToClassList("intersection--last-from");
-            }
+            // 직전 수의 이전 위치 하이라이트 갱신 (선택 상태에 따라 겹치면 가리고, 안 겹치면 표시)
+            UpdateLastMoveHighlight();
 
             // 보드 크기가 이미 계산되어 있으면 즉시 동기적으로 폰트 크기 보정
             float currentWidth = _cachedBoardWidth > 0 ? _cachedBoardWidth : _boardContainer.resolvedStyle.width;
@@ -838,6 +932,7 @@ namespace Janggi.UI
             element.RemoveFromClassList("intersection--movable");
             element.RemoveFromClassList("intersection--attackable");
             element.RemoveFromClassList("intersection--spawnable");
+            element.RemoveFromClassList("intersection--eliminate-target");
             element.RemoveFromClassList("intersection--check");
             element.RemoveFromClassList("intersection--last-from");
             element.RemoveFromClassList("intersection--last-to");
@@ -910,10 +1005,12 @@ namespace Janggi.UI
                 var cardShadow = new VisualElement();
                 cardShadow.AddToClassList("hand-card-shadow");
                 cardShadow.AddToClassList(side == PlayerSide.Cho ? "hand-card-shadow-cho" : "hand-card-shadow-han");
+                cardShadow.pickingMode = PickingMode.Ignore;
                 cardWrapper.Add(cardShadow);
 
                 var card = new VisualElement();
                 card.AddToClassList("hand-card");
+                card.pickingMode = PickingMode.Position;
 
                 // 카드 상태 스타일링
                 if (_selectedHandCardIndex == index && side == PlayerSide.Cho)
@@ -937,8 +1034,10 @@ namespace Janggi.UI
                 // 코스트 배지
                 var costBadge = new VisualElement();
                 costBadge.AddToClassList("card-cost-badge");
+                costBadge.pickingMode = PickingMode.Ignore;
                 var costText = new Label(cost.ToString());
                 costText.AddToClassList("card-cost-text");
+                costText.pickingMode = PickingMode.Ignore;
                 costBadge.Add(costText);
                 card.Add(costBadge);
 
@@ -946,11 +1045,13 @@ namespace Janggi.UI
                 var pieceLabel = new Label(pieceType.GetKoreanName(side));
                 pieceLabel.AddToClassList("card-piece-label");
                 pieceLabel.AddToClassList(side == PlayerSide.Cho ? "card-piece-cho" : "card-piece-han");
+                pieceLabel.pickingMode = PickingMode.Ignore;
                 card.Add(pieceLabel);
 
                 // 기물 로컬라이즈된 이름 라벨 (한국어: 졸/마/상/포/차, 영어: Pawn/Horse/Elephant/Cannon/Chariot)
                 var nameLabel = new Label(LocalizationManager.GetPieceName(pieceType, side));
                 nameLabel.AddToClassList("card-name-label");
+                nameLabel.pickingMode = PickingMode.Ignore;
                 card.Add(nameLabel);
 
                 // 소환 불가 시 카드 표면에만 딤드 오버레이 적용 (뒤 섀도우 박스 투과 방지)
@@ -958,14 +1059,16 @@ namespace Janggi.UI
                 {
                     var disabledOverlay = new VisualElement();
                     disabledOverlay.AddToClassList("hand-card-disabled-overlay");
+                    disabledOverlay.pickingMode = PickingMode.Ignore;
                     card.Add(disabledOverlay);
                 }
 
-                // 클릭 이벤트 바인딩 (플레이어 손패만 인터랙션 가능)
+                // 클릭 이벤트 바인딩: wrapper에 걸고 evt.StopPropagation()으로 중복 트리거 차단
                 if (isInteractive)
                 {
-                    card.RegisterCallback<ClickEvent>(evt =>
+                    cardWrapper.RegisterCallback<ClickEvent>(evt =>
                     {
+                        evt.StopPropagation();
                         OnHandCardClicked(index);
                     });
                 }
@@ -1025,6 +1128,9 @@ namespace Janggi.UI
                 cell.AddToClassList("intersection--spawnable");
             }
 
+            // 직전 수의 이전 위치와 겹치는지 체크하여 하이라이트 갱신
+            UpdateLastMoveHighlight();
+
             RefreshPlayerPanels();
             ShowStatus(LocalizationManager.Get("Msg_Select_Spawn_Cell", LocalizationManager.GetPieceName(pieceType, PlayerSide.Cho)));
         }
@@ -1053,35 +1159,69 @@ namespace Janggi.UI
                 else
                     moveEl.AddToClassList("intersection--movable");
             }
+
+            // 직전 수의 이전 위치와 겹치는지 체크하여 하이라이트 갱신 (겹치면 숨김)
+            UpdateLastMoveHighlight();
         }
 
-        public void ClearSelection()
+        /// <summary>
+        /// 보드 전체 90개 교차점의 모든 선택 및 이동/소환 하이라이트 클래스를 전수 청소합니다.
+        /// 리스트 불일치나 빠른 연속 터치로 인한 잔상을 100% 원천 차단합니다.
+        /// </summary>
+        public void ClearAllBoardHighlights()
         {
-            // 기물 선택 해제
-            if (_selectedPiece != null)
-            {
-                var selectedEl = _intersectionElements[_selectedPiece.Position.Col, _selectedPiece.Position.Row];
-                selectedEl.RemoveFromClassList("intersection--selected");
-            }
+            if (_intersectionElements == null) return;
 
-            foreach (var move in _highlightedMoves)
+            for (int col = 0; col < BoardPosition.MaxCol; col++)
             {
-                var moveEl = _intersectionElements[move.Col, move.Row];
-                moveEl.RemoveFromClassList("intersection--movable");
-                moveEl.RemoveFromClassList("intersection--attackable");
-            }
+                for (int row = 0; row < BoardPosition.MaxRow; row++)
+                {
+                    var cell = _intersectionElements[col, row];
+                    if (cell == null) continue;
 
-            // 소환 구역 하이라이트 해제
-            foreach (var pos in _highlightedSpawnPositions)
-            {
-                var cell = _intersectionElements[pos.Col, pos.Row];
-                cell.RemoveFromClassList("intersection--spawnable");
+                    cell.RemoveFromClassList("intersection--selected");
+                    cell.RemoveFromClassList("intersection--movable");
+                    cell.RemoveFromClassList("intersection--attackable");
+                    cell.RemoveFromClassList("intersection--spawnable");
+                    cell.RemoveFromClassList("intersection--eliminate-target");
+                }
             }
+        }
 
+        public void ClearSelection(bool clearStatusText = true)
+        {
+            bool hadSelection = _selectedPiece != null || _selectedHandCardIndex >= 0 || _isEliminateMode;
+
+            // 1. 보드 전체 90개 셀의 하이라이트 클래스를 전수 청소하여 잔상 원천 제거
+            ClearAllBoardHighlights();
+
+            // 2. 내부 선택 상태 및 리스트 초기화
             _selectedPiece = null;
             _highlightedMoves.Clear();
             _selectedHandCardIndex = -1;
             _highlightedSpawnPositions.Clear();
+
+            if (_isEliminateMode)
+            {
+                _eliminateTargets.Clear();
+                _isEliminateMode = false;
+                if (_btnAdChance != null)
+                {
+                    _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
+                }
+            }
+
+            // 3. 선택 해제 시 직전 수의 이전 위치 하이라이트 복원
+            UpdateLastMoveHighlight();
+
+            // 4. 손패 카드 선택 UI 상태 즉시 복원
+            RefreshPlayerPanels();
+
+            // 5. 상태 메시지 초기화
+            if (clearStatusText && hadSelection)
+            {
+                ShowStatus("");
+            }
         }
 
         // ──────────────────────────────────────────────
@@ -1092,6 +1232,24 @@ namespace Janggi.UI
         {
             if (!_isInteractive || _board == null) return;
             var clickedPos = new BoardPosition(col, row);
+
+            // 0. 적 기물 제거 찬스 모드인 경우
+            if (_isEliminateMode)
+            {
+                if (_eliminateTargets.Contains(clickedPos))
+                {
+                    var targetPiece = _board.GetPieceAt(clickedPos);
+                    if (targetPiece != null)
+                    {
+                        SetEliminationMode(false, null);
+                        OnEliminateTargetSelected?.Invoke(targetPiece);
+                        return;
+                    }
+                }
+                // 타겟 외 클릭 시 제거 모드 취소
+                SetEliminationMode(false, null);
+                return;
+            }
 
             // A. 소환 카드 선택 상태에서 소환 가능 구역을 클릭한 경우
             if (_selectedHandCardIndex >= 0 && _highlightedSpawnPositions.Contains(clickedPos))
@@ -1191,14 +1349,146 @@ namespace Janggi.UI
 
         public void SetLastMove(BoardPosition from, BoardPosition to)
         {
+            if (_lastMoveFrom.HasValue)
+            {
+                var prevEl = _intersectionElements[_lastMoveFrom.Value.Col, _lastMoveFrom.Value.Row];
+                prevEl?.RemoveFromClassList("intersection--last-from");
+            }
             _lastMoveFrom = from;
             _lastMoveTo = to;
+            UpdateLastMoveHighlight();
         }
 
         public void ClearLastMove()
         {
+            if (_lastMoveFrom.HasValue)
+            {
+                var fromEl = _intersectionElements[_lastMoveFrom.Value.Col, _lastMoveFrom.Value.Row];
+                fromEl?.RemoveFromClassList("intersection--last-from");
+            }
             _lastMoveFrom = null;
             _lastMoveTo = null;
+        }
+
+        /// <summary>
+        /// 직전 수의 이전 위치(원) 하이라이트를 갱신합니다.
+        /// 기물 선택(이동/공격 가능 위치) 또는 소환 위치와 겹치면 숨겼다가,
+        /// 겹치지 않거나 선택이 해제되면 다시 표시합니다.
+        /// </summary>
+        private void UpdateLastMoveHighlight()
+        {
+            if (!_lastMoveFrom.HasValue) return;
+
+            var fromPos = _lastMoveFrom.Value;
+            var fromEl = _intersectionElements[fromPos.Col, fromPos.Row];
+            if (fromEl == null) return;
+
+            bool isOverlapped = false;
+
+            // 1. 현재 선택된 기물의 위치와 겹치는지 확인
+            if (_selectedPiece != null && _selectedPiece.Position.Equals(fromPos))
+            {
+                isOverlapped = true;
+            }
+            // 2. 이동/공격 가능한 위치들과 겹치는지 확인
+            else if (_highlightedMoves != null && _highlightedMoves.Contains(fromPos))
+            {
+                isOverlapped = true;
+            }
+            // 3. 소환 가능한 위치들과 겹치는지 확인
+            else if (_highlightedSpawnPositions != null && _highlightedSpawnPositions.Contains(fromPos))
+            {
+                isOverlapped = true;
+            }
+            // 4. 기물 제거 찬스 대상 위치들과 겹치는지 확인
+            else if (_isEliminateMode && _eliminateTargets != null && _eliminateTargets.Contains(fromPos))
+            {
+                isOverlapped = true;
+            }
+
+            if (isOverlapped)
+            {
+                fromEl.RemoveFromClassList("intersection--last-from");
+            }
+            else
+            {
+                fromEl.AddToClassList("intersection--last-from");
+            }
+        }
+
+        /// <summary>
+        /// 광고 찬스를 통한 적 기물 제거 모드를 활성화하거나 해제합니다.
+        /// </summary>
+        public void SetEliminationMode(bool active, List<BoardPosition> targets)
+        {
+            ClearSelection();
+
+            _isEliminateMode = active;
+            _eliminateTargets = targets ?? new List<BoardPosition>();
+
+            if (_isEliminateMode)
+            {
+                if (_btnAdChance != null)
+                {
+                    _btnAdChance.AddToClassList("ad-chance-btn--active");
+                }
+
+                foreach (var pos in _eliminateTargets)
+                {
+                    var cell = _intersectionElements[pos.Col, pos.Row];
+                    cell?.AddToClassList("intersection--eliminate-target");
+                }
+            }
+            else
+            {
+                if (_btnAdChance != null)
+                {
+                    _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
+                }
+
+                foreach (var pos in _eliminateTargets)
+                {
+                    var cell = _intersectionElements[pos.Col, pos.Row];
+                    cell?.RemoveFromClassList("intersection--eliminate-target");
+                }
+                _eliminateTargets.Clear();
+            }
+
+            UpdateLastMoveHighlight();
+        }
+
+        /// <summary>
+        /// 광고 찬스 버튼의 사용 상태 및 스타일을 갱신합니다.
+        /// </summary>
+        public void SetAdChanceButtonState(bool used, bool enabled)
+        {
+            _hasUsedAdChance = used;
+            if (_btnAdChance == null) return;
+
+            _btnAdChance.SetEnabled(enabled && !used);
+
+            if (used)
+            {
+                string text = LocalizationManager.Get("Btn_Ad_Chance_Used");
+                if (string.IsNullOrEmpty(text) || text == "Btn_Ad_Chance_Used")
+                {
+                    text = LocalizationManager.CurrentLanguage == Language.Korean ? "📺 찬스 완료" : "📺 Chance Used";
+                }
+                _btnAdChance.text = text;
+                _btnAdChance.AddToClassList("ad-chance-btn--disabled");
+                _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
+            }
+            else
+            {
+                string text = LocalizationManager.Get("Btn_Ad_Chance");
+                if (string.IsNullOrEmpty(text) || text == "Btn_Ad_Chance")
+                {
+                    text = LocalizationManager.CurrentLanguage == Language.Korean ? "📺 광고 찬스" : "📺 Ad Chance";
+                }
+                _btnAdChance.text = text;
+                _btnAdChance.RemoveFromClassList("ad-chance-btn--disabled");
+                _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
+            }
         }
 
         // ──────────────────────────────────────────────

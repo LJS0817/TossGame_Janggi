@@ -117,6 +117,19 @@ namespace Janggi.Core
             return CurrentLanguage == Language.Korean ? "🌐 한국어" : "🌐 English";
         }
 
+        private static readonly System.Collections.Generic.Dictionary<string, (string ko, string en)> _fallbackStrings = new()
+        {
+            { "Btn_Ad_Chance", ("📺 광고 찬스", "📺 Ad Chance") },
+            { "Btn_Ad_Chance_Used", ("📺 찬스 완료", "📺 Chance Used") },
+            { "Msg_Ad_Chance_Select_Target", ("💥 지원 요청 성공! 제거할 적 기물을 선택하세요.", "💥 Air Strike! Select an enemy piece to eliminate.") },
+            { "Msg_Ad_Chance_Eliminated", ("💥 광고 찬스로 적의 [{0}]을(를) 제거했습니다!", "💥 Eliminated enemy [{0}] via Ad Chance!") },
+            { "Msg_Ad_Chance_No_Target", ("제거할 수 있는 적 기물(차/포/마/상/병)이 없습니다.", "No valid enemy piece to eliminate.") },
+            { "Msg_Ad_Chance_Already_Used", ("광고 찬스는 게임당 1회만 사용할 수 있습니다.", "Ad chance can only be used once per game.") },
+            { "Msg_Ad_Chance_Not_Player_Turn", ("자신의 턴에만 광고 찬스를 사용할 수 있습니다.", "Ad chance can only be used on your turn.") },
+            { "Msg_Ad_Loading", ("광고를 불러오는 중입니다...", "Loading rewarded ad...") },
+            { "Msg_Ad_Cancelled", ("광고 시청이 취소되었습니다.", "Ad watch cancelled.") }
+        };
+
         /// <summary>
         /// JanggiStringTable (CSV 데이터)에서 현재 언어에 해당하는 텍스트를 조회합니다.
         /// </summary>
@@ -137,7 +150,12 @@ namespace Janggi.Core
             }
             catch
             {
-                // 로딩 지연 또는 미초기화 시 key 반환
+                // 로딩 지연 또는 미초기화 시 fallback 검사
+            }
+
+            if (_fallbackStrings.TryGetValue(key, out var fallback))
+            {
+                return CurrentLanguage == Language.Korean ? fallback.ko : fallback.en;
             }
 
             return key;
