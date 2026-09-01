@@ -345,10 +345,6 @@ MonoBehaviour:
     m_Localized: Difficulty changed to [{0}].
     m_Metadata:
       m_Items: []
-  - m_Id: 493324591164
-    m_Localized: Opened Toss share sheet.
-    m_Metadata:
-      m_Items: []
   - m_Id: 493324591165
     m_Localized: Loading ad...
     m_Metadata:
@@ -390,11 +386,60 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591175
-    m_Localized: 'Janggi: AI Deckbuilding Defense'
+    m_Localized: "\U0001F4FA Strike Ready! Select an enemy piece to eliminate. (Except
+      King/Advisor)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591176
-    m_Localized: Defeated AI on [{0}] difficulty in {1} turns! Try it now.
+    m_Localized: "\U0001F4A5 Strike! Enemy [{0}] eliminated!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591177
+    m_Localized: No enemy pieces available to eliminate.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591178
+    m_Localized: Ad Chance can only be used once per game.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591179
+    m_Localized: Ad Chance can only be used on your turn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591180
+    m_Localized: 'Haptic: ON'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591181
+    m_Localized: 'Haptic: OFF'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591182
+    m_Localized: Check!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591183
+    m_Localized: Escape!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591184
+    m_Localized: "\U0001F310 Language: English (EN)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591185
+    m_Localized: "\U0001F310 English"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591186
+    m_Localized: Stalemate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591187
+    m_Localized: Checkmate Victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591188
+    m_Localized: Checkmate Defeat
     m_Metadata:
       m_Items: []
   references:

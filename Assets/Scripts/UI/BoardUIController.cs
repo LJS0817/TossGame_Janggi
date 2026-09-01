@@ -49,10 +49,12 @@ namespace Janggi.UI
         private readonly Button _btnDiscardMode;
         private readonly Button _btnDifficulty;
 
-        // 게임 오버 모달 UI
-        private readonly VisualElement _gameOverModal;
-        private readonly Label _modalTitle;
-        private readonly Label _modalDesc;
+        // 게임 오버 인라인 결과창 UI (보드 아래 배치)
+        private readonly VisualElement _gameOverInlineArea;
+        private readonly Label _inlineModalTitle;
+        private readonly Label _inlineModalBadge;
+        private readonly VisualElement _inlineReviewSection;
+        private readonly Label _inlineReviewDesc;
         private readonly Label _statLabelDifficulty;
         private readonly Label _statDifficulty;
         private readonly Label _statLabelTurns;
@@ -62,6 +64,8 @@ namespace Janggi.UI
         private readonly Label _statLabelSummons;
         private readonly Label _statSummons;
         private readonly Button _btnModalRestart;
+        private readonly Button _btnModalMenu;
+        private BoardReviewData _lastReviewData;
 
         // 교차점 버튼 배열 [col, row]
         private readonly VisualElement[,] _intersectionElements;
@@ -111,6 +115,7 @@ namespace Janggi.UI
 
         private readonly Button _btnStartGame;
         private readonly Button _btnOpenRules;
+        private readonly Button _btnHapticToggle;
         private readonly Button _btnLanguageToggle;
         private readonly Button _btnCloseRules;
         private readonly VisualElement _ruleGuideModal;
@@ -129,10 +134,10 @@ namespace Janggi.UI
         private AIDifficulty _selectedDifficulty = AIDifficulty.Normal;
 
         // 인게임 헤더 및 버튼
+        private readonly Button _btnHeaderHaptic;
         private readonly Button _btnHeaderLanguage;
         private readonly Button _btnGotoMenu;
         private readonly Button _btnNewGame;
-        private readonly Button _btnModalMenu;
         private readonly Button _btnPassTurn;
         private readonly Button _btnAdChance;
 
@@ -236,18 +241,18 @@ namespace Janggi.UI
             _btnPassTurn = root.Q<Button>("btn-pass-turn");
             _btnAdChance = root.Q<Button>("btn-ad-chance");
             _btnDifficulty = root.Q<Button>("btn-difficulty");
+            _btnHeaderHaptic = root.Q<Button>("btn-header-haptic");
             _btnHeaderLanguage = root.Q<Button>("btn-header-language");
             _btnNewGame = root.Q<Button>("btn-new-game");
             _btnGotoMenu = root.Q<Button>("btn-goto-menu");
+            _btnHapticToggle = root.Q<Button>("btn-haptic-toggle");
 
-            // 4. 모달 팝업 바인딩
-            _adViewModal = root.Q<VisualElement>("ad-view-modal");
-            _adProgressBarFill = root.Q<VisualElement>("ad-progress-bar-fill");
-            _adModalStatus = root.Q<Label>("ad-modal-status");
-
-            _gameOverModal = root.Q<VisualElement>("game-over-modal");
-            _modalTitle = root.Q<Label>("modal-title");
-            _modalDesc = root.Q<Label>("modal-desc");
+            // 4. 인라인 게임 오버 결과창 바인딩
+            _gameOverInlineArea = root.Q<VisualElement>("game-over-inline-area");
+            _inlineModalTitle = root.Q<Label>("inline-modal-title");
+            _inlineModalBadge = root.Q<Label>("inline-modal-badge");
+            _inlineReviewSection = root.Q<VisualElement>("inline-review-section");
+            _inlineReviewDesc = root.Q<Label>("inline-review-desc");
             _statLabelDifficulty = root.Q<Label>("stat-label-difficulty");
             _statDifficulty = root.Q<Label>("stat-difficulty");
             _statLabelTurns = root.Q<Label>("stat-label-turns");
@@ -272,6 +277,7 @@ namespace Janggi.UI
             // 다국어 초기 텍스트 적용 및 이벤트 구독
             ApplyLocalization();
             LocalizationManager.OnLanguageChanged += ApplyLocalization;
+            MobileHapticManager.Instance.OnHapticSettingChanged += OnHapticSettingChanged;
             ApplyDifficultyTheme(_selectedDifficulty);
 
             // 반응형 보드 크기 계산
@@ -335,6 +341,15 @@ namespace Janggi.UI
                 _btnDifficulty.clicked += () => OnDifficultyToggled?.Invoke();
             }
 
+            if (_btnHeaderHaptic != null)
+            {
+                _btnHeaderHaptic.clicked += () =>
+                {
+                    MobileHapticManager.Instance.ToggleHaptic();
+                    UpdateHapticButtonUI();
+                };
+            }
+
             if (_btnHeaderLanguage != null)
             {
                 _btnHeaderLanguage.clicked += () => LocalizationManager.ToggleLanguage();
@@ -395,6 +410,20 @@ namespace Janggi.UI
                 };
             }
 
+            if (_btnLanguageToggle != null)
+            {
+                _btnLanguageToggle.clicked += () => LocalizationManager.ToggleLanguage();
+            }
+
+            if (_btnHapticToggle != null)
+            {
+                _btnHapticToggle.clicked += () =>
+                {
+                    MobileHapticManager.Instance.ToggleHaptic();
+                    UpdateHapticButtonUI();
+                };
+            }
+
             if (_btnCloseRules != null)
             {
                 _btnCloseRules.clicked += () =>
@@ -403,17 +432,26 @@ namespace Janggi.UI
                 };
             }
 
-            // 4. 언어 전환 버튼
-            if (_btnLanguageToggle != null)
-            {
-                _btnLanguageToggle.clicked += () =>
-                {
-                    LocalizationManager.ToggleLanguage();
-                };
-            }
-
             // 초기 난이도 선택 상태 동기화
             SelectDifficulty(_selectedDifficulty);
+        }
+
+        private void OnHapticSettingChanged(bool _)
+        {
+            UpdateHapticButtonUI();
+        }
+
+        public void UpdateHapticButtonUI()
+        {
+            bool isEnabled = MobileHapticManager.Instance.IsHapticEnabled;
+            if (_btnHapticToggle != null && _btnHapticToggle.panel != null)
+            {
+                _btnHapticToggle.text = isEnabled ? LocalizationManager.Get("Btn_Haptic_On") : LocalizationManager.Get("Btn_Haptic_Off");
+            }
+            if (_btnHeaderHaptic != null && _btnHeaderHaptic.panel != null)
+            {
+                _btnHeaderHaptic.text = isEnabled ? "📳" : "📴";
+            }
         }
 
         /// <summary>
@@ -422,6 +460,7 @@ namespace Janggi.UI
         public void Dispose()
         {
             LocalizationManager.OnLanguageChanged -= ApplyLocalization;
+            MobileHapticManager.Instance.OnHapticSettingChanged -= OnHapticSettingChanged;
 
             if (_boardArea != null)
             {
@@ -479,6 +518,7 @@ namespace Janggi.UI
 
                 UpdateDifficultyDisplay(_selectedDifficulty);
                 UpdateDiscardButtonUI();
+                UpdateHapticButtonUI();
                 SetAdChanceButtonState(_hasUsedAdChance, true);
 
                 // 4. 모달 라벨들
@@ -492,7 +532,7 @@ namespace Janggi.UI
 
                 if (_isModalShown)
                 {
-                    ShowGameOverModal(_lastModalIsWin, _lastModalIsDraw, _lastModalDiff, _lastModalTurns, _lastModalCaptures, _lastModalSummons);
+                    ShowGameOverModal(_lastModalIsWin, _lastModalIsDraw, _lastModalDiff, _lastModalTurns, _lastModalCaptures, _lastModalSummons, _lastReviewData);
                 }
 
                 // 5. 인게임 동적 UI 갱신
@@ -541,7 +581,7 @@ namespace Janggi.UI
             if (_gamePlayScreen != null) _gamePlayScreen.style.display = DisplayStyle.Flex;
         }
 
-        public void ShowGameOverModal(bool isWin, bool isDraw, AIDifficulty difficulty, int turnCount, int captures, int summons)
+        public void ShowGameOverModal(bool isWin, bool isDraw, AIDifficulty difficulty, int turnCount, int captures, int summons, BoardReviewData reviewData = null)
         {
             _isModalShown = true;
             _lastModalIsWin = isWin;
@@ -550,49 +590,124 @@ namespace Janggi.UI
             _lastModalTurns = turnCount;
             _lastModalCaptures = captures;
             _lastModalSummons = summons;
+            _lastReviewData = reviewData;
 
-            if (_gameOverModal == null) return;
+            // 상하 패널 및 액션 바를 숨기고 보드를 상단에 배치
+            _gamePlayScreen?.AddToClassList("state--game-over");
 
-            if (_modalTitle != null)
+            if (_gameOverInlineArea != null)
             {
-                _modalTitle.RemoveFromClassList("modal-title--win");
-                _modalTitle.RemoveFromClassList("modal-title--lose");
-                _modalTitle.RemoveFromClassList("modal-title--draw");
+                _gameOverInlineArea.style.display = DisplayStyle.Flex;
+            }
+
+            if (_inlineModalTitle != null)
+            {
+                _inlineModalTitle.RemoveFromClassList("inline-modal-title--win");
+                _inlineModalTitle.RemoveFromClassList("inline-modal-title--lose");
+                _inlineModalTitle.RemoveFromClassList("inline-modal-title--draw");
 
                 if (isDraw)
                 {
-                    _modalTitle.text = LocalizationManager.Get("Modal_Title_Draw");
-                    _modalTitle.AddToClassList("modal-title--draw");
-                    if (_modalDesc != null) _modalDesc.text = LocalizationManager.Get("Modal_Desc_Draw");
+                    _inlineModalTitle.text = LocalizationManager.Get("Modal_Title_Draw");
+                    _inlineModalTitle.AddToClassList("inline-modal-title--draw");
+                    if (_inlineModalBadge != null) _inlineModalBadge.text = LocalizationManager.Get("Badge_Stalemate");
                 }
                 else if (isWin)
                 {
-                    _modalTitle.text = LocalizationManager.Get("Modal_Title_Win");
-                    _modalTitle.AddToClassList("modal-title--win");
-                    if (_modalDesc != null) _modalDesc.text = LocalizationManager.Get("Modal_Desc_Win");
+                    _inlineModalTitle.text = LocalizationManager.Get("Modal_Title_Win");
+                    _inlineModalTitle.AddToClassList("inline-modal-title--win");
+                    if (_inlineModalBadge != null) _inlineModalBadge.text = LocalizationManager.Get("Badge_Checkmate_Win");
                 }
                 else
                 {
-                    _modalTitle.text = LocalizationManager.Get("Modal_Title_Lose");
-                    _modalTitle.AddToClassList("modal-title--lose");
-                    if (_modalDesc != null) _modalDesc.text = LocalizationManager.Get("Modal_Desc_Lose");
+                    _inlineModalTitle.text = LocalizationManager.Get("Modal_Title_Lose");
+                    _inlineModalTitle.AddToClassList("inline-modal-title--lose");
+                    if (_inlineModalBadge != null) _inlineModalBadge.text = LocalizationManager.Get("Badge_Checkmate_Lose");
                 }
+            }
+
+            // 외통수 분석 텍스트 채우기 및 보드 하이라이트 표시
+            if (reviewData != null)
+            {
+                if (_inlineReviewSection != null) _inlineReviewSection.style.display = DisplayStyle.Flex;
+                if (_inlineReviewDesc != null) _inlineReviewDesc.text = reviewData.Explanation;
+                RenderReviewHighlights(reviewData);
+            }
+            else if (_inlineReviewSection != null)
+            {
+                _inlineReviewSection.style.display = DisplayStyle.None;
             }
 
             if (_statDifficulty != null) _statDifficulty.text = difficulty.GetDisplayName();
             if (_statTurns != null) _statTurns.text = LocalizationManager.Get("Stat_Turns_Value", turnCount);
             if (_statCaptures != null) _statCaptures.text = LocalizationManager.Get("Stat_Captures_Value", captures);
             if (_statSummons != null) _statSummons.text = LocalizationManager.Get("Stat_Summons_Value", summons);
-
-            _gameOverModal.style.display = DisplayStyle.Flex;
         }
 
         public void HideGameOverModal()
         {
             _isModalShown = false;
-            if (_gameOverModal != null)
+            _gamePlayScreen?.RemoveFromClassList("state--game-over");
+            if (_gameOverInlineArea != null)
             {
-                _gameOverModal.style.display = DisplayStyle.None;
+                _gameOverInlineArea.style.display = DisplayStyle.None;
+            }
+            ClearReviewHighlights();
+        }
+
+        private void RenderReviewHighlights(BoardReviewData data)
+        {
+            ClearReviewHighlights();
+
+            // 1. 직접 공격 기물들 (Direct Attackers)
+            foreach (var atk in data.DirectAttackers)
+            {
+                if (atk.Position.IsValid())
+                {
+                    _intersectionElements[atk.Position.Col, atk.Position.Row]?.AddToClassList("intersection--review-attacker");
+                }
+            }
+
+            // 2. 경로 차단 기물들 (Path Controllers)
+            foreach (var ctrl in data.PathControllers)
+            {
+                if (ctrl.Position.IsValid())
+                {
+                    _intersectionElements[ctrl.Position.Col, ctrl.Position.Row]?.AddToClassList("intersection--review-controller");
+                }
+            }
+
+            // 3. 차단된 왕의 퇴로 위치들
+            foreach (var pos in data.BlockedEscapePositions)
+            {
+                if (pos.IsValid())
+                {
+                    _intersectionElements[pos.Col, pos.Row]?.AddToClassList("intersection--review-blocked-pos");
+                }
+            }
+
+            // 4. 외통수당한 왕 (Target King)
+            if (data.KingPiece != null && data.KingPiece.Position.IsValid())
+            {
+                _intersectionElements[data.KingPiece.Position.Col, data.KingPiece.Position.Row]?.AddToClassList("intersection--review-target-king");
+            }
+        }
+
+        private void ClearReviewHighlights()
+        {
+            for (int col = 0; col < BoardPosition.MaxCol; col++)
+            {
+                for (int row = 0; row < BoardPosition.MaxRow; row++)
+                {
+                    var elem = _intersectionElements[col, row];
+                    if (elem != null)
+                    {
+                        elem.RemoveFromClassList("intersection--review-attacker");
+                        elem.RemoveFromClassList("intersection--review-controller");
+                        elem.RemoveFromClassList("intersection--review-target-king");
+                        elem.RemoveFromClassList("intersection--review-blocked-pos");
+                    }
+                }
             }
         }
 
@@ -936,6 +1051,10 @@ namespace Janggi.UI
             element.RemoveFromClassList("intersection--check");
             element.RemoveFromClassList("intersection--last-from");
             element.RemoveFromClassList("intersection--last-to");
+            element.RemoveFromClassList("intersection--review-attacker");
+            element.RemoveFromClassList("intersection--review-controller");
+            element.RemoveFromClassList("intersection--review-target-king");
+            element.RemoveFromClassList("intersection--review-blocked-pos");
         }
 
         private void RenderPiece(VisualElement intersection, Piece piece)
@@ -1292,37 +1411,27 @@ namespace Janggi.UI
         {
             _currentTurn = currentTurn;
 
-            if (currentTurn == PlayerSide.Cho)
+            if (_root != null)
             {
-                // 플레이어(楚) 턴: 하단(2번째) 턴 텍스트 노출, 상단(1번째) 숨김 (높이는 상시 유지하여 보드 위치 고정)
-                if (_choTurnInfo != null)
+                if (currentTurn == PlayerSide.Han)
                 {
-                    _choTurnInfo.style.display = DisplayStyle.Flex;
-                    _choTurnInfo.style.visibility = Visibility.Visible;
+                    _root.RemoveFromClassList("turn-cho");
+                    _root.AddToClassList("turn-han");
                 }
-                if (_hanTurnInfo != null)
+                else
                 {
-                    _hanTurnInfo.style.display = DisplayStyle.Flex;
-                    _hanTurnInfo.style.visibility = Visibility.Hidden;
+                    _root.RemoveFromClassList("turn-han");
+                    _root.AddToClassList("turn-cho");
                 }
-
-                if (_choTurnLabel != null) _choTurnLabel.text = LocalizationManager.Get("Turn_Cho");
             }
-            else
-            {
-                // AI(漢) 턴: 상단(1번째) 턴 텍스트 노출, 하단(2번째) 숨김 (높이는 상시 유지하여 보드 위치 고정)
-                if (_hanTurnInfo != null)
-                {
-                    _hanTurnInfo.style.display = DisplayStyle.Flex;
-                    _hanTurnInfo.style.visibility = Visibility.Visible;
-                }
-                if (_choTurnInfo != null)
-                {
-                    _choTurnInfo.style.display = DisplayStyle.Flex;
-                    _choTurnInfo.style.visibility = Visibility.Hidden;
-                }
 
-                if (_hanTurnLabel != null) _hanTurnLabel.text = LocalizationManager.Get("Turn_Han");
+            if (_choTurnInfo != null)
+            {
+                _choTurnInfo.style.display = DisplayStyle.None;
+            }
+            if (_hanTurnInfo != null)
+            {
+                _hanTurnInfo.style.display = DisplayStyle.None;
             }
         }
 
@@ -1469,23 +1578,13 @@ namespace Janggi.UI
 
             if (used)
             {
-                string text = LocalizationManager.Get("Btn_Ad_Chance_Used");
-                if (string.IsNullOrEmpty(text) || text == "Btn_Ad_Chance_Used")
-                {
-                    text = LocalizationManager.CurrentLanguage == Language.Korean ? "📺 찬스 완료" : "📺 Chance Used";
-                }
-                _btnAdChance.text = text;
+                _btnAdChance.text = LocalizationManager.Get("Btn_Ad_Chance_Used");
                 _btnAdChance.AddToClassList("ad-chance-btn--disabled");
                 _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
             }
             else
             {
-                string text = LocalizationManager.Get("Btn_Ad_Chance");
-                if (string.IsNullOrEmpty(text) || text == "Btn_Ad_Chance")
-                {
-                    text = LocalizationManager.CurrentLanguage == Language.Korean ? "📺 광고 찬스" : "📺 Ad Chance";
-                }
-                _btnAdChance.text = text;
+                _btnAdChance.text = LocalizationManager.Get("Btn_Ad_Chance");
                 _btnAdChance.RemoveFromClassList("ad-chance-btn--disabled");
                 _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
             }
@@ -1515,7 +1614,7 @@ namespace Janggi.UI
                 if (_calloutHanja != null) _calloutHanja.text = "將 軍";
                 if (_calloutSubtitle != null)
                 {
-                    _calloutSubtitle.text = LocalizationManager.CurrentLanguage == Language.Korean ? "장군!" : "Check!";
+                    _calloutSubtitle.text = LocalizationManager.Get("Callout_Check");
                 }
             }
             else
@@ -1524,7 +1623,7 @@ namespace Janggi.UI
                 if (_calloutHanja != null) _calloutHanja.text = "應 將";
                 if (_calloutSubtitle != null)
                 {
-                    _calloutSubtitle.text = LocalizationManager.CurrentLanguage == Language.Korean ? "멍군!" : "Escape!";
+                    _calloutSubtitle.text = LocalizationManager.Get("Callout_Escape");
                 }
             }
 

@@ -19,366 +19,444 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 493253287936
-    m_Localized: 장기 덱빌딩 디펜스
+    m_Localized: "\uC7A5\uAE30 \uB371\uBE4C\uB529 \uB514\uD39C\uC2A4"
     m_Metadata:
       m_Items: []
   - m_Id: 493316202496
-    m_Localized: 혼자하는 장기 미니게임
+    m_Localized: "\uD63C\uC790\uD558\uB294 \uC7A5\uAE30 \uBBF8\uB2C8\uAC8C\uC784"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396800
-    m_Localized: AI 난이도 선택
+    m_Localized: "AI \uB09C\uC774\uB3C4 \uC120\uD0DD"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396801
-    m_Localized: "🟢 하 (입문)"
+    m_Localized: "\U0001F7E2 \uD558 (\uC785\uBB38)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396802
-    m_Localized: "무작위 소환\n초보자 추천"
+    m_Localized: "\uBB34\uC791\uC704 \uC18C\uD658\n\uCD08\uBCF4\uC790 \uCD94\uCC9C"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396803
-    m_Localized: "🔵 중 (보통)"
+    m_Localized: "\U0001F535 \uC911 (\uBCF4\uD1B5)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396804
-    m_Localized: "자원 비축\n표준 밸런스"
+    m_Localized: "\uC790\uC6D0 \uBE44\uCD95\n\uD45C\uC900 \uBC38\uB7F0\uC2A4"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396805
-    m_Localized: "🟣 상 (숙련)"
+    m_Localized: "\U0001F7E3 \uC0C1 (\uC219\uB828)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396806
-    m_Localized: "연계\n스폰 블로킹"
+    m_Localized: "\uC5F0\uACC4\n\uC2A4\uD3F0 \uBE14\uB85C\uD0B9"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396807
-    m_Localized: "⚫ 극악 (신)"
+    m_Localized: "\u26AB \uADF9\uC545 (\uC2E0)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396808
-    m_Localized: "외통수\n완벽한 수비"
+    m_Localized: "\uC678\uD1B5\uC218\n\uC644\uBCBD\uD55C \uC218\uBE44"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396809
-    m_Localized: "⚔️ 게임 시작"
+    m_Localized: "\u2694\uFE0F \uAC8C\uC784 \uC2DC\uC791"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396810
-    m_Localized: "📜 게임 방법 / 규칙"
+    m_Localized: "\U0001F4DC \uAC8C\uC784 \uBC29\uBC95 / \uADDC\uCE59"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396811
-    m_Localized: 확인
+    m_Localized: "\uD655\uC778"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396812
-    m_Localized: "📜 게임 규칙 안내"
+    m_Localized: "\U0001F4DC \uAC8C\uC784 \uADDC\uCE59 \uC548\uB0B4"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396813
-    m_Localized: "1. 턴 순서 및 자원 (Cost)"
+    m_Localized: "1. \uD134 \uC21C\uC11C \uBC0F \uC790\uC6D0 (Cost)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396814
-    m_Localized: "• 매 턴 시작 시 코스트 +2 회복 (최대 10 코스트)\n• [선택] 손패에서 코스트를 지불하여 기물 1개 소환\n• [필수] 보드 위 아군 기물 1개 이동 (이동 완료 시 턴 종료)"
+    m_Localized: "\u2022 \uB9E4 \uD134 \uC2DC\uC791 \uC2DC \uCF54\uC2A4\uD2B8 +2
+      \uD68C\uBCF5 (\uCD5C\uB300 10 \uCF54\uC2A4\uD2B8)\n\u2022 [\uC120\uD0DD] \uC190\uD328\uC5D0\uC11C
+      \uCF54\uC2A4\uD2B8\uB97C \uC9C0\uBD88\uD558\uC5EC \uAE30\uBB3C 1\uAC1C \uC18C\uD658\n\u2022
+      [\uD544\uC218] \uBCF4\uB4DC \uC704 \uC544\uAD70 \uAE30\uBB3C 1\uAC1C \uC774\uB3D9
+      (\uC774\uB3D9 \uC644\uB8CC \uC2DC \uD134 \uC885\uB8CC)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396815
-    m_Localized: "2. 소환 구역 (Spawn Zones)"
+    m_Localized: "2. \uC18C\uD658 \uAD6C\uC5ED (Spawn Zones)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591104
-    m_Localized: "• 졸/병: 아군 4선 전방 라인 빈칸\n• 포: 아군 2곳의 포진지 빈칸\n• 차/마/상: 아군 1선 최후방 라인 빈칸\n• 소환 즉시 장군이 되는 칸에는 소환 불가"
+    m_Localized: "\u2022 \uC878/\uBCD1: \uC544\uAD70 4\uC120 \uC804\uBC29 \uB77C\uC778
+      \uBE48\uCE78\n\u2022 \uD3EC: \uC544\uAD70 2\uACF3\uC758 \uD3EC\uC9C4\uC9C0
+      \uBE48\uCE78\n\u2022 \uCC28/\uB9C8/\uC0C1: \uC544\uAD70 1\uC120 \uCD5C\uD6C4\uBC29
+      \uB77C\uC778 \uBE48\uCE78\n\u2022 \uC18C\uD658 \uC989\uC2DC \uC7A5\uAD70\uC774
+      \uB418\uB294 \uCE78\uC5D0\uB294 \uC18C\uD658 \uBD88\uAC00"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591105
-    m_Localized: "3. 필드 전력 상한 (20 코스트)"
+    m_Localized: "3. \uD544\uB4DC \uC804\uB825 \uC0C1\uD55C (20 \uCF54\uC2A4\uD2B8)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591106
-    m_Localized: "• 판 위에 존재하는 아군 기물 총 코스트는 최대 20까지만 유지 가능\n• 차(6), 포(4), 마(2), 상(2), 졸(1)\n• 기물이 전사해야 새 기물을 추가 소환 가능"
+    m_Localized: "\u2022 \uD310 \uC704\uC5D0 \uC874\uC7AC\uD558\uB294 \uC544\uAD70
+      \uAE30\uBB3C \uCD1D \uCF54\uC2A4\uD2B8\uB294 \uCD5C\uB300 20\uAE4C\uC9C0\uB9CC
+      \uC720\uC9C0 \uAC00\uB2A5\n\u2022 \uCC28(6), \uD3EC(4), \uB9C8(2), \uC0C1(2),
+      \uC878(1)\n\u2022 \uAE30\uBB3C\uC774 \uC804\uC0AC\uD574\uC57C \uC0C8 \uAE30\uBB3C\uC744
+      \uCD94\uAC00 \uC18C\uD658 \uAC00\uB2A5"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591107
-    m_Localized: "4. 패 버리기 (-1 코스트)"
+    m_Localized: "4. \uD328 \uBC84\uB9AC\uAE30 (-1 \uCF54\uC2A4\uD2B8)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591108
-    m_Localized: "• 1 코스트를 소모하여 원하지 않는 손패를 버리고 즉시 새 카드로 리필 가능"
+    m_Localized: "\u2022 1 \uCF54\uC2A4\uD2B8\uB97C \uC18C\uBAA8\uD558\uC5EC \uC6D0\uD558\uC9C0
+      \uC54A\uB294 \uC190\uD328\uB97C \uBC84\uB9AC\uACE0 \uC989\uC2DC \uC0C8 \uCE74\uB4DC\uB85C
+      \uB9AC\uD544 \uAC00\uB2A5"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591109
-    m_Localized: "5. 한 수 쉼 (한 턴 쉬기)"
+    m_Localized: "5. \uD55C \uC218 \uC27C (\uD55C \uD134 \uC26C\uAE30)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591110
-    m_Localized: "• 기물을 이동하지 않고 [한 수 쉼] 버튼을 눌러 턴을 상대에게 넘길 수 있습니다.\n• 단, 장군(Check) 상태에서는 쉴 수 없습니다."
+    m_Localized: "\u2022 \uAE30\uBB3C\uC744 \uC774\uB3D9\uD558\uC9C0 \uC54A\uACE0
+      [\uD55C \uC218 \uC27C] \uBC84\uD2BC\uC744 \uB20C\uB7EC \uD134\uC744 \uC0C1\uB300\uC5D0\uAC8C
+      \uB118\uAE38 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\u2022 \uB2E8, \uC7A5\uAD70(Check)
+      \uC0C1\uD0DC\uC5D0\uC11C\uB294 \uC274 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591111
-    m_Localized: "난이도: "
+    m_Localized: "\uB09C\uC774\uB3C4: "
     m_Metadata:
       m_Items: []
   - m_Id: 493324591112
-    m_Localized: 재시작
+    m_Localized: "\uC7AC\uC2DC\uC791"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591113
-    m_Localized: 메뉴
+    m_Localized: "\uBA54\uB274"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591114
-    m_Localized: "楚 (플레이어)"
+    m_Localized: "\u695A (\uD50C\uB808\uC774\uC5B4)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591115
-    m_Localized: "漢 (적 AI)"
+    m_Localized: "\u6F22 (\uC801 AI)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591116
-    m_Localized: "코스트: {0} / {1}"
+    m_Localized: "\uCF54\uC2A4\uD2B8: {0} / {1}"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591117
-    m_Localized: "전력: {0} / {1}"
+    m_Localized: "\uC804\uB825: {0} / {1}"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591118
-    m_Localized: "패 버리기 (-1)"
+    m_Localized: "\uD328 \uBC84\uB9AC\uAE30 (-1)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591119
-    m_Localized: 버릴 카드 선택
+    m_Localized: "\uBC84\uB9B4 \uCE74\uB4DC \uC120\uD0DD"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591120
-    m_Localized: 한 수 쉼
+    m_Localized: "\uD55C \uC218 \uC27C"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591121
-    m_Localized: "초(楚)의 차례"
+    m_Localized: "\uCD08(\u695A)\uC758 \uCC28\uB840"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591122
-    m_Localized: "한(漢)의 차례"
+    m_Localized: "\uD55C(\u6F22)\uC758 \uCC28\uB840"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591123
-    m_Localized: 졸
+    m_Localized: "\uC878"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591124
-    m_Localized: 병
+    m_Localized: "\uBCD1"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591125
-    m_Localized: 마
+    m_Localized: "\uB9C8"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591126
-    m_Localized: 상
+    m_Localized: "\uC0C1"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591127
-    m_Localized: 포
+    m_Localized: "\uD3EC"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591128
-    m_Localized: 차
+    m_Localized: "\uCC28"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591129
-    m_Localized: 궁
+    m_Localized: "\uAD81"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591130
-    m_Localized: 사
+    m_Localized: "\uC0AC"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591131
-    m_Localized: "승리!"
+    m_Localized: "\uC2B9\uB9AC!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591132
-    m_Localized: "외통수로 제압했습니다!"
+    m_Localized: "\uC678\uD1B5\uC218\uB85C \uC81C\uC555\uD588\uC2B5\uB2C8\uB2E4!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591133
-    m_Localized: "패배!"
+    m_Localized: "\uD328\uBC30!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591134
-    m_Localized: "외통수로 제압당했습니다..."
+    m_Localized: "\uC678\uD1B5\uC218\uB85C \uC81C\uC555\uB2F9\uD588\uC2B5\uB2C8\uB2E4..."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591135
-    m_Localized: "무승부!"
+    m_Localized: "\uBB34\uC2B9\uBD80!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591136
-    m_Localized: "양측의 공방 끝에 교착 상태가 되었습니다."
+    m_Localized: "\uC591\uCE21\uC758 \uACF5\uBC29 \uB05D\uC5D0 \uAD50\uCC29 \uC0C1\uD0DC\uAC00
+      \uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591137
-    m_Localized: 난이도
+    m_Localized: "\uB09C\uC774\uB3C4"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591138
-    m_Localized: 소요 턴수
+    m_Localized: "\uC18C\uC694 \uD134\uC218"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591139
-    m_Localized: "{0} 턴"
+    m_Localized: "{0} \uD134"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591140
-    m_Localized: 처치한 적 기물
+    m_Localized: "\uCC98\uCE58\uD55C \uC801 \uAE30\uBB3C"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591141
-    m_Localized: "{0} 개"
+    m_Localized: "{0} \uAC1C"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591142
-    m_Localized: 소환한 아군 기물
+    m_Localized: "\uC18C\uD658\uD55C \uC544\uAD70 \uAE30\uBB3C"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591143
-    m_Localized: "{0} 개"
+    m_Localized: "{0} \uAC1C"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591144
-    m_Localized: "💬 토스 친구에게 자랑하기"
+    m_Localized: "\U0001F4AC \uD1A0\uC2A4 \uCE5C\uAD6C\uC5D0\uAC8C \uC790\uB791\uD558\uAE30"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591145
-    m_Localized: "📺 광고 보고 코스트 +5 충전"
+    m_Localized: "\U0001F4FA \uAD11\uACE0 \uBCF4\uACE0 \uCF54\uC2A4\uD2B8 +5 \uCDA9\uC804"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591146
-    m_Localized: 새 게임 시작하기
+    m_Localized: "\uC0C8 \uAC8C\uC784 \uC2DC\uC791\uD558\uAE30"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591147
-    m_Localized: 메인 메뉴로
+    m_Localized: "\uBA54\uC778 \uBA54\uB274\uB85C"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591148
-    m_Localized: "게임 시작! 초(楚)의 차례입니다."
+    m_Localized: "\uAC8C\uC784 \uC2DC\uC791! \uCD08(\u695A)\uC758 \uCC28\uB840\uC785\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591149
-    m_Localized: 해당 위치에는 소환할 수 없습니다.
+    m_Localized: "\uD574\uB2F9 \uC704\uCE58\uC5D0\uB294 \uC18C\uD658\uD560 \uC218
+      \uC5C6\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591150
-    m_Localized: "필드 전력 한도({0})를 초과하여 소환할 수 없습니다!"
+    m_Localized: "\uD544\uB4DC \uC804\uB825 \uD55C\uB3C4({0})\uB97C \uCD08\uACFC\uD558\uC5EC
+      \uC18C\uD658\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591151
-    m_Localized: 코스트가 부족하거나 이미 소환을 완료했습니다.
+    m_Localized: "\uCF54\uC2A4\uD2B8\uAC00 \uBD80\uC871\uD558\uAC70\uB098 \uC774\uBBF8
+      \uC18C\uD658\uC744 \uC644\uB8CC\uD588\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591152
-    m_Localized: "[{0}] 소환 완료! 이동할 기물을 선택하세요."
+    m_Localized: "[{0}] \uC18C\uD658 \uC644\uB8CC! \uC774\uB3D9\uD560 \uAE30\uBB3C\uC744
+      \uC120\uD0DD\uD558\uC138\uC694."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591153
-    m_Localized: 패를 버릴 코스트(1)가 부족합니다.
+    m_Localized: "\uD328\uB97C \uBC84\uB9B4 \uCF54\uC2A4\uD2B8(1)\uAC00 \uBD80\uC871\uD569\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591154
-    m_Localized: "[{0}] 카드를 버리고 새 카드를 뽑았습니다."
+    m_Localized: "[{0}] \uCE74\uB4DC\uB97C \uBC84\uB9AC\uACE0 \uC0C8 \uCE74\uB4DC\uB97C
+      \uBF51\uC558\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591155
-    m_Localized: "장군 상태에서는 한 수 쉴 수 없습니다! 왕을 지키세요."
+    m_Localized: "\uC7A5\uAD70 \uC0C1\uD0DC\uC5D0\uC11C\uB294 \uD55C \uC218 \uC274
+      \uC218 \uC5C6\uC2B5\uB2C8\uB2E4! \uC655\uC744 \uC9C0\uD0A4\uC138\uC694."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591156
-    m_Localized: "초(楚) 플레이어가 한 수 쉬었습니다."
+    m_Localized: "\uCD08(\u695A) \uD50C\uB808\uC774\uC5B4\uAC00 \uD55C \uC218 \uC26C\uC5C8\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591157
-    m_Localized: "외통수! {0} 승리!"
+    m_Localized: "\uC678\uD1B5\uC218! {0} \uC2B9\uB9AC!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591158
-    m_Localized: "교착 상태! 무승부!"
+    m_Localized: "\uAD50\uCC29 \uC0C1\uD0DC! \uBB34\uC2B9\uBD80!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591159
-    m_Localized: "장군! {0}이(가) 위험합니다!"
+    m_Localized: "\uC7A5\uAD70! {0}\uC774(\uAC00) \uC704\uD5D8\uD569\uB2C8\uB2E4!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591160
-    m_Localized: "적 AI가 수를 고민 중입니다..."
+    m_Localized: "\uC801 AI\uAC00 \uC218\uB97C \uACE0\uBBFC \uC911\uC785\uB2C8\uB2E4..."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591161
-    m_Localized: "적 AI가 [{0}] 소환! (AI 남은 코스트: {1})"
+    m_Localized: "\uC801 AI\uAC00 [{0}] \uC18C\uD658! (AI \uB0A8\uC740 \uCF54\uC2A4\uD2B8:
+      {1})"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591162
-    m_Localized: "적 AI가 [{0}]을(를) 이동합니다."
+    m_Localized: "\uC801 AI\uAC00 [{0}]\uC744(\uB97C) \uC774\uB3D9\uD569\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591163
-    m_Localized: "난이도가 [{0}]로 변경되었습니다."
-    m_Metadata:
-      m_Items: []
-  - m_Id: 493324591164
-    m_Localized: 토스 공유 시트를 열었습니다.
+    m_Localized: "\uB09C\uC774\uB3C4\uAC00 [{0}]\uB85C \uBCC0\uACBD\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591165
-    m_Localized: 광고를 불러오는 중입니다...
+    m_Localized: "\uAD11\uACE0\uB97C \uBD88\uB7EC\uC624\uB294 \uC911\uC785\uB2C8\uB2E4..."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591166
-    m_Localized: "📺 광고 보상 지급 완료! 아군 코스트 +5가 충전되었습니다."
+    m_Localized: "\U0001F4FA \uAD11\uACE0 \uBCF4\uC0C1 \uC9C0\uAE09 \uC644\uB8CC!
+      \uC544\uAD70 \uCF54\uC2A4\uD2B8 +5\uAC00 \uCDA9\uC804\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591167
-    m_Localized: 광고 시청이 취소되었습니다.
+    m_Localized: "\uAD11\uACE0 \uC2DC\uCCAD\uC774 \uCDE8\uC18C\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591168
-    m_Localized: 이번 턴 소환을 이미 완료했습니다.
+    m_Localized: "\uC774\uBC88 \uD134 \uC18C\uD658\uC744 \uC774\uBBF8 \uC644\uB8CC\uD588\uC2B5\uB2C8\uB2E4."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591169
-    m_Localized: 코스트가 부족합니다!
+    m_Localized: "\uCF54\uC2A4\uD2B8\uAC00 \uBD80\uC871\uD569\uB2C8\uB2E4!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591170
-    m_Localized: "[{0}] 소환할 빈 칸을 선택하세요."
+    m_Localized: "[{0}] \uC18C\uD658\uD560 \uBE48 \uCE78\uC744 \uC120\uD0DD\uD558\uC138\uC694."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591171
-    m_Localized: "초(楚) 플레이어"
+    m_Localized: "\uCD08(\u695A) \uD50C\uB808\uC774\uC5B4"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591172
-    m_Localized: "한(漢) 적 AI"
+    m_Localized: "\uD55C(\u6F22) \uC801 AI"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591173
-    m_Localized: "초(楚)"
+    m_Localized: "\uCD08(\u695A)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591174
-    m_Localized: "한(漢)"
+    m_Localized: "\uD55C(\u6F22)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591175
-    m_Localized: "將棋: AI 장기 덱빌딩 디펜스"
+    m_Localized: "\U0001F4FA \uC9C0\uC6D0 \uC694\uCCAD \uC131\uACF5! \uC81C\uAC70\uD560
+      \uC801 \uAE30\uBB3C\uC744 \uC120\uD0DD\uD558\uC138\uC694. (\uC655/\uC0AC \uC81C\uC678)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591176
-    m_Localized: "AI 난이도 [{0}]에서 {1}턴 만에 승리했습니다! 지금 도전해보세요."
+    m_Localized: "\U0001F4A5 \uC9C0\uC6D0 \uD3ED\uACA9! \uC801\uC758 [{0}]\uC744(\uB97C)
+      \uD30C\uAD34\uD588\uC2B5\uB2C8\uB2E4!"
     m_Metadata:
       m_Items: []
+  - m_Id: 493324591177
+    m_Localized: "\uC81C\uAC70\uD560 \uC218 \uC788\uB294 \uC801 \uAE30\uBB3C\uC774
+      \uC5C6\uC2B5\uB2C8\uB2E4. (\uC655/\uC0AC \uC81C\uC678)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591178
+    m_Localized: "\uAD11\uACE0 \uCC2C\uC2A4\uB294 \uAC8C\uC784\uB2F9 1\uD68C\uB9CC
+      \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591179
+    m_Localized: "\uD50C\uB808\uC774\uC5B4 \uD134\uC5D0\uB9CC \uAD11\uACE0 \uCC2C\uC2A4\uB294
+      \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591180
+    m_Localized: "\uD585\uD2F1: \uCF1C\uC9D0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591181
+    m_Localized: "\uD585\uD2F1: \uAEBC\uC9D0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591182
+    m_Localized: "\uC7A5\uAD70!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591183
+    m_Localized: "\uBA4D\uAD70!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591184
+    m_Localized: "\U0001F310 \uC5B8\uC5B4: \uD55C\uAD6D\uC5B4 (KO)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591185
+    m_Localized: "\U0001F310 \uD55C\uAD6D\uC5B4"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591186
+    m_Localized: "\uAD50\uCC29 \uC0C1\uD0DC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591187
+    m_Localized: "\uC678\uD1B5\uC218 \uC81C\uC555"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591188
+    m_Localized: "\uC678\uD1B5\uC218 \uD328\uBC30"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

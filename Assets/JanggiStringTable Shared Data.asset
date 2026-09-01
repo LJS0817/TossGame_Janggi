@@ -247,20 +247,20 @@ MonoBehaviour:
     m_Key: Stat_Summons_Value
     m_Metadata:
       m_Items: []
-  - m_Id: 493324591144
-    m_Key: Btn_Modal_Share
-    m_Metadata:
-      m_Items: []
-  - m_Id: 493324591145
-    m_Key: Btn_Modal_Ad
-    m_Metadata:
-      m_Items: []
   - m_Id: 493324591146
     m_Key: Btn_Modal_Restart
     m_Metadata:
       m_Items: []
   - m_Id: 493324591147
     m_Key: Btn_Modal_Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591144
+    m_Key: Btn_Ad_Chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591145
+    m_Key: Btn_Ad_Chance_Used
     m_Metadata:
       m_Items: []
   - m_Id: 493324591148
@@ -327,10 +327,6 @@ MonoBehaviour:
     m_Key: Msg_Diff_Changed
     m_Metadata:
       m_Items: []
-  - m_Id: 493324591164
-    m_Key: Msg_Share_Opened
-    m_Metadata:
-      m_Items: []
   - m_Id: 493324591165
     m_Key: Msg_Ad_Loading
     m_Metadata:
@@ -372,11 +368,59 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591175
-    m_Key: Share_Title
+    m_Key: Msg_Ad_Chance_Select_Target
     m_Metadata:
       m_Items: []
   - m_Id: 493324591176
-    m_Key: Share_Desc
+    m_Key: Msg_Ad_Chance_Eliminated
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591177
+    m_Key: Msg_Ad_Chance_No_Target
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591178
+    m_Key: Msg_Ad_Chance_Already_Used
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591179
+    m_Key: Msg_Ad_Chance_Not_Player_Turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591180
+    m_Key: Btn_Haptic_On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591181
+    m_Key: Btn_Haptic_Off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591182
+    m_Key: Callout_Check
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591183
+    m_Key: Callout_Escape
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591184
+    m_Key: Menu_Language_Toggle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591185
+    m_Key: Header_Language_Toggle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591186
+    m_Key: Badge_Stalemate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591187
+    m_Key: Badge_Checkmate_Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591188
+    m_Key: Badge_Checkmate_Lose
     m_Metadata:
       m_Items: []
   m_Metadata:

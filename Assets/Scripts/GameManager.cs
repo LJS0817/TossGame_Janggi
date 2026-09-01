@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Janggi.Core;
@@ -63,45 +64,6 @@ namespace Janggi
             {
                 StopCoroutine(_aiCoroutine);
                 _aiCoroutine = null;
-            }
-        }
-
-        private void Update()
-        {
-            if (!_isInGame) return;
-
-            bool spacePressed = false;
-            bool aPressed = false;
-
-#if ENABLE_INPUT_SYSTEM
-            if (UnityEngine.InputSystem.Keyboard.current != null)
-            {
-                spacePressed = UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame;
-                aPressed = UnityEngine.InputSystem.Keyboard.current.aKey.wasPressedThisFrame;
-            }
-#endif
-
-            try
-            {
-                if (Input.GetKeyDown(KeyCode.Space)) spacePressed = true;
-                if (Input.GetKeyDown(KeyCode.A)) aPressed = true;
-            }
-            catch
-            {
-                // New Input System 전용 모드일 때 Legacy Input 예외 방지
-            }
-
-            if (spacePressed)
-            {
-                Debug.Log("[Test] 스페이스바 입력: 장군(將軍) 테스트 연출 실행");
-                MobileHapticManager.Instance.Trigger(HapticType.Warning);
-                _uiController?.ShowCallout(CalloutType.Check);
-            }
-            else if (aPressed)
-            {
-                Debug.Log("[Test] A 키 입력: 멍군(應將) 테스트 연출 실행");
-                MobileHapticManager.Instance.Trigger(HapticType.Light);
-                _uiController?.ShowCallout(CalloutType.Escape);
             }
         }
 
@@ -388,8 +350,13 @@ namespace Janggi
             if (captured != null)
             {
                 if (_currentTurn == PlayerSide.Cho) _playerCaptures++;
+
+                // 상대 기물 처치 시 코스트 +1 획득 (최대 10 코스트)
+                var currentPlayerState = GetCurrentPlayerState();
+                currentPlayerState?.AddCost(PlayerState.CaptureCostGain);
+
                 MobileHapticManager.Instance.Trigger(HapticType.Medium);
-                Debug.Log($"[Janggi] {captured} 잡힘! (플레이어 총 처치: {_playerCaptures})");
+                Debug.Log($"[Janggi] {captured} 잡힘! ({_currentTurn} 코스트 +{PlayerState.CaptureCostGain} 획득 -> {currentPlayerState?.CurrentCost}, 총 처치: {_playerCaptures})");
             }
             else
             {
@@ -428,8 +395,9 @@ namespace Janggi
                     MobileHapticManager.Instance.Trigger(HapticType.Error);
                 }
 
+                var reviewData = GameRuleValidator.AnalyzeGameOver(_board, loserSide: nextTurn, isDraw: false, isPlayerWin: isPlayerWin);
                 _uiController.ShowStatus(LocalizationManager.Get("Msg_Checkmate_Winner", winner));
-                _uiController.ShowGameOverModal(isWin: isPlayerWin, isDraw: false, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons);
+                _uiController.ShowGameOverModal(isWin: isPlayerWin, isDraw: false, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons, reviewData);
                 Debug.Log($"[Janggi] 외통수! {winner} 승리!");
                 return;
             }
@@ -439,8 +407,9 @@ namespace Janggi
             {
                 _gameOver = true;
                 MobileHapticManager.Instance.Trigger(HapticType.Medium);
+                var reviewData = GameRuleValidator.AnalyzeGameOver(_board, loserSide: nextTurn, isDraw: true, isPlayerWin: false);
                 _uiController.ShowStatus(LocalizationManager.Get("Msg_Stalemate"));
-                _uiController.ShowGameOverModal(isWin: false, isDraw: true, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons);
+                _uiController.ShowGameOverModal(isWin: false, isDraw: true, _aiDifficulty, _turnCount, _playerCaptures, _playerSummons, reviewData);
                 Debug.Log("[Janggi] 교착 상태(Stalemate) — 무승부!");
                 return;
             }
@@ -450,14 +419,14 @@ namespace Janggi
 
             if (isOpponentInCheck)
             {
-                // 상대 왕을 장군(Check)으로 위협!
-                MobileHapticManager.Instance.Trigger(HapticType.Warning);
+                // 상대 왕을 장군(Check)으로 위협! (중간 강도 햅틱)
+                MobileHapticManager.Instance.Trigger(HapticType.Medium);
                 _uiController?.ShowCallout(CalloutType.Check);
             }
             else if (_wasCurrentSideInCheckBeforeTurn)
             {
-                // 장군 상태에서 성공적으로 벗어남 (멍군!)
-                MobileHapticManager.Instance.Trigger(HapticType.Light);
+                // 장군 상태에서 성공적으로 벗어남 (멍군! 중간 강도 햅틱)
+                MobileHapticManager.Instance.Trigger(HapticType.Medium);
                 _uiController?.ShowCallout(CalloutType.Escape);
             }
 
@@ -574,6 +543,7 @@ namespace Janggi
         public PlayerSide GetCurrentTurn() => _currentTurn;
         public PlayerState GetChoState() => _choState;
         public PlayerState GetHanState() => _hanState;
+        public PlayerState GetPlayerState(PlayerSide side) => side == PlayerSide.Cho ? _choState : _hanState;
         public AIDifficulty GetDifficulty() => _aiDifficulty;
         public bool IsGameOver() => _gameOver;
 
@@ -648,6 +618,9 @@ namespace Janggi
             var removedType = targetPiece.Type;
             _board.RemovePiece(targetPiece);
             _playerCaptures++;
+
+            // 광고 찬스로 적 기물 제거 시에도 코스트 +1 획득
+            _choState.AddCost(PlayerState.CaptureCostGain);
 
             MobileHapticManager.Instance.Trigger(HapticType.Heavy);
             _uiController?.RefreshAll();

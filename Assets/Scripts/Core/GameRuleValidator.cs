@@ -146,5 +146,124 @@ namespace Janggi.Core
 
             return true;
         }
+
+        /// <summary>
+        /// 게임 종료 시점의 보드를 분석하여 외통수/종료 원인 및 복기 데이터를 생성합니다.
+        /// </summary>
+        public static BoardReviewData AnalyzeGameOver(Board board, PlayerSide loserSide, bool isDraw, bool isPlayerWin)
+        {
+            var data = new BoardReviewData
+            {
+                IsCheckmate = !isDraw,
+                IsDraw = isDraw,
+                IsPlayerWin = isPlayerWin
+            };
+
+            if (isDraw)
+            {
+                data.Title = isPlayerWin ? "⚖️ 무승부 판정" : "⚖️ 게임 종료 (무승부)";
+                data.Explanation = "• 양측 모두 공격 기물이 소진되었거나 교착 상태(Stalemate)가 발생하여 무승부로 종료되었습니다.";
+                return data;
+            }
+
+            var king = board.FindKing(loserSide);
+            data.KingPiece = king;
+            var winnerSide = loserSide.Opposite();
+            var winnerPieces = board.GetPiecesBySide(winnerSide);
+
+            if (king != null)
+            {
+                // 1. 직접 공격 기물 (장군 친 기물)
+                foreach (var piece in winnerPieces)
+                {
+                    var moves = MoveRuleFactory.GetValidMoves(board, piece);
+                    if (moves.Contains(king.Position))
+                    {
+                        data.DirectAttackers.Add(piece);
+                    }
+                }
+
+                // 2. 왕의 후보 이동 칸들 중 적의 공격선에 막힌 칸들 분석
+                var rawKingMoves = MoveRuleFactory.GetValidMoves(board, king);
+                foreach (var movePos in rawKingMoves)
+                {
+                    var simBoard = board.Clone();
+                    var simKing = simBoard.GetPieceAt(king.Position);
+                    if (simKing != null)
+                    {
+                        simBoard.MovePiece(simKing, movePos);
+                        foreach (var enemy in winnerPieces)
+                        {
+                            var enemyMoves = MoveRuleFactory.GetValidMoves(simBoard, enemy);
+                            if (enemyMoves.Contains(movePos))
+                            {
+                                if (!data.BlockedEscapePositions.Contains(movePos))
+                                    data.BlockedEscapePositions.Add(movePos);
+
+                                if (!data.PathControllers.Contains(enemy) && !data.DirectAttackers.Contains(enemy))
+                                    data.PathControllers.Add(enemy);
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 3. 설명 문구 작성
+            data.Title = isPlayerWin ? "⚔️ 외통수 승리 (외통수 제압)" : "💀 외통수 패배 (외통수 당함)";
+            
+            var sb = new System.Text.StringBuilder();
+            
+            // 직접 공격자
+            if (data.DirectAttackers.Count > 0)
+            {
+                var atkList = new List<string>();
+                foreach (var atk in data.DirectAttackers)
+                {
+                    atkList.Add($"[{atk.GetFullDisplayName()}]");
+                }
+                string atkNames = string.Join(", ", atkList);
+                string kingName = king != null ? $"[{king.GetFullDisplayName()}]" : "궁";
+                sb.Append($"• 직접 장군: {atkNames}이(가) {kingName}을(를) 직접 조준 공격 중입니다.\n");
+            }
+
+            // 경로 차단자
+            if (data.PathControllers.Count > 0)
+            {
+                var ctrlList = new List<string>();
+                foreach (var ctrl in data.PathControllers)
+                {
+                    ctrlList.Add($"[{ctrl.GetFullDisplayName()}]");
+                }
+                string ctrlNames = string.Join(", ", ctrlList);
+                sb.Append($"• 퇴로 차단: {ctrlNames}이(가) 궁의 탈출로를 통제하여 도망칠 수 없습니다.\n");
+            }
+            else if (data.BlockedEscapePositions.Count > 0)
+            {
+                sb.Append("• 퇴로 차단: 궁성 내 모든 인접 칸이 상대 기물의 공격 범위에 막혀 있습니다.\n");
+            }
+
+            sb.Append("• 수비 불가: 공격 기물을 잡거나 사이를 가로막을 수 있는 합법 수가 없습니다.");
+
+            data.Explanation = sb.ToString();
+            return data;
+        }
+    }
+
+    /// <summary>
+    /// 게임 종료 복기 분석 데이터
+    /// </summary>
+    public class BoardReviewData
+    {
+        public bool IsCheckmate { get; set; }
+        public bool IsDraw { get; set; }
+        public bool IsPlayerWin { get; set; }
+        public Piece KingPiece { get; set; }
+        public List<Piece> DirectAttackers { get; set; } = new List<Piece>();
+        public List<Piece> PathControllers { get; set; } = new List<Piece>();
+        public List<BoardPosition> BlockedEscapePositions { get; set; } = new List<BoardPosition>();
+        public string Title { get; set; }
+        public string Explanation { get; set; }
     }
 }

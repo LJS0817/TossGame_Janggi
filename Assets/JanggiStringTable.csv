@@ -24,8 +24,10 @@ Btn_Close_Rules,493320396811,,확인,,Close,
 Rule_Modal_Title,493320396812,,📜 게임 규칙 안내,,📜 Game Rules Guide,
 Rule_1_Title,493320396813,,1. 턴 순서 및 자원 (Cost),,1. Turn Sequence & Cost,
 Rule_1_Desc,493320396814,,"• 매 턴 시작 시 코스트 +2 회복 (최대 10 코스트)
+• 상대 기물 처치 시 코스트 +1 획득
 • [선택] 손패에서 코스트를 지불하여 기물 1개 소환
 • [필수] 보드 위 아군 기물 1개 이동 (이동 완료 시 턴 종료)",,"• Gain +2 Cost at start of turn (Max 10 Cost)
+• Gain +1 Cost when capturing an enemy piece
 • [Optional] Spend cost to summon 1 piece from hand
 • [Mandatory] Move 1 allied piece on board (Ends turn)",
 Rule_2_Title,493320396815,,2. 소환 구역 (Spawn Zones),,2. Spawn Zones,
@@ -116,3 +118,12 @@ Msg_Ad_Chance_Eliminated,493324591176,,💥 지원 폭격! 적의 [{0}]을(를) 
 Msg_Ad_Chance_No_Target,493324591177,,제거할 수 있는 적 기물이 없습니다. (왕/사 제외),,No enemy pieces available to eliminate.,
 Msg_Ad_Chance_Already_Used,493324591178,,광고 찬스는 게임당 1회만 사용할 수 있습니다.,,Ad Chance can only be used once per game.,
 Msg_Ad_Chance_Not_Player_Turn,493324591179,,플레이어 턴에만 광고 찬스를 사용할 수 있습니다.,,Ad Chance can only be used on your turn.,
+Btn_Haptic_On,493324591180,,📳 햅틱: 켜짐,,📳 Haptic: ON,
+Btn_Haptic_Off,493324591181,,📴 햅틱: 꺼짐,,📴 Haptic: OFF,
+Callout_Check,493324591182,,장군!,,Check!,
+Callout_Escape,493324591183,,멍군!,,Escape!,
+Menu_Language_Toggle,493324591184,,🌐 언어: 한국어 (KO),,🌐 Language: English (EN),
+Header_Language_Toggle,493324591185,,🌐 한국어,,🌐 English,
+Badge_Stalemate,493324591186,,교착 상태,,Stalemate,
+Badge_Checkmate_Win,493324591187,,외통수 제압,,Checkmate Victory,
+Badge_Checkmate_Lose,493324591188,,외통수 패배,,Checkmate Defeat,

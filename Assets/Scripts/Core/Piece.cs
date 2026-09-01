@@ -35,6 +35,15 @@ namespace Janggi.Core
         }
 
         /// <summary>
+        /// 진영과 한자를 모두 포함한 상세 표시명을 반환합니다 (예: 초(楚) 차, 한(漢) 궁).
+        /// </summary>
+        public string GetFullDisplayName()
+        {
+            string sideName = Side == PlayerSide.Cho ? "초(楚)" : "한(漢)";
+            return $"{sideName} {GetDisplayName()}";
+        }
+
+        /// <summary>
         /// 이 기물의 소환 코스트를 반환합니다.
         /// </summary>
         public int GetCost()

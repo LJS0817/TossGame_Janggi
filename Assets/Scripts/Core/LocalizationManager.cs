@@ -16,8 +16,9 @@ namespace Janggi.Core
     }
 
     /// <summary>
-    /// Unity 공식 Localization 패키지(com.unity.localization) 및 CSV 기반의 다국어 매니저.
-    /// JanggiStringTable (CSV) 원본 데이터를 실시간으로 조회하고 언어 변경 이벤트를 전달합니다.
+    /// Unity 공식 Localization 패키지(com.unity.localization) 기반의 다국어 매니저.
+    /// JanggiStringTable (CSV/StringDatabase)에서 실시간으로 로컬라이즈된 텍스트를 조회하고
+    /// 로케일 변경 이벤트를 UI 컨트롤러에 전달합니다.
     /// </summary>
     public static class LocalizationManager
     {
@@ -109,29 +110,16 @@ namespace Janggi.Core
 
         public static string GetLanguageToggleLabel()
         {
-            return CurrentLanguage == Language.Korean ? "🌐 언어: 한국어 (KO)" : "🌐 Language: English (EN)";
+            return Get("Menu_Language_Toggle");
         }
 
         public static string GetHeaderLanguageToggleLabel()
         {
-            return CurrentLanguage == Language.Korean ? "🌐 한국어" : "🌐 English";
+            return Get("Header_Language_Toggle");
         }
 
-        private static readonly System.Collections.Generic.Dictionary<string, (string ko, string en)> _fallbackStrings = new()
-        {
-            { "Btn_Ad_Chance", ("📺 광고 찬스", "📺 Ad Chance") },
-            { "Btn_Ad_Chance_Used", ("📺 찬스 완료", "📺 Chance Used") },
-            { "Msg_Ad_Chance_Select_Target", ("💥 지원 요청 성공! 제거할 적 기물을 선택하세요.", "💥 Air Strike! Select an enemy piece to eliminate.") },
-            { "Msg_Ad_Chance_Eliminated", ("💥 광고 찬스로 적의 [{0}]을(를) 제거했습니다!", "💥 Eliminated enemy [{0}] via Ad Chance!") },
-            { "Msg_Ad_Chance_No_Target", ("제거할 수 있는 적 기물(차/포/마/상/병)이 없습니다.", "No valid enemy piece to eliminate.") },
-            { "Msg_Ad_Chance_Already_Used", ("광고 찬스는 게임당 1회만 사용할 수 있습니다.", "Ad chance can only be used once per game.") },
-            { "Msg_Ad_Chance_Not_Player_Turn", ("자신의 턴에만 광고 찬스를 사용할 수 있습니다.", "Ad chance can only be used on your turn.") },
-            { "Msg_Ad_Loading", ("광고를 불러오는 중입니다...", "Loading rewarded ad...") },
-            { "Msg_Ad_Cancelled", ("광고 시청이 취소되었습니다.", "Ad watch cancelled.") }
-        };
-
         /// <summary>
-        /// JanggiStringTable (CSV 데이터)에서 현재 언어에 해당하는 텍스트를 조회합니다.
+        /// Unity Localization 패키지의 StringDatabase에서 현재 로케일의 텍스트를 조회합니다.
         /// </summary>
         public static string Get(string key)
         {
@@ -148,35 +136,44 @@ namespace Janggi.Core
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // 로딩 지연 또는 미초기화 시 fallback 검사
-            }
-
-            if (_fallbackStrings.TryGetValue(key, out var fallback))
-            {
-                return CurrentLanguage == Language.Korean ? fallback.ko : fallback.en;
+                Debug.LogWarning($"[LocalizationManager] 키 '{key}' 조회 중 예외: {ex.Message}");
             }
 
             return key;
         }
 
         /// <summary>
-        /// JanggiStringTable (CSV 데이터)에서 포맷 인자를 적용하여 텍스트를 조회합니다.
+        /// Unity Localization 패키지의 StringDatabase에서 포맷 인자를 적용하여 텍스트를 조회합니다.
         /// </summary>
         public static string Get(string key, params object[] args)
         {
-            string raw = Get(key);
-            if (args == null || args.Length == 0) return raw;
+            if (string.IsNullOrEmpty(key)) return string.Empty;
 
             try
             {
-                return string.Format(raw, args);
+                if (LocalizationSettings.StringDatabase != null)
+                {
+                    var localizedString = LocalizationSettings.StringDatabase.GetLocalizedString(TableName, key, args);
+                    if (!string.IsNullOrEmpty(localizedString) && !localizedString.StartsWith("No translation found"))
+                    {
+                        return localizedString;
+                    }
+                }
             }
             catch
             {
+                // Fallback format
+                string raw = Get(key);
+                if (args != null && args.Length > 0)
+                {
+                    try { return string.Format(raw, args); } catch { return raw; }
+                }
                 return raw;
             }
+
+            return key;
         }
 
         public static string GetPieceName(PieceType type, PlayerSide side = PlayerSide.Cho)

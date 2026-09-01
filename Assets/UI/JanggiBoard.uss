@@ -18,23 +18,31 @@
     --theme-primary-move: rgba(2, 132, 199, 0.35);
     --theme-primary-move-hover: rgba(2, 132, 199, 0.65);
     --theme-screen-bg: rgb(246, 250, 254);
+    --theme-board-bg: #E8F7FF;
+    --theme-board-border: rgb(2, 132, 199);
+    --theme-board-shadow: rgb(3, 105, 161);
+    --theme-board-line: rgb(2, 90, 150);
 }
 
-/* 🟢 난이도 1: 하 (입문) - 에메랄드 & 민트 */
+/* 🟢 난이도 1: 하 (입문) - 깊이감 있는 딥 에메랄드 포레스트 그린 */
 .theme-diff-easy {
-    --theme-primary: rgb(16, 185, 129);
-    --theme-primary-dark: rgb(5, 150, 105);
-    --theme-primary-light: rgb(52, 211, 153);
+    --theme-primary: rgb(5, 150, 105);
+    --theme-primary-dark: rgb(4, 120, 87);
+    --theme-primary-light: rgb(16, 185, 129);
     --theme-primary-bg: rgb(236, 253, 245);
     --theme-primary-tint: rgb(209, 250, 229);
-    --theme-primary-border: rgb(167, 243, 208);
-    --theme-primary-hover: rgba(16, 185, 129, 0.15);
-    --theme-primary-move: rgba(16, 185, 129, 0.35);
-    --theme-primary-move-hover: rgba(16, 185, 129, 0.65);
+    --theme-primary-border: rgb(110, 231, 183);
+    --theme-primary-hover: rgba(5, 150, 105, 0.15);
+    --theme-primary-move: rgba(5, 150, 105, 0.35);
+    --theme-primary-move-hover: rgba(5, 150, 105, 0.65);
     --theme-screen-bg: rgb(245, 253, 248);
+    --theme-board-bg: #ECFAEB;
+    --theme-board-border: rgb(5, 150, 105);
+    --theme-board-shadow: rgb(6, 78, 59);
+    --theme-board-line: rgb(4, 120, 87);
 }
 
-/* 🔵 난이도 2: 중 (보통) - 스카이블루 (기본값) */
+/* 🔵 난이도 2: 중 (보통) - 맑고 청명한 딥 오션 블루 (기본값) */
 .theme-diff-normal {
     --theme-primary: rgb(2, 132, 199);
     --theme-primary-dark: rgb(3, 105, 161);
@@ -46,9 +54,13 @@
     --theme-primary-move: rgba(2, 132, 199, 0.35);
     --theme-primary-move-hover: rgba(2, 132, 199, 0.65);
     --theme-screen-bg: rgb(246, 250, 254);
+    --theme-board-bg: #E8F7FF;
+    --theme-board-border: rgb(2, 132, 199);
+    --theme-board-shadow: rgb(3, 105, 161);
+    --theme-board-line: rgb(2, 90, 150);
 }
 
-/* 🟣 난이도 3: 상 (숙련) - 로열 퍼플 */
+/* 🟣 난이도 3: 상 (숙련) - 쿨 딥 인디고 바이올렛 (레드와 완전히 분리된 쿨 퍼플) */
 .theme-diff-hard {
     --theme-primary: rgb(147, 51, 234);
     --theme-primary-dark: rgb(107, 33, 168);
@@ -60,9 +72,13 @@
     --theme-primary-move: rgba(147, 51, 234, 0.35);
     --theme-primary-move-hover: rgba(147, 51, 234, 0.65);
     --theme-screen-bg: rgb(251, 248, 254);
+    --theme-board-bg: #EAE9FD;
+    --theme-board-border: rgb(126, 34, 206);
+    --theme-board-shadow: rgb(88, 28, 135);
+    --theme-board-line: rgb(107, 33, 168);
 }
 
-/* 🌌 난이도 4: 극악 (신) - 미드나잇 건메탈 & 다크 티타늄 (세련된 다크 그라파이트 테마) */
+/* 🌌 난이도 4: 극악 (신) - 미드나잇 건메탈 & 다크 티타늄 테마 */
 .theme-diff-hell {
     --theme-primary: rgb(39, 45, 60);
     --theme-primary-dark: rgb(21, 25, 36);
@@ -74,20 +90,33 @@
     --theme-primary-move: rgba(39, 45, 60, 0.35);
     --theme-primary-move-hover: rgba(39, 45, 60, 0.65);
     --theme-screen-bg: rgb(246, 248, 252);
+    --theme-board-bg: rgb(208, 216, 230);
+    --theme-board-border: rgb(45, 55, 75);
+    --theme-board-shadow: rgb(15, 20, 30);
+    --theme-board-line: rgb(55, 68, 90);
 }
 
-/* ── 최상위 루트 컨테이너 ── */
+/* ── 최상위 루트 컨테이너 및 폰트 설정 (가평한석봉체 Regular) ── */
 * {
     margin: 0;
     padding: 0;
+    -unity-font: url("project://database/Assets/Font/GapyeongHanseokbongR.ttf?fileID=12800000&guid=ca93051617e4d47318abb40ecfb673bd&type=3#GapyeongHanseokbongR");
+    -unity-font-definition: url("project://database/Assets/Font/GapyeongHanseokbongR.ttf?fileID=12800000&guid=ca93051617e4d47318abb40ecfb673bd&type=3#GapyeongHanseokbongR");
+}
+
+Label, Button, TextField {
+    -unity-font: url("project://database/Assets/Font/GapyeongHanseokbongR.ttf?fileID=12800000&guid=ca93051617e4d47318abb40ecfb673bd&type=3#GapyeongHanseokbongR");
+    -unity-font-definition: url("project://database/Assets/Font/GapyeongHanseokbongR.ttf?fileID=12800000&guid=ca93051617e4d47318abb40ecfb673bd&type=3#GapyeongHanseokbongR");
 }
 
 .root-container {
     flex-grow: 1;
+    width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: space-between;
     background-color: var(--theme-screen-bg);
-    padding: 16px 20px;
+    padding: 0;
 }
 
 .screen-container {
@@ -320,6 +349,28 @@
     translate: 0 4px;
 }
 
+.menu-btn-shadow-haptic {
+    background-color: rgb(203, 213, 225);
+}
+
+.menu-btn-haptic {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(226, 232, 240);
+    border-width: 2px;
+    color: rgb(51, 65, 85);
+    font-size: 21px;
+}
+
+.menu-btn-haptic:hover {
+    background-color: var(--theme-primary-bg);
+    border-color: var(--theme-primary-light);
+    translate: 0 -2px;
+}
+
+.menu-btn-haptic:active {
+    translate: 0 4px;
+}
+
 .menu-btn-language {
     background-color: rgb(255, 255, 255);
     border-color: rgb(226, 232, 240);
@@ -345,7 +396,8 @@
 .game-play-screen {
     align-items: center;
     justify-content: space-between;
-    margin: 16px 0;
+    padding: 16px 20px;
+    margin: 0;
 }
 
 /* ── 헤더 영역 ── */
@@ -353,7 +405,7 @@
     width: 100%;
     max-width: 1020px;
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 30px;
     flex-shrink: 0;
 }
 
@@ -403,50 +455,7 @@
     letter-spacing: 2px;
 }
 
-.turn-info {
-    position: relative;
-    width: 100%;
-    max-width: 1020px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 72px;
-    flex-shrink: 0;
-    margin: 2px 0;
-}
-
-.cho-turn-info {
-    position: relative;
-    width: 100%;
-    max-width: 1020px;
-    height: 72px;
-    min-height: 72px;
-    margin: 2px 0 4px 0;
-}
-
-.turn-text-group {
-    align-items: center;
-    justify-content: center;
-}
-
-.turn-label {
-    font-size: 26px;
-    -unity-font-style: bold;
-}
-
-.han-turn-label {
-    color: rgb(220, 38, 38);
-}
-
-.cho-turn-label {
-    color: var(--theme-primary);
-}
-
-.status-label {
-    font-size: 21px;
-    color: rgb(220, 38, 38);
-    -unity-font-style: bold;
-}
+/* (Turn-info 텍스트 제거됨 - 보드 색상으로 턴 구분) */
 
 /* ── 플레이어 / AI 패널 ── */
 .player-panel-wrapper {
@@ -738,17 +747,19 @@
     -unity-font-style: bold;
 }
 
-/* ── 패 버리기 & 한 수 쉼 & 광고 찬스 액션 버튼 (좌우 배치) ── */
-.cho-action-buttons {
-    position: absolute;
-    left: 4px;
-    right: 4px;
-    top: 0;
-    bottom: 0;
+/* ── 패 버리기 & 한 수 쉼 & 광고 찬스 액션 바 (좌우 배치) ── */
+.cho-action-bar {
+    position: relative;
+    width: 100%;
+    max-width: 1020px;
+    height: 48px;
+    min-height: 48px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 0;
+    padding: 0 4px;
+    margin: 4px 0;
+    flex-shrink: 0;
 }
 
 .action-btn-group-left {
@@ -895,18 +906,22 @@
     bottom: 0;
     translate: 0 8px;
     border-radius: 18px;
-    background-color: rgb(170, 152, 132);
+    background-color: var(--theme-board-shadow);
     border-width: 0;
+    transition-property: background-color;
+    transition-duration: 0.25s;
 }
 
 .board-container {
     position: relative;
     width: 100%;
-    background-color: rgb(250, 245, 237);
-    border-color: rgb(212, 198, 180);
+    background-color: var(--theme-board-bg);
+    border-color: var(--theme-board-border);
     border-width: 3px;
     border-radius: 18px;
     overflow: hidden;
+    transition-property: background-color, border-color;
+    transition-duration: 0.25s;
 }
 
 /* ── 격자 배경 & 교차점 ── */
@@ -924,7 +939,9 @@
     right: 5.5555%;
     height: 2px;
     translate: 0 -1px;
-    background-color: rgb(180, 162, 142);
+    background-color: var(--theme-board-line);
+    transition-property: background-color;
+    transition-duration: 0.25s;
 }
 
 .grid-line-v {
@@ -933,7 +950,24 @@
     bottom: 5%;
     width: 2px;
     translate: -1px 0;
-    background-color: rgb(180, 162, 142);
+    background-color: var(--theme-board-line);
+    transition-property: background-color;
+    transition-duration: 0.25s;
+}
+
+/* 🔴 AI(漢) 턴일 때 보드판 색상 - 붉은색/루비/크림슨 계열 */
+.turn-han .board-container {
+    background-color: rgb(252, 232, 232);
+    border-color: rgb(239, 68, 68);
+}
+
+.turn-han .board-shadow {
+    background-color: rgb(185, 28, 28);
+}
+
+.turn-han .grid-line-h,
+.turn-han .grid-line-v {
+    background-color: rgb(220, 100, 100);
 }
 
 .intersections-grid {
@@ -1187,10 +1221,12 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(15, 23, 42, 0.55);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.72);
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .modal-card-wrapper {
@@ -1343,6 +1379,22 @@
     translate: 0 -1px;
 }
 
+.modal-btn-shadow-review {
+    background-color: rgb(30, 64, 175);
+}
+
+.modal-btn-review {
+    background-color: rgb(37, 99, 235);
+    border-color: rgb(96, 165, 250);
+    border-width: 1.5px;
+    color: rgb(255, 255, 255);
+}
+
+.modal-btn-review:hover {
+    background-color: rgb(29, 78, 216);
+    translate: 0 -1px;
+}
+
 .modal-btn-primary {
     background-color: var(--theme-primary);
     border-color: var(--theme-primary-light);
@@ -1365,6 +1417,200 @@
 .modal-btn-secondary:hover {
     background-color: rgb(241, 245, 249);
     translate: 0 -1px;
+}
+
+/* ── 4. 게임 오버 인라인 결과창 (보드 아래 공간 배치) ── */
+.game-play-screen.state--game-over .han-panel-wrapper,
+.game-play-screen.state--game-over .cho-panel-wrapper,
+.game-play-screen.state--game-over .cho-action-bar {
+    display: none;
+}
+
+.game-play-screen.state--game-over .board-area {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+.game-over-inline-area {
+    position: relative;
+    width: 100%;
+    max-width: 1020px;
+    margin: 30px 0 20px 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.game-over-inline-shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    translate: 0 6px;
+    border-radius: 18px;
+    background-color: var(--theme-primary-dark);
+    border-width: 0;
+}
+
+.game-over-inline-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 18px;
+    border-width: 2.5px;
+    border-color: var(--theme-primary-border);
+    padding: 10px 14px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inline-title-row {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.inline-modal-title {
+    font-size: 40px;
+    -unity-font-style: bold;
+    margin: 8px 0;
+}
+
+.inline-modal-title--win {
+    color: rgb(5, 150, 105);
+}
+
+.inline-modal-title--lose {
+    color: rgb(220, 38, 38);
+}
+
+.inline-modal-title--draw {
+    color: rgb(217, 119, 6);
+}
+
+.inline-modal-badge {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    background-color: var(--theme-primary);
+    border-radius: 12px;
+    padding: 4px 10px;
+}
+
+/* 외통수 분석 섹션 */
+.inline-review-section {
+    background-color: var(--theme-primary-bg);
+    border-radius: 12px;
+    border-width: 1.5px;
+    border-color: var(--theme-primary-border);
+    padding: 8px 40px;
+    margin-bottom: 6px;
+}
+
+.inline-review-desc {
+    font-size: 30px;
+    color: rgb(30, 41, 59);
+    white-space: normal;
+    -unity-font-style: normal;
+    line-height: 19px;
+}
+
+/* 통계 2x2 그리드 */
+.inline-stats-grid {
+    flex-direction: column;
+    margin-bottom: 6px;
+}
+
+.inline-stats-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+}
+
+.inline-stat-chip {
+    flex: 1;
+    height: 100%;
+    background-color: rgb(248, 250, 252);
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: rgb(226, 232, 240);
+    padding: 6px 12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inline-chip-label {
+    font-size: 22px;
+    color: rgb(100, 116, 139);
+    -unity-font-style: bold;
+}
+
+.inline-chip-value {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: rgb(15, 23, 42);
+}
+
+/* 액션 버튼 행 */
+.inline-actions-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 55px;
+}
+
+.inline-btn-wrapper {
+    flex: 1;
+    height: 100%;
+}
+
+.inline-action-btn {
+    font-size: 23px;
+    border-radius: 12px;
+}
+
+/* ── 복기/외통수 시각적 하이라이트 (기물 본연의 색상과 폰트 보존) ── */
+.intersection--review-attacker {
+    background-color: rgba(239, 68, 68, 0.3);
+    border-radius: 50%;
+    border-width: 3px;
+    border-color: rgb(239, 68, 68);
+}
+
+.intersection--review-attacker .piece {
+    translate: 0 -3px;
+}
+
+.intersection--review-controller {
+    background-color: rgba(147, 51, 234, 0.25);
+    border-radius: 50%;
+    border-width: 2.5px;
+    border-color: rgb(147, 51, 234);
+}
+
+.intersection--review-target-king {
+    background-color: rgba(220, 38, 38, 0.45);
+    border-radius: 50%;
+    border-width: 3.5px;
+    border-color: rgb(220, 38, 38);
+}
+
+.intersection--review-target-king .piece {
+    translate: 0 -4px;
+}
+
+.intersection--review-blocked-pos {
+    background-color: rgba(239, 68, 68, 0.22);
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: rgba(220, 38, 38, 0.6);
 }
 
 /* ── 룰 가이드 모달 ── */

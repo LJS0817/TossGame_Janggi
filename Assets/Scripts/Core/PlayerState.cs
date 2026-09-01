@@ -12,6 +12,7 @@ namespace Janggi.Core
         public const int MaxFieldCost = 20; // 33 코스트의 약 60% 필드 전력 상한
         public const int HandSize = 4;
         public const int TurnCostGain = 2;
+        public const int CaptureCostGain = 1;
         public const int DiscardCost = 1;
         public const int InitialCost = 0;
 
