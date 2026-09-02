@@ -31,12 +31,12 @@ namespace Janggi.Core
         }
 
         [Header("AdMob App IDs")]
-        [SerializeField] private string _androidAppId = "ca-app-pub-7279388284118227~5202435726";
-        [SerializeField] private string _iosAppId = "ca-app-pub-3940256099942544~1458002511";
+        [SerializeField] private string _androidAppId = "";
+        [SerializeField] private string _iosAppId = "";
 
         [Header("AdMob Rewarded Ad Unit IDs (보상형 광고 단위 ID)")]
-        [SerializeField] private string _androidRewardedAdUnitId = "ca-app-pub-7279388284118227/7463486180";
-        [SerializeField] private string _iosRewardedAdUnitId = "ca-app-pub-3940256099942544/1712485313";
+        [SerializeField] private string _androidRewardedAdUnitId = "";
+        [SerializeField] private string _iosRewardedAdUnitId = "";
 
         [Header("테스트 모드 (개발/검증 시 체크)")]
         [Tooltip("체크 시 구글 공식 테스트 광고 단위 ID를 사용하여 계정 정지 위험 없이 안전하게 테스트할 수 있습니다.")]
