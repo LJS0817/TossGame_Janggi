@@ -110,6 +110,8 @@
                     <ui:VisualElement name="board-container" class="board-container">
                         <ui:VisualElement name="grid-background" class="grid-background"/>
                         <ui:VisualElement name="intersections-grid" class="intersections-grid"/>
+                        <ui:VisualElement name="piece-layer" class="piece-layer"/>
+                        <ui:VisualElement name="danger-vignette" class="danger-vignette"/>
                         <ui:VisualElement name="callout-banner" class="callout-banner callout-banner--hidden">
                             <ui:VisualElement class="callout-card-frame">
                                 <ui:Label name="callout-hanja" text="將 軍" class="callout-hanja"/>

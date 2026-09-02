@@ -26,6 +26,10 @@ namespace Janggi.UI
         private readonly VisualElement _boardContainer;
         private readonly VisualElement _gridBackground;
         private readonly VisualElement _intersectionsGrid;
+        private readonly VisualElement _pieceLayer;
+        private readonly VisualElement _dangerVignette;
+        private readonly Dictionary<Piece, VisualElement> _pieceElements = new Dictionary<Piece, VisualElement>();
+        private readonly Dictionary<Piece, BoardPosition> _pieceLastPositions = new Dictionary<Piece, BoardPosition>();
         private readonly VisualElement _calloutBanner;
         private readonly Label _calloutHanja;
         private readonly Label _calloutSubtitle;
@@ -218,6 +222,10 @@ namespace Janggi.UI
             _boardContainer = root.Q<VisualElement>("board-container");
             _gridBackground = root.Q<VisualElement>("grid-background");
             _intersectionsGrid = root.Q<VisualElement>("intersections-grid");
+            _pieceLayer = root.Q<VisualElement>("piece-layer");
+            _pieceLayer.pickingMode = PickingMode.Ignore;
+            _dangerVignette = root.Q<VisualElement>("danger-vignette");
+            if (_dangerVignette != null) _dangerVignette.pickingMode = PickingMode.Ignore;
             _calloutBanner = root.Q<VisualElement>("callout-banner");
             _calloutHanja = root.Q<Label>("callout-hanja");
             _calloutSubtitle = root.Q<Label>("callout-subtitle");
@@ -909,16 +917,12 @@ namespace Janggi.UI
             _cachedBoardWidth = boardWidth;
             int fontSize = Mathf.Max(12, Mathf.RoundToInt(boardWidth * PieceFontRatio));
 
-            for (int col = 0; col < BoardPosition.MaxCol; col++)
+            foreach (var pieceEl in _pieceElements.Values)
             {
-                for (int row = 0; row < BoardPosition.MaxRow; row++)
+                var pieceLabel = pieceEl.Q<Label>("piece-label");
+                if (pieceLabel != null)
                 {
-                    var element = _intersectionElements[col, row];
-                    var pieceLabel = element.Q<Label>(className: "piece");
-                    if (pieceLabel != null)
-                    {
-                        pieceLabel.style.fontSize = fontSize;
-                    }
+                    pieceLabel.style.fontSize = fontSize;
                 }
             }
         }
@@ -991,27 +995,101 @@ namespace Janggi.UI
 
         public void RefreshBoardPieces()
         {
-            if (_board == null) return;
+            if (_board == null || _pieceLayer == null) return;
 
-            for (int col = 0; col < BoardPosition.MaxCol; col++)
+            // 1. 현재 보드 위의 살아있는 기물 목록 가져오기
+            var alivePieces = _board.GetAllPieces();
+            var alivePieceSet = new HashSet<Piece>(alivePieces);
+
+            // 2. 삭제된(죽은) 기물 UI 제거 (애니메이션 포함)
+            var piecesToRemove = new List<Piece>();
+            bool hasCapture = false;
+            foreach (var kvp in _pieceElements)
             {
-                for (int row = 0; row < BoardPosition.MaxRow; row++)
+                var piece = kvp.Key;
+                var pieceEl = kvp.Value;
+
+                if (!alivePieceSet.Contains(piece) || !piece.IsAlive)
                 {
-                    var element = _intersectionElements[col, row];
-                    ClearIntersection(element);
-
-                    var pos = new BoardPosition(col, row);
-                    var piece = _board.GetPieceAt(pos);
-
-                    if (piece != null)
+                    piecesToRemove.Add(piece);
+                    pieceEl.AddToClassList("piece-container--exit");
+                    
+                    // 삭제 스케줄 (애니메이션 끝난 후 DOM에서 제거)
+                    var elToRemove = pieceEl;
+                    elToRemove.schedule.Execute(() =>
                     {
-                        RenderPiece(element, piece);
+                        if (elToRemove.parent != null)
+                            elToRemove.parent.Remove(elToRemove);
+                    }).StartingIn(250);
+                    
+                    // 타격 이펙트 발생 (공격자 기준 색상)
+                    var attacker = _board.GetPieceAt(piece.Position);
+                    PlayerSide effectSide = attacker != null ? attacker.Side : piece.Side;
+                    PlayCaptureEffect(piece.Position, effectSide);
+                    hasCapture = true;
+                }
+            }
+
+            if (hasCapture)
+            {
+                PlayBoardShake();
+            }
+
+            foreach (var p in piecesToRemove)
+            {
+                _pieceElements.Remove(p);
+                _pieceLastPositions.Remove(p);
+            }
+
+            // 3. 살아있는 기물 생성 및 이동 업데이트
+            foreach (var piece in alivePieces)
+            {
+                bool isNew = !_pieceElements.TryGetValue(piece, out var pieceEl);
+                if (isNew)
+                {
+                    // 새로 소환되거나 초기 배치된 기물
+                    pieceEl = CreatePieceElement(piece);
+                    _pieceLayer.Add(pieceEl);
+                    _pieceElements[piece] = pieceEl;
+                    _pieceLastPositions[piece] = piece.Position;
+
+                    // 스폰 애니메이션
+                    pieceEl.AddToClassList("piece-container--enter");
+                    var elToAnimate = pieceEl;
+                    elToAnimate.schedule.Execute(() =>
+                    {
+                        elToAnimate.RemoveFromClassList("piece-container--enter");
+                    }).StartingIn(10);
+
+                    // 스폰 이펙트 (마법진)
+                    PlaySpawnEffect(piece.Position, piece.Side, 80);
+                }
+                else
+                {
+                    // 이동 감지
+                    if (_pieceLastPositions.TryGetValue(piece, out var lastPos) && !lastPos.Equals(piece.Position))
+                    {
+                        _pieceLastPositions[piece] = piece.Position;
+                        // 이동 착지 임팩트 (이동 소요시간 0.08s 후)
+                        PlayImpactEffect(piece.Position, 80);
                     }
                 }
+
+                // 위치 업데이트 (CSS Transition에 의해 부드럽게 이동됨)
+                UpdatePieceElementPosition(pieceEl, piece.Position);
             }
 
             // 직전 수의 이전 위치 하이라이트 갱신 (선택 상태에 따라 겹치면 가리고, 안 겹치면 표시)
             UpdateLastMoveHighlight();
+
+            // 하이라이트 잔상 제거용 교차점 정리
+            for (int col = 0; col < BoardPosition.MaxCol; col++)
+            {
+                for (int row = 0; row < BoardPosition.MaxRow; row++)
+                {
+                    ClearIntersection(_intersectionElements[col, row]);
+                }
+            }
 
             // 보드 크기가 이미 계산되어 있으면 즉시 동기적으로 폰트 크기 보정
             float currentWidth = _cachedBoardWidth > 0 ? _cachedBoardWidth : _boardContainer.resolvedStyle.width;
@@ -1033,16 +1111,188 @@ namespace Janggi.UI
             }
         }
 
+        private VisualElement CreatePieceElement(Piece piece)
+        {
+            var container = new VisualElement();
+            container.AddToClassList("piece-container");
+            container.pickingMode = PickingMode.Ignore;
+
+            // 기물 종류에 따른 물리적 크기 조절 (왕은 가장 크고, 신하/쫄은 작게)
+            float sizeRatio = 0.86f; // 기본 크기 (Medium: 차, 포, 마, 상)
+            switch (piece.Type)
+            {
+                case PieceType.King: sizeRatio = 0.98f; break; // 왕 (가장 크게)
+                case PieceType.Advisor:
+                case PieceType.Pawn: sizeRatio = 0.74f; break; // 신하, 쫄 (가장 작게)
+            }
+            Length sizeLength = Length.Percent(sizeRatio * 100f);
+
+            var shadow = new HexagonElement();
+            shadow.AddToClassList("piece-shadow");
+            shadow.AddToClassList(piece.Side == PlayerSide.Cho ? "piece-shadow-cho" : "piece-shadow-han");
+            shadow.pickingMode = PickingMode.Ignore;
+            shadow.style.width = sizeLength;
+            shadow.style.height = sizeLength;
+            container.Add(shadow);
+
+            var pieceBg = new HexagonElement();
+            pieceBg.AddToClassList("piece");
+            pieceBg.AddToClassList(piece.Side == PlayerSide.Cho ? "piece-cho" : "piece-han");
+            pieceBg.pickingMode = PickingMode.Ignore;
+            pieceBg.style.width = sizeLength;
+            pieceBg.style.height = sizeLength;
+
+            var pieceLabel = new Label();
+            pieceLabel.name = "piece-label";
+            pieceLabel.text = piece.GetDisplayName();
+            pieceLabel.pickingMode = PickingMode.Ignore;
+            // Center the text inside the hexagon
+            pieceLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+            pieceLabel.style.position = Position.Absolute;
+            pieceLabel.style.left = 0; pieceLabel.style.right = 0;
+            pieceLabel.style.top = 0; pieceLabel.style.bottom = 0;
+
+            if (_cachedBoardWidth > 0)
+            {
+                int fontSize = Mathf.Max(12, Mathf.RoundToInt(_cachedBoardWidth * PieceFontRatio));
+                pieceLabel.style.fontSize = fontSize;
+            }
+
+            pieceBg.Add(pieceLabel);
+            container.Add(pieceBg);
+            return container;
+        }
+
+        private void UpdatePieceElementPosition(VisualElement pieceEl, BoardPosition pos)
+        {
+            float colWidth = 100f / BoardPosition.MaxCol;
+            float leftPercent = pos.Col * colWidth;
+
+            float rowHeight = 100f / BoardPosition.MaxRow;
+            float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+            pieceEl.style.left = Length.Percent(leftPercent);
+            pieceEl.style.top = Length.Percent(topPercent);
+        }
+
+        private void PlayImpactEffect(BoardPosition pos, int delayMs)
+        {
+            if (_pieceLayer == null) return;
+
+            var ripple = new VisualElement();
+            ripple.AddToClassList("impact-ripple");
+
+            float colWidth = 100f / BoardPosition.MaxCol;
+            float leftPercent = pos.Col * colWidth;
+            float rowHeight = 100f / BoardPosition.MaxRow;
+            float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+            ripple.style.left = Length.Percent(leftPercent);
+            ripple.style.top = Length.Percent(topPercent);
+
+            _pieceLayer.Add(ripple);
+
+            ripple.schedule.Execute(() =>
+            {
+                ripple.AddToClassList("impact-ripple--play");
+            }).StartingIn(delayMs);
+
+            ripple.schedule.Execute(() =>
+            {
+                if (ripple.parent != null)
+                    ripple.parent.Remove(ripple);
+            }).StartingIn(delayMs + 300); // 0.3s CSS 애니메이션 후 삭제
+        }
+
+        private void PlayCaptureEffect(BoardPosition pos, PlayerSide side)
+        {
+            if (_pieceLayer == null) return;
+
+            var slash = new VisualElement();
+            slash.AddToClassList("capture-slash");
+            slash.AddToClassList($"effect-side-{side.ToString().ToLower()}");
+            
+            if (side == PlayerSide.Cho)
+            {
+                var diff = GameManager.Instance.GetDifficulty();
+                slash.AddToClassList($"effect-diff-{diff.ToString().ToLower()}");
+            }
+
+            float colWidth = 100f / BoardPosition.MaxCol;
+            float leftPercent = pos.Col * colWidth;
+            float rowHeight = 100f / BoardPosition.MaxRow;
+            float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+            slash.style.left = Length.Percent(leftPercent);
+            slash.style.top = Length.Percent(topPercent);
+
+            _pieceLayer.Add(slash);
+
+            slash.schedule.Execute(() =>
+            {
+                slash.AddToClassList("capture-slash--play");
+            }).StartingIn(10);
+
+            slash.schedule.Execute(() =>
+            {
+                if (slash.parent != null)
+                    slash.parent.Remove(slash);
+            }).StartingIn(450);
+        }
+
+        private void PlaySpawnEffect(BoardPosition pos, PlayerSide side, int delayMs)
+        {
+            if (_pieceLayer == null) return;
+
+            var glow = new VisualElement();
+            glow.AddToClassList("spawn-glow");
+            glow.AddToClassList($"effect-side-{side.ToString().ToLower()}");
+            
+            if (side == PlayerSide.Cho)
+            {
+                var diff = GameManager.Instance.GetDifficulty();
+                glow.AddToClassList($"effect-diff-{diff.ToString().ToLower()}");
+            }
+            
+            var glowInner = new VisualElement();
+            glowInner.AddToClassList("spawn-glow-inner");
+            glow.Add(glowInner);
+
+            float colWidth = 100f / BoardPosition.MaxCol;
+            float leftPercent = pos.Col * colWidth;
+            float rowHeight = 100f / BoardPosition.MaxRow;
+            float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+            glow.style.left = Length.Percent(leftPercent);
+            glow.style.top = Length.Percent(topPercent);
+
+            _pieceLayer.Add(glow);
+
+            glow.schedule.Execute(() =>
+            {
+                glow.AddToClassList("spawn-glow--play");
+            }).StartingIn(delayMs);
+
+            glow.schedule.Execute(() =>
+            {
+                if (glow.parent != null)
+                    glow.parent.Remove(glow);
+            }).StartingIn(delayMs + 650);
+        }
+
+        private void PlayBoardShake()
+        {
+            if (_boardContainer == null) return;
+            
+            _boardContainer.AddToClassList("board-shake");
+            _boardContainer.schedule.Execute(() =>
+            {
+                _boardContainer.RemoveFromClassList("board-shake");
+            }).StartingIn(60);
+        }
+
         private void ClearIntersection(VisualElement element)
         {
-            var existingPiece = element.Q<Label>(className: "piece");
-            if (existingPiece != null)
-                element.Remove(existingPiece);
-
-            var existingShadow = element.Q<VisualElement>(className: "piece-shadow");
-            if (existingShadow != null)
-                element.Remove(existingShadow);
-
             element.RemoveFromClassList("intersection--selected");
             element.RemoveFromClassList("intersection--movable");
             element.RemoveFromClassList("intersection--attackable");
@@ -1055,30 +1305,6 @@ namespace Janggi.UI
             element.RemoveFromClassList("intersection--review-controller");
             element.RemoveFromClassList("intersection--review-target-king");
             element.RemoveFromClassList("intersection--review-blocked-pos");
-        }
-
-        private void RenderPiece(VisualElement intersection, Piece piece)
-        {
-            // 1. 기물 뒤에 깔리는 전용 솔리드 섀도우 엘리먼트
-            var shadow = new VisualElement();
-            shadow.AddToClassList("piece-shadow");
-            shadow.AddToClassList(piece.Side == PlayerSide.Cho ? "piece-shadow-cho" : "piece-shadow-han");
-            intersection.Add(shadow);
-
-            // 2. 기물 본체 라벨 (완벽한 정원형)
-            var pieceLabel = new Label();
-            pieceLabel.AddToClassList("piece");
-            pieceLabel.AddToClassList(piece.Side == PlayerSide.Cho ? "piece-cho" : "piece-han");
-            pieceLabel.text = piece.GetDisplayName();
-
-            // 캐시된 폰트 크기가 있으면 생성 즉시 설정
-            if (_cachedBoardWidth > 0)
-            {
-                int fontSize = Mathf.Max(12, Mathf.RoundToInt(_cachedBoardWidth * PieceFontRatio));
-                pieceLabel.style.fontSize = fontSize;
-            }
-
-            intersection.Add(pieceLabel);
         }
 
         // ──────────────────────────────────────────────
@@ -1268,6 +1494,11 @@ namespace Janggi.UI
             var selectedEl = _intersectionElements[piece.Position.Col, piece.Position.Row];
             selectedEl.AddToClassList("intersection--selected");
 
+            if (_pieceElements.TryGetValue(piece, out var pieceEl))
+            {
+                pieceEl.AddToClassList("piece-container--selected");
+            }
+
             foreach (var move in _highlightedMoves)
             {
                 var moveEl = _intersectionElements[move.Col, move.Row];
@@ -1305,6 +1536,11 @@ namespace Janggi.UI
                     cell.RemoveFromClassList("intersection--eliminate-target");
                 }
             }
+
+            foreach (var pieceEl in _pieceElements.Values)
+            {
+                pieceEl.RemoveFromClassList("piece-container--selected");
+            }
         }
 
         public void ClearSelection(bool clearStatusText = true)
@@ -1315,6 +1551,10 @@ namespace Janggi.UI
             ClearAllBoardHighlights();
 
             // 2. 내부 선택 상태 및 리스트 초기화
+            if (_selectedPiece != null && _pieceElements.TryGetValue(_selectedPiece, out var pieceEl))
+            {
+                pieceEl.RemoveFromClassList("piece-container--selected");
+            }
             _selectedPiece = null;
             _highlightedMoves.Clear();
             _selectedHandCardIndex = -1;
@@ -1445,6 +1685,7 @@ namespace Janggi.UI
         {
             if (_board == null) return;
 
+            bool isCheck = false;
             foreach (var side in new[] { PlayerSide.Cho, PlayerSide.Han })
             {
                 var king = _board.FindKing(side);
@@ -1452,7 +1693,16 @@ namespace Janggi.UI
                 {
                     var kingEl = _intersectionElements[king.Position.Col, king.Position.Row];
                     kingEl.AddToClassList("intersection--check");
+                    isCheck = true;
                 }
+            }
+
+            if (_dangerVignette != null)
+            {
+                if (isCheck)
+                    _dangerVignette.AddToClassList("danger-vignette--active");
+                else
+                    _dangerVignette.RemoveFromClassList("danger-vignette--active");
             }
         }
 
