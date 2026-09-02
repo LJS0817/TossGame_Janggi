@@ -211,7 +211,7 @@ namespace Janggi.Core
             }
 
             // 3. 설명 문구 작성
-            data.Title = isPlayerWin ? "⚔️ 외통수 승리 (외통수 제압)" : "💀 외통수 패배 (외통수 당함)";
+            data.Title = isPlayerWin ? "외통수 승리 (외통수 제압)" : "외통수 패배 (외통수 당함)";
             
             var sb = new System.Text.StringBuilder();
             

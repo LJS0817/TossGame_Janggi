@@ -458,7 +458,7 @@ namespace Janggi.UI
             }
             if (_btnHeaderHaptic != null && _btnHeaderHaptic.panel != null)
             {
-                _btnHeaderHaptic.text = isEnabled ? "📳" : "📴";
+                _btnHeaderHaptic.text = isEnabled ? "진동 On" : "진동 Off";
             }
         }
 

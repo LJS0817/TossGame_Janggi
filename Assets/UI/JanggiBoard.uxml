@@ -15,7 +15,7 @@
                     <ui:VisualElement class="diff-card-wrapper">
                         <ui:VisualElement class="diff-card-shadow"/>
                         <ui:VisualElement name="diff-card-easy" class="diff-card">
-                            <ui:Label name="diff-easy-title" text="🟢 하 (입문)" class="diff-card-title diff-title-easy"/>
+                            <ui:Label name="diff-easy-title" text="하 (입문)" class="diff-card-title diff-title-easy"/>
                             <ui:Label name="diff-easy-desc" text="무작위 소환&#10;초보자 추천" class="diff-card-desc"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -23,7 +23,7 @@
                     <ui:VisualElement class="diff-card-wrapper">
                         <ui:VisualElement class="diff-card-shadow"/>
                         <ui:VisualElement name="diff-card-normal" class="diff-card">
-                            <ui:Label name="diff-normal-title" text="🔵 중 (보통)" class="diff-card-title diff-title-normal"/>
+                            <ui:Label name="diff-normal-title" text="중 (보통)" class="diff-card-title diff-title-normal"/>
                             <ui:Label name="diff-normal-desc" text="자원 비축&#10;표준 밸런스" class="diff-card-desc"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -31,7 +31,7 @@
                     <ui:VisualElement class="diff-card-wrapper">
                         <ui:VisualElement class="diff-card-shadow"/>
                         <ui:VisualElement name="diff-card-hard" class="diff-card">
-                            <ui:Label name="diff-hard-title" text="🟣 상 (숙련)" class="diff-card-title diff-title-hard"/>
+                            <ui:Label name="diff-hard-title" text="상 (숙련)" class="diff-card-title diff-title-hard"/>
                             <ui:Label name="diff-hard-desc" text="연계&#10;스폰 블로킹" class="diff-card-desc"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -39,7 +39,7 @@
                     <ui:VisualElement class="diff-card-wrapper">
                         <ui:VisualElement class="diff-card-shadow"/>
                         <ui:VisualElement name="diff-card-hell" class="diff-card">
-                            <ui:Label name="diff-hell-title" text="⚫ 극악 (신)" class="diff-card-title diff-title-hell"/>
+                            <ui:Label name="diff-hell-title" text="극악 (신)" class="diff-card-title diff-title-hell"/>
                             <ui:Label name="diff-hell-desc" text="외통수 올인&#10;완벽한 수비" class="diff-card-desc"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -49,19 +49,20 @@
             <ui:VisualElement class="menu-action-area">
                 <ui:VisualElement class="menu-btn-wrapper">
                     <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-start"/>
-                    <ui:Button name="btn-start-game" text="⚔️ 게임 시작" class="menu-btn menu-btn-start"/>
+                    <ui:Button name="btn-start-game" text="게임 시작" class="menu-btn menu-btn-start"/>
+                    <ui:Button name="btn-resume-game" text="계속하기" class="menu-btn menu-btn-resume" style="display: none;"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-btn-wrapper">
                     <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-rules"/>
-                    <ui:Button name="btn-open-rules" text="📜 게임 방법 / 규칙" class="menu-btn menu-btn-rules"/>
+                    <ui:Button name="btn-open-rules" text="게임 방법 / 규칙" class="menu-btn menu-btn-rules"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-btn-wrapper">
                     <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-haptic"/>
-                    <ui:Button name="btn-haptic-toggle" text="📳 햅틱: 켜짐" class="menu-btn menu-btn-haptic"/>
+                    <ui:Button name="btn-haptic-toggle" text="햅틱: 켜짐" class="menu-btn menu-btn-haptic"/>
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-btn-wrapper">
                     <ui:VisualElement class="menu-btn-shadow menu-btn-shadow-language"/>
-                    <ui:Button name="btn-language-toggle" text="🌐 언어: 한국어 (KO)" class="menu-btn menu-btn-language"/>
+                    <ui:Button name="btn-language-toggle" text="언어: 한국어 (KO)" class="menu-btn menu-btn-language"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -75,8 +76,8 @@
                         <ui:Label name="game-title" text="將棋" class="game-title"/>
                         <ui:VisualElement name="header-buttons" class="header-buttons">
                             <ui:Button name="btn-difficulty" text="난이도: 중" class="control-btn btn-sm btn-difficulty"/>
-                            <ui:Button name="btn-header-haptic" text="📳" class="control-btn btn-sm btn-haptic"/>
-                            <ui:Button name="btn-header-language" text="🌐 KO" class="control-btn btn-sm btn-language"/>
+                            <ui:Button name="btn-header-haptic" text="진동" class="control-btn btn-sm btn-haptic"/>
+                            <ui:Button name="btn-header-language" text="KO" class="control-btn btn-sm btn-language"/>
                             <ui:Button name="btn-new-game" text="재시작" class="control-btn btn-sm"/>
                             <ui:Button name="btn-goto-menu" text="메뉴" class="control-btn btn-sm btn-menu"/>
                         </ui:VisualElement>
@@ -125,11 +126,11 @@
 
             <!-- 楚 (플레이어) 액션 버튼 바 (보드와 하단 패널 사이) -->
             <ui:VisualElement name="cho-action-bar" class="cho-action-bar">
-                <!-- 좌측: 📺 광고 찬스 -->
+                <!-- 좌측: 광고 찬스 -->
                 <ui:VisualElement class="action-btn-group-left">
                     <ui:VisualElement class="action-btn-wrapper">
                         <ui:VisualElement class="action-btn-shadow ad-chance-btn-shadow"/>
-                        <ui:Button name="btn-ad-chance" text="📺 광고 찬스" class="action-btn ad-chance-btn"/>
+                        <ui:Button name="btn-ad-chance" text="광고 찬스" class="action-btn ad-chance-btn"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
 
@@ -208,7 +209,7 @@
                     <ui:VisualElement class="inline-actions-row">
                         <ui:VisualElement class="menu-btn-wrapper inline-btn-wrapper">
                             <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-primary"/>
-                            <ui:Button name="btn-modal-restart" text="⚔️ 새 게임 시작하기" class="modal-btn modal-btn-primary inline-action-btn"/>
+                            <ui:Button name="btn-modal-restart" text="새 게임 시작하기" class="modal-btn modal-btn-primary inline-action-btn"/>
                         </ui:VisualElement>
                         <ui:VisualElement class="menu-btn-wrapper inline-btn-wrapper" style="margin-left: 8px;">
                             <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
@@ -225,7 +226,7 @@
             <ui:VisualElement class="modal-card-wrapper">
                 <ui:VisualElement class="modal-card-shadow"/>
                 <ui:VisualElement class="modal-card rule-modal-card">
-                    <ui:Label name="rule-modal-title" text="📜 게임 규칙 안내" class="modal-title modal-title--win" style="margin-bottom: 14px;"/>
+                    <ui:Label name="rule-modal-title" text="게임 규칙 안내" class="modal-title modal-title--win" style="margin-bottom: 14px;"/>
                     <ui:ScrollView class="rule-scroll-view">
                         <ui:VisualElement class="rule-item">
                             <ui:Label name="rule-1-title" text="1. 턴 순서 및 자원 (Cost)" class="rule-item-title"/>
@@ -261,7 +262,7 @@
             <ui:VisualElement class="modal-card-wrapper" style="width: 85%; max-width: 480px;">
                 <ui:VisualElement class="modal-card-shadow"/>
                 <ui:VisualElement class="modal-card ad-modal-card" style="align-items: center; padding: 24px 16px;">
-                    <ui:Label text="📺 Google AdMob" class="ad-modal-badge"/>
+                    <ui:Label text="Google AdMob" class="ad-modal-badge"/>
                     <ui:Label name="ad-modal-title" text="보상형 광고 재생 중..." class="modal-title" style="font-size: 26px; margin: 12px 0 6px 0; color: rgb(30, 41, 59);"/>
                     <ui:Label name="ad-modal-desc" text="광고 시청 완료 시 적 기물(왕/사 제외)을 파괴할 수 있습니다." class="modal-desc" style="font-size: 16px; margin-bottom: 20px; color: rgb(100, 116, 139);"/>
                     <ui:VisualElement class="ad-progress-bar-bg" style="width: 90%; height: 12px; background-color: rgb(226, 232, 240); border-radius: 6px; overflow: hidden; margin-bottom: 12px;">

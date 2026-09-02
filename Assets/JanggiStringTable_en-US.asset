@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396801
-    m_Localized: "\U0001F7E2 Easy (Novice)"
+    m_Localized: "Easy (Novice)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396802
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396803
-    m_Localized: "\U0001F535 Normal (Standard)"
+    m_Localized: "Normal (Standard)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396804
@@ -51,7 +51,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396805
-    m_Localized: "\U0001F7E3 Hard (Veteran)"
+    m_Localized: "Hard (Veteran)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396806
@@ -61,7 +61,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396807
-    m_Localized: "\u26AB Hell (Master)"
+    m_Localized: "Hell (Master)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396808
@@ -71,11 +71,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396809
-    m_Localized: "\u2694\uFE0F Start Game"
+    m_Localized: "Start Game"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396810
-    m_Localized: "\U0001F4DC How to Play / Rules"
+    m_Localized: "How to Play / Rules"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396811
@@ -83,7 +83,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396812
-    m_Localized: "\U0001F4DC Game Rules Guide"
+    m_Localized: "Game Rules Guide"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396813
@@ -270,7 +270,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591145
-    m_Localized: "\U0001F4FA Watch Ad for +5 Cost"
+    m_Localized: "Watch Ad for +5 Cost"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591146
@@ -350,7 +350,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591166
-    m_Localized: "\U0001F4FA Ad reward granted! +5 Cost charged."
+    m_Localized: "Ad reward granted! +5 Cost charged."
     m_Metadata:
       m_Items: []
   - m_Id: 493324591167
@@ -386,12 +386,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591175
-    m_Localized: "\U0001F4FA Strike Ready! Select an enemy piece to eliminate. (Except
+    m_Localized: "Strike Ready! Select an enemy piece to eliminate. (Except
       King/Advisor)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591176
-    m_Localized: "\U0001F4A5 Strike! Enemy [{0}] eliminated!"
+    m_Localized: "Strike! Enemy [{0}] eliminated!"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591177
@@ -423,11 +423,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591184
-    m_Localized: "\U0001F310 Language: English (EN)"
+    m_Localized: "Language: English (EN)"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591185
-    m_Localized: "\U0001F310 English"
+    m_Localized: "English"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591186
