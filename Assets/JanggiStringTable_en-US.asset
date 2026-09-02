@@ -266,11 +266,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591144
-    m_Localized: "\U0001F4AC Share with Toss Friends"
+    m_Localized: "Ad Chance"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591145
-    m_Localized: "Watch Ad for +5 Cost"
+    m_Localized: "Chance Used"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591146

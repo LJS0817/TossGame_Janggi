@@ -429,13 +429,13 @@ namespace Janggi
             {
                 // 상대 왕을 장군(Check)으로 위협! (중간 강도 햅틱)
                 MobileHapticManager.Instance.Trigger(HapticType.Medium);
-                _uiController?.ShowCallout(CalloutType.Check);
+                _uiController?.ShowCallout(CalloutType.Check, _currentTurn);
             }
             else if (_wasCurrentSideInCheckBeforeTurn)
             {
                 // 장군 상태에서 성공적으로 벗어남 (멍군! 중간 강도 햅틱)
                 MobileHapticManager.Instance.Trigger(HapticType.Medium);
-                _uiController?.ShowCallout(CalloutType.Escape);
+                _uiController?.ShowCallout(CalloutType.Escape, _currentTurn);
             }
 
             // 4. 턴 교대 및 새 턴 자원 충전 (+2, gemini.md §3)

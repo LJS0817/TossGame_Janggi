@@ -8,74 +8,82 @@
 /* ════════════════════════════════════════════════════════════ */
 
 :root {
-    --theme-primary: rgb(2, 132, 199);
-    --theme-primary-dark: rgb(3, 105, 161);
-    --theme-primary-light: rgb(56, 189, 248);
-    --theme-primary-bg: rgb(240, 249, 255);
-    --theme-primary-tint: rgb(224, 242, 254);
-    --theme-primary-border: rgb(186, 230, 253);
-    --theme-primary-hover: rgba(2, 132, 199, 0.15);
-    --theme-primary-move: rgba(2, 132, 199, 0.35);
-    --theme-primary-move-hover: rgba(2, 132, 199, 0.65);
-    --theme-screen-bg: rgb(246, 250, 254);
-    --theme-board-bg: #E8F7FF;
-    --theme-board-border: rgb(2, 132, 199);
-    --theme-board-shadow: rgb(3, 105, 161);
-    --theme-board-line: rgb(2, 90, 150);
+    --theme-primary: rgb(29, 116, 178);
+    --theme-primary-dark: rgb(21, 88, 140);
+    --theme-primary-light: rgb(70, 148, 208);
+    --theme-primary-bg: rgb(242, 247, 252);
+    --theme-primary-tint: rgb(224, 238, 248);
+    --theme-primary-border: rgb(165, 202, 230);
+    --theme-primary-hover: rgba(29, 116, 178, 0.12);
+    --theme-primary-move: rgba(29, 116, 178, 0.28);
+    --theme-primary-move-hover: rgba(29, 116, 178, 0.55);
+    --theme-screen-bg: rgb(246, 248, 251);
+    --theme-board-bg: #EDF3F8;
+    --theme-board-border: rgb(29, 116, 178);
+    --theme-board-shadow: rgb(21, 88, 140);
+    --theme-board-line: rgb(75, 122, 162);
+
+    /* 🔴 적 AI (漢 / Han) 고유 테마 컬러 - 고급스러운 매트 루비 버건디 */
+    --theme-han-primary: rgb(186, 52, 52);
+    --theme-han-dark: rgb(146, 36, 36);
+    --theme-han-light: rgb(212, 78, 78);
+    --theme-han-bg: rgb(253, 246, 246);
+    --theme-han-tint: rgb(248, 230, 230);
+    --theme-han-border: rgb(232, 185, 185);
 }
 
-/* 🟢 난이도 1: 하 (입문) - 깊이감 있는 딥 에메랄드 포레스트 그린 */
+/* 🟢 난이도 1: 하 (입문) - 고급 매트 에메랄드 그린 */
 .theme-diff-easy {
-    --theme-primary: rgb(5, 150, 105);
-    --theme-primary-dark: rgb(4, 120, 87);
-    --theme-primary-light: rgb(16, 185, 129);
-    --theme-primary-bg: rgb(236, 253, 245);
-    --theme-primary-tint: rgb(209, 250, 229);
-    --theme-primary-border: rgb(110, 231, 183);
-    --theme-primary-hover: rgba(5, 150, 105, 0.15);
-    --theme-primary-move: rgba(5, 150, 105, 0.35);
-    --theme-primary-move-hover: rgba(5, 150, 105, 0.65);
-    --theme-screen-bg: rgb(245, 253, 248);
-    --theme-board-bg: #ECFAEB;
-    --theme-board-border: rgb(5, 150, 105);
-    --theme-board-shadow: rgb(6, 78, 59);
-    --theme-board-line: rgb(4, 120, 87);
+    --theme-primary: rgb(21, 115, 85);
+    --theme-primary-dark: rgb(15, 88, 65);
+    --theme-primary-light: rgb(45, 150, 115);
+    --theme-primary-bg: rgb(242, 248, 245);
+    --theme-primary-tint: rgb(225, 240, 233);
+    --theme-primary-border: rgb(150, 205, 180);
+    --theme-primary-hover: rgba(21, 115, 85, 0.12);
+    --theme-primary-move: rgba(21, 115, 85, 0.28);
+    --theme-primary-move-hover: rgba(21, 115, 85, 0.55);
+    --theme-screen-bg: rgb(246, 250, 248);
+    --theme-board-bg: #EEF5F1;
+    --theme-board-border: rgb(21, 115, 85);
+    --theme-board-shadow: rgb(15, 88, 65);
+    --theme-board-line: rgb(55, 115, 90);
 }
 
-/* 🔵 난이도 2: 중 (보통) - 맑고 청명한 딥 오션 블루 (기본값) */
+/* 🔵 난이도 2: 중 (보통) - 선명하고 매트한 클래식 사파이어 블루 (기본값) */
 .theme-diff-normal {
-    --theme-primary: rgb(2, 132, 199);
-    --theme-primary-dark: rgb(3, 105, 161);
-    --theme-primary-light: rgb(56, 189, 248);
-    --theme-primary-bg: rgb(240, 249, 255);
-    --theme-primary-tint: rgb(224, 242, 254);
-    --theme-primary-border: rgb(186, 230, 253);
-    --theme-primary-hover: rgba(2, 132, 199, 0.15);
-    --theme-primary-move: rgba(2, 132, 199, 0.35);
-    --theme-primary-move-hover: rgba(2, 132, 199, 0.65);
-    --theme-screen-bg: rgb(246, 250, 254);
-    --theme-board-bg: #E8F7FF;
-    --theme-board-border: rgb(2, 132, 199);
-    --theme-board-shadow: rgb(3, 105, 161);
-    --theme-board-line: rgb(2, 90, 150);
+    --theme-primary: rgb(29, 116, 178);
+    --theme-primary-dark: rgb(21, 88, 140);
+    --theme-primary-light: rgb(70, 148, 208);
+    --theme-primary-bg: rgb(242, 247, 252);
+    --theme-primary-tint: rgb(224, 238, 248);
+    --theme-primary-border: rgb(165, 202, 230);
+    --theme-primary-hover: rgba(29, 116, 178, 0.12);
+    --theme-primary-move: rgba(29, 116, 178, 0.28);
+    --theme-primary-move-hover: rgba(29, 116, 178, 0.55);
+    --theme-screen-bg: rgb(246, 248, 251);
+    --theme-board-bg: #EDF3F8;
+    --theme-board-border: rgb(29, 116, 178);
+    --theme-board-shadow: rgb(21, 88, 140);
+    --theme-board-line: rgb(75, 122, 162);
 }
 
-/* 🟣 난이도 3: 상 (숙련) - 쿨 딥 인디고 바이올렛 (레드와 완전히 분리된 쿨 퍼플) */
+/* 🟣 난이도 3: 상 (숙련) - 깊이 있고 차분한 딥 매트 로열 바이올렛 */
 .theme-diff-hard {
-    --theme-primary: rgb(147, 51, 234);
-    --theme-primary-dark: rgb(107, 33, 168);
-    --theme-primary-light: rgb(192, 132, 252);
-    --theme-primary-bg: rgb(250, 245, 255);
-    --theme-primary-tint: rgb(243, 232, 255);
-    --theme-primary-border: rgb(233, 213, 255);
-    --theme-primary-hover: rgba(147, 51, 234, 0.15);
-    --theme-primary-move: rgba(147, 51, 234, 0.35);
-    --theme-primary-move-hover: rgba(147, 51, 234, 0.65);
-    --theme-screen-bg: rgb(251, 248, 254);
-    --theme-board-bg: #EAE9FD;
-    --theme-board-border: rgb(126, 34, 206);
-    --theme-board-shadow: rgb(88, 28, 135);
-    --theme-board-line: rgb(107, 33, 168);
+    --theme-primary: rgb(112, 44, 168);
+    --theme-primary-dark: rgb(85, 28, 130);
+    --theme-primary-light: rgb(155, 95, 208);
+    --theme-primary-bg: rgb(249, 246, 252);
+    --theme-primary-tint: rgb(240, 232, 248);
+    --theme-primary-border: rgb(210, 185, 232);
+    --theme-primary-hover: rgba(112, 44, 168, 0.12);
+    --theme-primary-move: rgba(112, 44, 168, 0.28);
+    --theme-primary-move-hover: rgba(112, 44, 168, 0.55);
+    --theme-screen-bg: rgb(250, 248, 252);
+    --theme-board-bg: #EFEBF5;
+    --theme-board-border: rgb(112, 44, 168);
+    --theme-board-shadow: rgb(85, 28, 130);
+    --theme-board-line: rgb(125, 78, 165);
 }
 
 /* 🌌 난이도 4: 극악 (신) - 미드나잇 건메탈 & 다크 티타늄 테마 */
@@ -243,15 +251,15 @@ Label, Button, TextField {
 }
 
 .diff-title-easy {
-    color: rgb(22, 163, 74);
+    color: rgb(21, 115, 85);
 }
 
 .diff-title-normal {
-    color: rgb(2, 132, 199);
+    color: rgb(29, 116, 178);
 }
 
 .diff-title-hard {
-    color: rgb(147, 51, 234);
+    color: rgb(112, 44, 168);
 }
 
 .diff-title-hell {
@@ -479,7 +487,7 @@ Label, Button, TextField {
 }
 
 .han-panel-shadow {
-    background-color: rgb(220, 38, 38);
+    background-color: var(--theme-han-primary);
 }
 
 .cho-panel-shadow {
@@ -497,7 +505,7 @@ Label, Button, TextField {
 }
 
 .han-panel {
-    border-color: rgb(254, 202, 202);
+    border-color: var(--theme-han-border);
 }
 
 .cho-panel {
@@ -576,8 +584,8 @@ Label, Button, TextField {
 
 /* ── 漢 패널 텍스트/박스 ── */
 .han-panel .cost-box {
-    background-color: rgb(254, 242, 242);
-    border-color: rgb(254, 202, 202);
+    background-color: var(--theme-han-bg);
+    border-color: var(--theme-han-border);
 }
 
 .han-panel .field-box {
@@ -586,7 +594,7 @@ Label, Button, TextField {
 }
 
 .han-panel .cost-label {
-    color: rgb(220, 38, 38);
+    color: var(--theme-han-primary);
 }
 
 .han-panel .field-label {
@@ -594,11 +602,11 @@ Label, Button, TextField {
 }
 
 .han-panel .card-cost-badge {
-    background-color: rgb(220, 38, 38);
+    background-color: var(--theme-han-primary);
 }
 
 .han-panel .card-name-label {
-    color: rgb(185, 28, 28);
+    color: var(--theme-han-dark);
 }
 
 /* ── 손패 카드 컨테이너 ── */
@@ -639,7 +647,7 @@ Label, Button, TextField {
 }
 
 .hand-card-shadow-han {
-    background-color: rgb(220, 38, 38);
+    background-color: var(--theme-han-primary);
 }
 
 .hand-card-shadow--selected {
@@ -647,7 +655,7 @@ Label, Button, TextField {
 }
 
 .hand-card-shadow--discard {
-    background-color: rgb(185, 28, 28);
+    background-color: var(--theme-han-primary);
 }
 
 .hand-card {
@@ -663,7 +671,7 @@ Label, Button, TextField {
 }
 
 .han-panel .hand-card {
-    border-color: rgb(220, 38, 38);
+    border-color: var(--theme-han-primary);
 }
 
 .hand-card:hover {
@@ -671,7 +679,7 @@ Label, Button, TextField {
 }
 
 .han-panel .hand-card:hover {
-    background-color: rgb(254, 242, 242);
+    background-color: var(--theme-han-bg);
     translate: 0 0;
 }
 
@@ -737,7 +745,7 @@ Label, Button, TextField {
 }
 
 .card-piece-han {
-    color: rgb(220, 38, 38);
+    color: var(--theme-han-primary);
 }
 
 /* 카드 하단 역할/이름 텍스트 */
@@ -1021,7 +1029,7 @@ Label, Button, TextField {
 }
 
 .piece-shadow-han {
-    -unity-background-image-tint-color: rgb(220, 38, 38);
+    -unity-background-image-tint-color: var(--theme-han-primary);
 }
 
 /* ── 기물 본체 ── */
@@ -1050,8 +1058,8 @@ Label, Button, TextField {
 
 /* 한(漢) 기물 */
 .piece-han {
-    color: rgb(220, 38, 38);
-    --hex-border-color: rgb(254, 202, 202);
+    color: var(--theme-han-primary);
+    --hex-border-color: var(--theme-han-border);
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
@@ -1655,26 +1663,31 @@ Label, Button, TextField {
 
 .callout-banner {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    min-width: 260px;
-    max-width: 440px;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: center;
-    z-index: 90;
+    z-index: 95;
     pointer-events: none;
     flex-shrink: 0;
-    transition-property: opacity, scale, translate;
-    transition-duration: 0.28s, 0.28s, 0.28s;
-    transition-timing-function: ease-out-back, ease-out-back, ease-out;
+    background-color: rgba(11, 19, 43, 0.58);
+    transition-property: opacity, background-color;
+    transition-duration: 0.22s, 0.22s;
+    transition-timing-function: ease-out, ease-out;
 }
 
 .callout-banner--hidden {
     opacity: 0;
-    scale: 0.5 0.5;
-    translate: -50% -42%;
     display: none;
+}
+
+.callout-banner--hidden .callout-card-frame {
+    scale: 0.45 0.45;
+    opacity: 0;
 }
 
 /* ══════════════════════════════════════════ */
@@ -1700,8 +1713,8 @@ Label, Button, TextField {
     justify-content: center;
     picking-mode: ignore;
     transition-property: left, top, scale, opacity;
-    transition-duration: 0.08s, 0.08s, 0.15s, 0.15s;
-    transition-timing-function: ease-in, ease-in, ease-out-back, linear;
+    transition-duration: 0.2s, 0.2s, 0.18s, 0.18s;
+    transition-timing-function: ease-out, ease-out, ease-out-back, linear;
 }
 
 .piece-container--selected {
@@ -1718,9 +1731,90 @@ Label, Button, TextField {
     opacity: 0;
 }
 
+/* 기물 이동 중 3D 리프팅(살짝 떠오름) 효과 */
+.piece-container--moving {
+    scale: 1.15;
+}
+
+/* 기물 착지 시 순간적인 쫀득한 슬램(탁!) 바운스 효과 */
+.piece-container--slam {
+    scale: 0.94;
+}
+
 /* ══════════════════════════════════════════ */
-/* 착지 임팩트 (Impact Ripple) */
+/* 이동 연출 (Departure Ring & Landing Shockwave) */
 /* ══════════════════════════════════════════ */
+
+/* 1. 출발 위치 잔상 링 (Departure Ring) */
+.move-departure-ring {
+    position: absolute;
+    width: 11.111%;
+    height: 10%;
+    border-radius: 50%;
+    border-width: 2.5px;
+    border-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.08);
+    scale: 0.7;
+    opacity: 0.9;
+    align-items: center;
+    justify-content: center;
+    picking-mode: ignore;
+    transition-property: scale, opacity, border-color;
+    transition-duration: 0.28s, 0.28s, 0.28s;
+    transition-timing-function: ease-out, ease-out, ease-out;
+}
+
+.move-departure-ring--play {
+    scale: 1.45;
+    opacity: 0;
+    border-color: rgba(255, 255, 255, 0);
+}
+
+/* 2. 도착 위치 착지 충격파 (Landing Shockwave) */
+.move-landing-shockwave {
+    position: absolute;
+    width: 11.111%;
+    height: 10%;
+    border-radius: 50%;
+    border-width: 3.5px;
+    border-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.15);
+    scale: 0.25;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+    picking-mode: ignore;
+    transition-property: scale, opacity, border-color, background-color;
+    transition-duration: 0.32s, 0.32s, 0.32s, 0.32s;
+    transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.move-landing-shockwave--play {
+    scale: 1.85;
+    opacity: 0;
+    border-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+}
+
+/* 착지 중심부 스파크 코어 */
+.move-landing-core {
+    width: 45%;
+    height: 45%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    scale: 1.2;
+    opacity: 1;
+    transition-property: scale, opacity;
+    transition-duration: 0.24s, 0.24s;
+    transition-timing-function: ease-out, ease-out;
+}
+
+.move-landing-shockwave--play .move-landing-core {
+    scale: 0.1;
+    opacity: 0;
+}
+
+/* 착지 임팩트 기본 리플 (호환용) */
 .impact-ripple {
     position: absolute;
     width: 11.111%;
@@ -1838,18 +1932,29 @@ Label, Button, TextField {
 /* 다이내믹 이펙트 컬러 (Side & Difficulty)   */
 /* ══════════════════════════════════════════ */
 
-/* 적군 (Han) - 붉은색 고정 */
+/* 적군 (Han) - 고급스러운 매트 루비 버건디 */
 .effect-side-han.capture-slash {
-    border-top-color: rgba(255, 40, 40, 1);
-    border-bottom-color: rgba(255, 100, 100, 0.8);
+    border-top-color: var(--theme-han-light);
+    border-bottom-color: var(--theme-han-border);
 }
 .effect-side-han.spawn-glow {
-    border-color: rgba(255, 80, 80, 0.9);
-    background-color: rgba(255, 80, 80, 0.15);
+    border-color: rgba(186, 52, 52, 0.9);
+    background-color: rgba(186, 52, 52, 0.15);
 }
 .effect-side-han .spawn-glow-inner {
-    border-color: rgba(255, 200, 200, 0.9);
-    background-color: rgba(255, 100, 100, 0.5);
+    border-color: rgba(245, 215, 215, 0.9);
+    background-color: rgba(186, 52, 52, 0.5);
+}
+.effect-side-han.move-departure-ring {
+    border-color: rgba(186, 52, 52, 0.8);
+    background-color: rgba(186, 52, 52, 0.12);
+}
+.effect-side-han.move-landing-shockwave {
+    border-color: rgba(186, 52, 52, 0.95);
+    background-color: rgba(186, 52, 52, 0.25);
+}
+.effect-side-han .move-landing-core {
+    background-color: rgba(245, 205, 205, 0.95);
 }
 
 /* 아군 (Cho) - 난이도별 색상 변화 */
@@ -1867,6 +1972,17 @@ Label, Button, TextField {
     border-color: rgba(200, 255, 200, 0.9);
     background-color: rgba(100, 255, 100, 0.5);
 }
+.effect-side-cho.effect-diff-easy.move-departure-ring {
+    border-color: rgba(21, 115, 85, 0.8);
+    background-color: rgba(21, 115, 85, 0.12);
+}
+.effect-side-cho.effect-diff-easy.move-landing-shockwave {
+    border-color: rgba(34, 197, 94, 0.95);
+    background-color: rgba(34, 197, 94, 0.25);
+}
+.effect-side-cho.effect-diff-easy .move-landing-core {
+    background-color: rgba(187, 247, 208, 0.95);
+}
 
 /* 2. 중 (Normal) - 푸른색 (Blue, 기본 초나라 색상) */
 .effect-side-cho.effect-diff-normal.capture-slash {
@@ -1880,6 +1996,17 @@ Label, Button, TextField {
 .effect-side-cho.effect-diff-normal .spawn-glow-inner {
     border-color: rgba(255, 255, 255, 0.9);
     background-color: rgba(150, 230, 255, 0.5);
+}
+.effect-side-cho.effect-diff-normal.move-departure-ring {
+    border-color: rgba(29, 116, 178, 0.8);
+    background-color: rgba(29, 116, 178, 0.12);
+}
+.effect-side-cho.effect-diff-normal.move-landing-shockwave {
+    border-color: rgba(56, 189, 248, 0.95);
+    background-color: rgba(56, 189, 248, 0.25);
+}
+.effect-side-cho.effect-diff-normal .move-landing-core {
+    background-color: rgba(224, 242, 254, 0.95);
 }
 
 /* 3. 상 (Hard) - 보라색 (Purple) */
@@ -1895,97 +2022,192 @@ Label, Button, TextField {
     border-color: rgba(240, 200, 255, 0.9);
     background-color: rgba(220, 150, 255, 0.5);
 }
+.effect-side-cho.effect-diff-hard.move-departure-ring {
+    border-color: rgba(112, 44, 168, 0.8);
+    background-color: rgba(112, 44, 168, 0.12);
+}
+.effect-side-cho.effect-diff-hard.move-landing-shockwave {
+    border-color: rgba(192, 132, 252, 0.95);
+    background-color: rgba(192, 132, 252, 0.25);
+}
+.effect-side-cho.effect-diff-hard .move-landing-core {
+    background-color: rgba(243, 232, 255, 0.95);
+}
 
-/* 4. 극악 (Hell) - 황금색 (Gold) */
+/* 4. 극악 (Hell) - 미드나잇 건메탈 & 다크 티타늄 (Dark Gunmetal) */
 .effect-side-cho.effect-diff-hell.capture-slash {
-    border-top-color: rgba(255, 200, 20, 1);
-    border-bottom-color: rgba(255, 230, 100, 0.8);
+    border-top-color: rgba(39, 45, 60, 1);
+    border-bottom-color: rgba(148, 163, 184, 0.85);
 }
 .effect-side-cho.effect-diff-hell.spawn-glow {
-    border-color: rgba(255, 215, 0, 0.9);
-    background-color: rgba(255, 215, 0, 0.15);
+    border-color: rgba(79, 88, 110, 0.95);
+    background-color: rgba(39, 45, 60, 0.35);
 }
 .effect-side-cho.effect-diff-hell .spawn-glow-inner {
-    border-color: rgba(255, 240, 150, 0.9);
-    background-color: rgba(255, 220, 50, 0.5);
+    border-color: rgba(226, 232, 240, 0.95);
+    background-color: rgba(79, 88, 110, 0.6);
+}
+.effect-side-cho.effect-diff-hell.move-departure-ring {
+    border-color: rgba(39, 45, 60, 0.85);
+    background-color: rgba(39, 45, 60, 0.18);
+}
+.effect-side-cho.effect-diff-hell.move-landing-shockwave {
+    border-color: rgba(79, 88, 110, 0.95);
+    background-color: rgba(39, 45, 60, 0.35);
+}
+.effect-side-cho.effect-diff-hell .move-landing-core {
+    background-color: rgba(226, 232, 240, 0.95);
 }
 
 .callout-banner--visible {
     opacity: 1;
-    scale: 1 1;
-    translate: -50% -50%;
     display: flex;
 }
 
+.callout-banner--visible .callout-card-frame {
+    scale: 1 1;
+    opacity: 1;
+}
+
 .callout-card-frame {
-    min-width: 220px;
-    padding: 16px 36px 14px 36px;
-    border-radius: 18px;
-    border-width: 2.5px;
+    min-width: 290px;
+    padding: 24px 44px 22px 44px;
+    border-radius: 24px;
+    border-width: 4px;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     background-color: rgb(255, 255, 255);
+    transition-property: scale, opacity;
+    transition-duration: 0.25s, 0.2s;
+    transition-timing-function: ease-out-back, linear;
 }
 
-/* ── 장군 (將 軍) 테마 ── */
-.callout-banner--check .callout-card-frame {
-    border-color: rgb(239, 68, 68);
-    background-color: rgb(254, 242, 242);
-}
-
-.callout-banner--check .callout-hanja {
-    color: rgb(220, 38, 38);
-}
-
-.callout-banner--check .callout-divider-line {
-    background-color: rgb(248, 113, 113);
-}
-
-.callout-banner--check .callout-subtitle {
-    color: rgb(185, 28, 28);
-}
-
-/* ── 멍군 (應 將) 테마 ── */
-.callout-banner--escape .callout-card-frame {
+/* ── 1. 아군 플레이어 (楚 / Cho) 행마 시: 난이도 Primary 테마 ── */
+.callout-banner--side-cho .callout-card-frame {
     border-color: var(--theme-primary);
-    background-color: var(--theme-primary-bg);
+    background-color: rgb(255, 255, 255);
 }
 
-.callout-banner--escape .callout-hanja {
+.callout-banner--side-cho .callout-hanja {
     color: var(--theme-primary);
 }
 
-.callout-banner--escape .callout-divider-line {
-    background-color: var(--theme-primary-light);
+.callout-banner--side-cho .callout-divider-line {
+    background-color: var(--theme-primary);
 }
 
-.callout-banner--escape .callout-subtitle {
+.callout-banner--side-cho .callout-subtitle {
     color: var(--theme-primary-dark);
+    background-color: var(--theme-primary-tint);
+    border-color: var(--theme-primary-border);
+}
+
+/* ── 2. 적군 AI (漢 / Han) 행마 시: 매트 루비 버건디 테마 ── */
+.callout-banner--side-han .callout-card-frame {
+    border-color: var(--theme-han-primary);
+    background-color: rgb(255, 255, 255);
+}
+
+.callout-banner--side-han .callout-hanja {
+    color: var(--theme-han-primary);
+}
+
+.callout-banner--side-han .callout-divider-line {
+    background-color: var(--theme-han-primary);
+}
+
+.callout-banner--side-han .callout-subtitle {
+    color: var(--theme-han-dark);
+    background-color: var(--theme-han-tint);
+    border-color: var(--theme-han-border);
 }
 
 /* ── 공통 타이포그래피 & 데코 ── */
 .callout-hanja {
-    font-size: 64px;
+    font-size: 72px;
     -unity-font-style: bold;
     letter-spacing: 16px;
     -unity-text-align: middle-center;
     margin-right: -16px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     white-space: nowrap;
 }
 
 .callout-divider-line {
     width: 80%;
     min-width: 140px;
-    height: 2px;
-    margin: 6px 0 8px 0;
+    height: 3px;
+    margin: 8px 0 12px 0;
+    border-radius: 2px;
 }
 
 .callout-subtitle {
     font-size: 24px;
     -unity-font-style: bold;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     -unity-text-align: middle-center;
     white-space: nowrap;
+    padding: 6px 22px 5px 22px;
+    border-radius: 14px;
+    border-width: 1.5px;
+}
+
+/* ── 왕(王) 기물 경고 펄스 & 비콘 ── */
+.piece-container--danger {
+    scale: 1.18;
+}
+
+.king-danger-beacon {
+    position: absolute;
+    width: 11.111%;
+    height: 10%;
+    border-radius: 50%;
+    border-width: 4px;
+    border-color: var(--theme-primary);
+    background-color: var(--theme-primary-hover);
+    scale: 0.7;
+    opacity: 1;
+    picking-mode: ignore;
+    transition-property: scale, opacity, border-color;
+    transition-duration: 0.55s, 0.55s, 0.55s;
+    transition-timing-function: ease-out, ease-out, ease-out;
+}
+
+.king-danger-beacon--play {
+    scale: 2.3;
+    opacity: 0;
+    border-color: rgba(255, 255, 255, 0);
+}
+
+.king-danger-beacon.king-beacon--enemy {
+    border-color: rgba(186, 52, 52, 0.95);
+    background-color: rgba(186, 52, 52, 0.25);
+}
+
+.king-escape-beacon {
+    position: absolute;
+    width: 11.111%;
+    height: 10%;
+    border-radius: 50%;
+    border-width: 3.5px;
+    border-color: var(--theme-primary-light);
+    background-color: var(--theme-primary-tint);
+    scale: 0.7;
+    opacity: 1;
+    picking-mode: ignore;
+    transition-property: scale, opacity, border-color;
+    transition-duration: 0.45s, 0.45s, 0.45s;
+    transition-timing-function: ease-out, ease-out, ease-out;
+}
+
+.king-escape-beacon--play {
+    scale: 2.0;
+    opacity: 0;
+    border-color: rgba(255, 255, 255, 0);
+}
+
+.king-escape-beacon.king-beacon--enemy {
+    border-color: rgba(186, 52, 52, 0.85);
+    background-color: rgba(186, 52, 52, 0.15);
 }

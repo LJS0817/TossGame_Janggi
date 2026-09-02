@@ -1069,9 +1069,11 @@ namespace Janggi.UI
                     // 이동 감지
                     if (_pieceLastPositions.TryGetValue(piece, out var lastPos) && !lastPos.Equals(piece.Position))
                     {
-                        _pieceLastPositions[piece] = piece.Position;
-                        // 이동 착지 임팩트 (이동 소요시간 0.08s 후)
-                        PlayImpactEffect(piece.Position, 80);
+                        var fromPos = lastPos;
+                        var toPos = piece.Position;
+                        _pieceLastPositions[piece] = toPos;
+                        // 보드 상 기물 이동 이펙트 연출 (출발 잔상 + 이동 리프트/슬램 + 착지 충격파)
+                        PlayMoveEffect(fromPos, toPos, piece.Side, pieceEl);
                     }
                 }
 
@@ -1175,33 +1177,109 @@ namespace Janggi.UI
             pieceEl.style.top = Length.Percent(topPercent);
         }
 
-        private void PlayImpactEffect(BoardPosition pos, int delayMs)
+        private void PlayMoveEffect(BoardPosition fromPos, BoardPosition toPos, PlayerSide side, VisualElement pieceEl)
         {
             if (_pieceLayer == null) return;
 
-            var ripple = new VisualElement();
-            ripple.AddToClassList("impact-ripple");
+            // 1. 출발 지점 잔상 링 (Departure Echo)
+            PlayDepartureEffect(fromPos, side);
+
+            // 2. 이동 중 기물 리프트(들림) 및 착지 슬램(탁!) 애니메이션 (0.2s 이동 동기화)
+            if (pieceEl != null)
+            {
+                pieceEl.AddToClassList("piece-container--moving");
+                pieceEl.schedule.Execute(() =>
+                {
+                    pieceEl.RemoveFromClassList("piece-container--moving");
+                    pieceEl.AddToClassList("piece-container--slam");
+                    pieceEl.schedule.Execute(() =>
+                    {
+                        pieceEl.RemoveFromClassList("piece-container--slam");
+                    }).StartingIn(120);
+                }).StartingIn(200);
+            }
+
+            // 3. 도착 지점 착지 충격파 & 코어 섬광 이펙트 (0.2s 착지 시점에 발동)
+            PlayLandingEffect(toPos, side, 200);
+        }
+
+        private void PlayDepartureEffect(BoardPosition pos, PlayerSide side)
+        {
+            if (_pieceLayer == null) return;
+
+            var ring = new VisualElement();
+            ring.AddToClassList("move-departure-ring");
+            ring.AddToClassList($"effect-side-{side.ToString().ToLower()}");
+            if (side == PlayerSide.Cho)
+            {
+                var diff = GameManager.Instance.GetDifficulty();
+                ring.AddToClassList($"effect-diff-{diff.ToString().ToLower()}");
+            }
 
             float colWidth = 100f / BoardPosition.MaxCol;
             float leftPercent = pos.Col * colWidth;
             float rowHeight = 100f / BoardPosition.MaxRow;
             float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
 
-            ripple.style.left = Length.Percent(leftPercent);
-            ripple.style.top = Length.Percent(topPercent);
+            ring.style.left = Length.Percent(leftPercent);
+            ring.style.top = Length.Percent(topPercent);
 
-            _pieceLayer.Add(ripple);
+            _pieceLayer.Add(ring);
 
-            ripple.schedule.Execute(() =>
+            ring.schedule.Execute(() =>
             {
-                ripple.AddToClassList("impact-ripple--play");
+                ring.AddToClassList("move-departure-ring--play");
+            }).StartingIn(10);
+
+            ring.schedule.Execute(() =>
+            {
+                if (ring.parent != null)
+                    ring.parent.Remove(ring);
+            }).StartingIn(320);
+        }
+
+        private void PlayLandingEffect(BoardPosition pos, PlayerSide side, int delayMs)
+        {
+            if (_pieceLayer == null) return;
+
+            var shockwave = new VisualElement();
+            shockwave.AddToClassList("move-landing-shockwave");
+            shockwave.AddToClassList($"effect-side-{side.ToString().ToLower()}");
+            if (side == PlayerSide.Cho)
+            {
+                var diff = GameManager.Instance.GetDifficulty();
+                shockwave.AddToClassList($"effect-diff-{diff.ToString().ToLower()}");
+            }
+
+            var core = new VisualElement();
+            core.AddToClassList("move-landing-core");
+            shockwave.Add(core);
+
+            float colWidth = 100f / BoardPosition.MaxCol;
+            float leftPercent = pos.Col * colWidth;
+            float rowHeight = 100f / BoardPosition.MaxRow;
+            float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+            shockwave.style.left = Length.Percent(leftPercent);
+            shockwave.style.top = Length.Percent(topPercent);
+
+            _pieceLayer.Add(shockwave);
+
+            shockwave.schedule.Execute(() =>
+            {
+                shockwave.AddToClassList("move-landing-shockwave--play");
             }).StartingIn(delayMs);
 
-            ripple.schedule.Execute(() =>
+            shockwave.schedule.Execute(() =>
             {
-                if (ripple.parent != null)
-                    ripple.parent.Remove(ripple);
-            }).StartingIn(delayMs + 300); // 0.3s CSS 애니메이션 후 삭제
+                if (shockwave.parent != null)
+                    shockwave.parent.Remove(shockwave);
+            }).StartingIn(delayMs + 350);
+        }
+
+        private void PlayImpactEffect(BoardPosition pos, int delayMs)
+        {
+            PlayLandingEffect(pos, PlayerSide.Cho, delayMs);
         }
 
         private void PlayCaptureEffect(BoardPosition pos, PlayerSide side)
@@ -1846,8 +1924,9 @@ namespace Janggi.UI
 
         /// <summary>
         /// 장군(將軍) 또는 멍군(應將) 배너를 보드 중앙에 팝업하여 페이드인/아웃으로 연출합니다.
+        /// 행마한 주체(side)에 따라 플레이어(초)=난이도 Primary, 적 AI(한)=크림슨 레드로 스타일이 분기됩니다.
         /// </summary>
-        public void ShowCallout(CalloutType type)
+        public void ShowCallout(CalloutType type, PlayerSide side = PlayerSide.Cho)
         {
             if (_calloutBanner == null) return;
 
@@ -1857,14 +1936,35 @@ namespace Janggi.UI
             // 스타일 및 텍스트 설정
             _calloutBanner.RemoveFromClassList("callout-banner--check");
             _calloutBanner.RemoveFromClassList("callout-banner--escape");
+            _calloutBanner.RemoveFromClassList("callout-banner--side-cho");
+            _calloutBanner.RemoveFromClassList("callout-banner--side-han");
+
+            _calloutBanner.AddToClassList($"callout-banner--side-{side.ToString().ToLower()}");
 
             if (type == CalloutType.Check)
             {
+                // 보드 미세 흔들림 (시각적 충격감)
+                PlayBoardShake();
+
                 _calloutBanner.AddToClassList("callout-banner--check");
                 if (_calloutHanja != null) _calloutHanja.text = "將 軍";
                 if (_calloutSubtitle != null)
                 {
                     _calloutSubtitle.text = LocalizationManager.Get("Callout_Check");
+                }
+
+                // 위협받는 왕(King) 기물 위치에 위기 레이더 펄스 발동
+                if (_board != null)
+                {
+                    foreach (var s in new[] { PlayerSide.Cho, PlayerSide.Han })
+                    {
+                        var king = _board.FindKing(s);
+                        if (king != null && GameRuleValidator.IsInCheck(_board, s))
+                        {
+                            _pieceElements.TryGetValue(king, out var kingEl);
+                            PlayKingDangerPulse(king.Position, kingEl, side == PlayerSide.Han);
+                        }
+                    }
                 }
             }
             else
@@ -1874,6 +1974,19 @@ namespace Janggi.UI
                 if (_calloutSubtitle != null)
                 {
                     _calloutSubtitle.text = LocalizationManager.Get("Callout_Escape");
+                }
+
+                // 위험에서 벗어난 왕(King) 기물 위치에 안도 비콘 펄스 발동
+                if (_board != null)
+                {
+                    foreach (var s in new[] { PlayerSide.Cho, PlayerSide.Han })
+                    {
+                        var king = _board.FindKing(s);
+                        if (king != null && !GameRuleValidator.IsInCheck(_board, s))
+                        {
+                            PlayKingEscapePulse(king.Position, side == PlayerSide.Han);
+                        }
+                    }
                 }
             }
 
@@ -1889,7 +2002,7 @@ namespace Janggi.UI
                 _calloutBanner.AddToClassList("callout-banner--visible");
             }).StartingIn(20);
 
-            // 3. 1초간 유지 후 페이드아웃 & 스케일다운
+            // 3. 1.05초간 유지 후 페이드아웃 & 스케일다운
             _hideCalloutSchedule = _calloutBanner.schedule.Execute(() =>
             {
                 _calloutBanner.RemoveFromClassList("callout-banner--visible");
@@ -1903,7 +2016,88 @@ namespace Janggi.UI
                         _calloutBanner.style.display = DisplayStyle.None;
                     }
                 }).StartingIn(320);
-            }).StartingIn(1000);
+            }).StartingIn(1050);
+        }
+
+        private void PlayKingDangerPulse(BoardPosition pos, VisualElement kingEl, bool isEnemyAttack)
+        {
+            if (_pieceLayer == null) return;
+
+            // 1. 왕 기물 자체의 펄스 확대 효과
+            if (kingEl != null)
+            {
+                kingEl.AddToClassList("piece-container--danger");
+                kingEl.schedule.Execute(() =>
+                {
+                    kingEl.RemoveFromClassList("piece-container--danger");
+                }).StartingIn(1100);
+            }
+
+            // 2. 왕 위치에 퍼져나가는 레이더 비콘 링 2회 생성 (AI 공격은 크림슨 레드, 플레이어 공격은 난이도 primary)
+            for (int i = 0; i < 2; i++)
+            {
+                int delay = i * 220;
+                var beacon = new VisualElement();
+                beacon.AddToClassList("king-danger-beacon");
+                if (isEnemyAttack)
+                {
+                    beacon.AddToClassList("king-beacon--enemy");
+                }
+
+                float colWidth = 100f / BoardPosition.MaxCol;
+                float leftPercent = pos.Col * colWidth;
+                float rowHeight = 100f / BoardPosition.MaxRow;
+                float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+                beacon.style.left = Length.Percent(leftPercent);
+                beacon.style.top = Length.Percent(topPercent);
+
+                _pieceLayer.Add(beacon);
+
+                beacon.schedule.Execute(() =>
+                {
+                    beacon.AddToClassList("king-danger-beacon--play");
+                }).StartingIn(delay + 10);
+
+                beacon.schedule.Execute(() =>
+                {
+                    if (beacon.parent != null)
+                        beacon.parent.Remove(beacon);
+                }).StartingIn(delay + 600);
+            }
+        }
+
+        private void PlayKingEscapePulse(BoardPosition pos, bool isEnemy)
+        {
+            if (_pieceLayer == null) return;
+
+            var beacon = new VisualElement();
+            beacon.AddToClassList("king-escape-beacon");
+            if (isEnemy)
+            {
+                beacon.AddToClassList("king-beacon--enemy");
+            }
+
+            float colWidth = 100f / BoardPosition.MaxCol;
+            float leftPercent = pos.Col * colWidth;
+            float rowHeight = 100f / BoardPosition.MaxRow;
+            float topPercent = (BoardPosition.MaxRow - 1 - pos.Row) * rowHeight;
+
+            beacon.style.left = Length.Percent(leftPercent);
+            beacon.style.top = Length.Percent(topPercent);
+
+            _pieceLayer.Add(beacon);
+
+            beacon.schedule.Execute(() =>
+            {
+                beacon.AddToClassList("king-escape-beacon--play");
+            }).StartingIn(10);
+
+            beacon.schedule.Execute(() =>
+            {
+                if (beacon.parent != null)
+                    beacon.parent.Remove(beacon);
+            }).StartingIn(500);
         }
     }
 }

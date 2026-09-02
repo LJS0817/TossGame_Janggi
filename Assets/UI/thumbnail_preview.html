@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>한판 장기 - 1932x828 공식 썸네일</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장기 아케이드 - 구글 플레이 대표 그래픽 (Feature Graphic 1024×500)</title>
   <style>
     body {
       margin: 0;
@@ -12,13 +13,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, sans-serif;
       color: white;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
     h1 {
-      margin-bottom: 8px;
-      font-size: 24px;
+      margin-bottom: 6px;
+      font-size: 26px;
       color: #f1f5f9;
+      font-weight: 800;
     }
     p {
       margin-top: 0;
@@ -26,325 +30,142 @@
       color: #94a3b8;
       font-size: 15px;
     }
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 24px;
+      font-size: 15px;
+      font-weight: bold;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #94a3b8;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #1d74b2;
+      border-color: #38bdf8;
+      color: white;
+      box-shadow: 0 0 16px rgba(29, 116, 178, 0.4);
+    }
     .thumb-wrapper {
-      max-width: 966px;
+      max-width: 1024px;
       width: 100%;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(29, 116, 178, 0.2);
       border-radius: 20px;
       overflow: hidden;
       margin-bottom: 24px;
       border: 1px solid #334155;
+      background: #0f172a;
     }
-    .thumb-wrapper svg {
+    .thumb-wrapper img {
       width: 100%;
       height: auto;
       display: block;
     }
+    .btn-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     .btn {
-      padding: 16px 36px;
-      font-size: 19px;
+      padding: 14px 28px;
+      font-size: 15px;
       font-weight: bold;
-      background: #0d9488;
       color: white;
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(13, 148, 136, 0.4);
-      transition: background 0.2s, transform 0.1s;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
     }
-    .btn:hover {
-      background: #0f766e;
-      transform: translateY(-1px);
+    .btn-primary {
+      background: linear-gradient(135deg, #1d74b2, #15588c);
+      box-shadow: 0 4px 16px rgba(29, 116, 178, 0.4);
     }
-    .btn:active {
-      transform: translateY(1px);
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #258ad4, #1d74b2);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: #cbd5e1;
+    }
+    .btn-secondary:hover {
+      background: #334155;
+      color: white;
+      transform: translateY(-2px);
     }
     .status {
       margin-top: 14px;
       font-size: 15px;
       color: #38bdf8;
+      min-height: 22px;
     }
   </style>
 </head>
 <body>
-  <h1>한판 장기 - 토스 인앱 게임 공식 썸네일 (1932 × 828 px)</h1>
-  <p>규격: 1932 × 828 px | 가로형 배너</p>
+  <h1>장기 아케이드 - 구글 플레이 대표 그래픽 (Feature Graphic)</h1>
+  <p>구글 플레이스토어 공식 규격: 1024×500 px (PNG / JPEG, 최대 15MB)</p>
 
-  <div class="thumb-wrapper">
-    <svg id="svgElem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1932 828" width="1932" height="828">
-      <defs>
-        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#0F172A" />
-          <stop offset="50%" stop-color="#1E293B" />
-          <stop offset="100%" stop-color="#0F2D2A" />
-        </linearGradient>
-        <linearGradient id="jadeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#2DD4BF" />
-          <stop offset="50%" stop-color="#0D9488" />
-          <stop offset="100%" stop-color="#0F766E" />
-        </linearGradient>
-        <linearGradient id="rubyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#FB7185" />
-          <stop offset="50%" stop-color="#E11D48" />
-          <stop offset="100%" stop-color="#9F1239" />
-        </linearGradient>
-        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#FEF08A" />
-          <stop offset="50%" stop-color="#EAB308" />
-          <stop offset="100%" stop-color="#CA8A04" />
-        </linearGradient>
-        <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#FFFFFF" />
-          <stop offset="100%" stop-color="#F1F5F9" />
-        </linearGradient>
-        <filter id="heroShadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="25" stdDeviation="25" flood-color="#000000" flood-opacity="0.45" />
-        </filter>
-        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="30" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      <!-- 배경 베이스 -->
-      <rect width="1932" height="828" fill="url(#bgGrad)" />
-
-      <!-- 배경 오라 & 빛 효과 -->
-      <circle cx="1450" cy="414" r="450" fill="#0D9488" fill-opacity="0.18" filter="url(#glow)" />
-      <circle cx="1650" cy="300" r="300" fill="#E11D48" fill-opacity="0.12" filter="url(#glow)" />
-      <circle cx="350" cy="200" r="300" fill="#EAB308" fill-opacity="0.08" filter="url(#glow)" />
-
-      <!-- 배경 장기판 격자 라인 패턴 -->
-      <g opacity="0.12" transform="translate(1050, -50) rotate(-15)">
-        <line x1="0" y1="100" x2="1000" y2="100" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="200" x2="1000" y2="200" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="300" x2="1000" y2="300" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="400" x2="1000" y2="400" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="500" x2="1000" y2="500" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="600" x2="1000" y2="600" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="700" x2="1000" y2="700" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="0" y1="800" x2="1000" y2="800" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="100" y1="0" x2="100" y2="900" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="250" y1="0" x2="250" y2="900" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="400" y1="0" x2="400" y2="900" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="550" y1="0" x2="550" y2="900" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="700" y1="0" x2="700" y2="900" stroke="#CBD5E1" stroke-width="2" />
-        <line x1="850" y1="0" x2="850" y2="900" stroke="#CBD5E1" stroke-width="2" />
-      </g>
-
-      <!-- 우측 비주얼: 덱빌딩 카드 & 3D 장기 기물 -->
-      <!-- 차(車) 카드 -->
-      <g transform="translate(1260, 430) rotate(-22)" filter="url(#heroShadow)">
-        <rect x="-110" y="-165" width="220" height="330" rx="24" fill="url(#cardGrad)" stroke="#CBD5E1" stroke-width="4" />
-        <rect x="-95" y="-150" width="190" height="300" rx="18" fill="none" stroke="#E2E8F0" stroke-width="2" />
-        <rect x="-90" y="-145" width="40" height="40" rx="10" fill="#0D9488" />
-        <text x="-70" y="-118" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">5</text>
-        <text x="0" y="45" font-family="'Batang', 'Gungsuh', serif" font-size="95" font-weight="900" fill="#0D9488" text-anchor="middle">車</text>
-        <text x="0" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="bold" fill="#64748B" text-anchor="middle">전차</text>
-      </g>
-
-      <!-- 포(包) 카드 -->
-      <g transform="translate(1620, 420) rotate(18)" filter="url(#heroShadow)">
-        <rect x="-110" y="-165" width="220" height="330" rx="24" fill="url(#cardGrad)" stroke="#CBD5E1" stroke-width="4" />
-        <rect x="-95" y="-150" width="190" height="300" rx="18" fill="none" stroke="#E2E8F0" stroke-width="2" />
-        <rect x="-90" y="-145" width="40" height="40" rx="10" fill="#0D9488" />
-        <text x="-70" y="-118" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2</text>
-        <text x="0" y="45" font-family="'Batang', 'Gungsuh', serif" font-size="95" font-weight="900" fill="#0D9488" text-anchor="middle">包</text>
-        <text x="0" y="110" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="bold" fill="#64748B" text-anchor="middle">포</text>
-      </g>
-
-      <!-- 한(漢) 루비 기물 -->
-      <g transform="translate(1680, 180)" filter="url(#heroShadow)">
-        <polygon points="
-          -65,-27
-          -27,-65
-          27,-65
-          65,-27
-          65,27
-          27,65
-          -27,65
-          -65,27"
-          fill="url(#rubyGrad)"
-          stroke="#FECDD3"
-          stroke-width="4"
-          stroke-linejoin="round" />
-        <text x="0" y="25"
-              font-family="'Batang', 'Gungsuh', serif"
-              font-size="68"
-              font-weight="900"
-              fill="#FFFFFF"
-              text-anchor="middle">漢</text>
-      </g>
-
-      <!-- 메인 히어로 기물: '將' -->
-      <g transform="translate(1440, 420)" filter="url(#heroShadow)">
-        <polygon points="
-          -155,-64
-          -64,-155
-          64,-155
-          155,-64
-          155,64
-          64,155
-          -64,155
-          -155,64"
-          fill="url(#jadeGrad)"
-          stroke="url(#goldGrad)"
-          stroke-width="10"
-          stroke-linejoin="round" />
-
-        <polygon points="
-          -138,-56
-          -56,-138
-          56,-138
-          138,-56
-          138,56
-          56,138
-          -56,138
-          -138,56"
-          fill="none"
-          stroke="#FEF08A"
-          stroke-width="3.5"
-          stroke-opacity="0.8"
-          stroke-linejoin="round" />
-
-        <path d="M -110 -110 Q 0 -140 110 -110 Q 0 -90 -110 -110 Z" fill="#FFFFFF" fill-opacity="0.35" />
-
-        <text x="0" y="65"
-              font-family="'Batang', 'Gungsuh', 'Songti SC', serif"
-              font-size="160"
-              font-weight="900"
-              fill="#042F2C"
-              text-anchor="middle"
-              opacity="0.9">將</text>
-        <text x="0" y="60"
-              font-family="'Batang', 'Gungsuh', 'Songti SC', serif"
-              font-size="160"
-              font-weight="900"
-              fill="#FEF08A"
-              stroke="#CA8A04"
-              stroke-width="2"
-              text-anchor="middle">將</text>
-      </g>
-
-      <!-- 마(馬) 기물 -->
-      <g transform="translate(1200, 620)" filter="url(#heroShadow)">
-        <polygon points="
-          -55,-23
-          -23,-55
-          23,-55
-          55,-23
-          55,23
-          23,55
-          -23,55
-          -55,23"
-          fill="url(#jadeGrad)"
-          stroke="url(#goldGrad)"
-          stroke-width="4"
-          stroke-linejoin="round" />
-        <text x="0" y="20"
-              font-family="'Batang', 'Gungsuh', serif"
-              font-size="56"
-              font-weight="900"
-              fill="#FEF08A"
-              text-anchor="middle">馬</text>
-      </g>
-
-      <!-- 좌측 타이틀 & 카피 -->
-      <g transform="translate(140, 160)">
-        <g transform="translate(0, 0)">
-          <rect width="210" height="46" rx="23" fill="#0D9488" fill-opacity="0.25" stroke="#2DD4BF" stroke-width="1.5" />
-          <text x="105" y="30"
-                font-family="-apple-system, BlinkMacSystemFont, sans-serif"
-                font-size="20"
-                font-weight="bold"
-                letter-spacing="2"
-                fill="#2DD4BF"
-                text-anchor="middle">⚡ AI 덱빌딩 디펜스</text>
-        </g>
-
-        <text x="0" y="165"
-              font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif"
-              font-size="112"
-              font-weight="900"
-              letter-spacing="8"
-              fill="#FFFFFF">한 판 장 기</text>
-
-        <text x="6" y="225"
-              font-family="-apple-system, BlinkMacSystemFont, sans-serif"
-              font-size="34"
-              font-weight="900"
-              letter-spacing="10"
-              fill="url(#goldGrad)">ONE MATCH JANGGI</text>
-
-        <g transform="translate(6, 290)">
-          <rect x="-10" y="-36" width="620" height="60" rx="14" fill="#1E293B" stroke="#334155" stroke-width="1.5" />
-          <text x="15" y="5"
-                font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif"
-                font-size="26"
-                font-weight="bold"
-                fill="#F8FAFC">카드로 소환하는 3분 장기 덱배틀</text>
-        </g>
-
-        <g transform="translate(6, 400)">
-          <g transform="translate(0, 0)">
-            <rect width="190" height="48" rx="12" fill="#1E293B" stroke="#475569" stroke-width="1" />
-            <text x="95" y="31" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="bold" fill="#E2E8F0" text-anchor="middle">🃏 실시간 카드 소환</text>
-          </g>
-          <g transform="translate(205, 0)">
-            <rect width="190" height="48" rx="12" fill="#1E293B" stroke="#475569" stroke-width="1" />
-            <text x="95" y="31" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="bold" fill="#E2E8F0" text-anchor="middle">🤖 4단계 AI 대결</text>
-          </g>
-          <g transform="translate(410, 0)">
-            <rect width="190" height="48" rx="12" fill="#1E293B" stroke="#475569" stroke-width="1" />
-            <text x="95" y="31" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="bold" fill="#E2E8F0" text-anchor="middle">⚔️ 20 코스트 수싸움</text>
-          </g>
-        </g>
-      </g>
-    </svg>
+  <div class="tabs">
+    <button id="tabKo" class="tab-btn active" onclick="switchLang('ko')">🇰🇷 한국어 버전 (Korean)</button>
+    <button id="tabEn" class="tab-btn" onclick="switchLang('en')">🌐 영어 버전 (English - Global)</button>
   </div>
 
-  <button class="btn" onclick="downloadPng()">PNG로 1932x828 다운로드</button>
+  <div class="thumb-wrapper">
+    <img id="featureImg" src="janggi_arcade_feature_graphic_1024x500.png" alt="장기 아케이드 대표 그래픽">
+  </div>
+
+  <div class="btn-group">
+    <a id="btnDownload" href="janggi_arcade_feature_graphic_1024x500.png" download="janggi_arcade_feature_graphic_1024x500.png" class="btn btn-primary">
+      <span>📥</span> <span id="btnText">한국어 대표 그래픽 (1024×500 PNG) 다운로드</span>
+    </a>
+    <a href="janggi_arcade_feature_graphic_en_1024x500.png" download="janggi_arcade_feature_graphic_en_1024x500.png" class="btn btn-secondary">
+      <span>🌐</span> English Feature Graphic (1024×500 PNG)
+    </a>
+  </div>
+
   <div id="status" class="status"></div>
 
   <script>
-    function downloadPng() {
+    let currentLang = 'ko';
+
+    function switchLang(lang) {
+      currentLang = lang;
+      const tabKo = document.getElementById('tabKo');
+      const tabEn = document.getElementById('tabEn');
+      const img = document.getElementById('featureImg');
+      const btn = document.getElementById('btnDownload');
+      const btnText = document.getElementById('btnText');
       const status = document.getElementById('status');
-      status.innerText = '고해상도 1932x828 PNG 렌더링 중...';
 
-      const svgElem = document.getElementById('svgElem');
-      const svgXml = new XMLSerializer().serializeToString(svgElem);
-      const svgBase64 = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgXml);
-
-      const img = new Image();
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        canvas.width = 1932;
-        canvas.height = 828;
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, 1932, 828);
-        ctx.drawImage(img, 0, 0, 1932, 828);
-
-        try {
-          const pngUrl = canvas.toDataURL('image/png');
-          const link = document.createElement('a');
-          link.download = 'hanpan_janggi_thumbnail_1932x828.png';
-          link.href = pngUrl;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          status.innerText = '✅ 1932x828 고해상도 썸네일 다운로드가 완료되었습니다!';
-        } catch (e) {
-          status.innerText = '오류: ' + e.message;
-          console.error(e);
-        }
-      };
-
-      img.onerror = function(err) {
-        status.innerText = '이미지 로드 오류가 발생했습니다.';
-        console.error(err);
-      };
-
-      img.src = svgBase64;
+      if (lang === 'ko') {
+        tabKo.classList.add('active');
+        tabEn.classList.remove('active');
+        img.src = 'janggi_arcade_feature_graphic_1024x500.png';
+        btn.href = 'janggi_arcade_feature_graphic_1024x500.png';
+        btn.download = 'janggi_arcade_feature_graphic_1024x500.png';
+        btnText.innerText = '한국어 대표 그래픽 (1024×500 PNG) 다운로드';
+        status.innerText = '🇰🇷 한국어 대표 그래픽 (1024×500)으로 전환되었습니다.';
+      } else {
+        tabEn.classList.add('active');
+        tabKo.classList.remove('active');
+        img.src = 'janggi_arcade_feature_graphic_en_1024x500.png';
+        btn.href = 'janggi_arcade_feature_graphic_en_1024x500.png';
+        btn.download = 'janggi_arcade_feature_graphic_en_1024x500.png';
+        btnText.innerText = 'English Feature Graphic (1024×500 PNG) Download';
+        status.innerText = '🌐 English Global Feature Graphic (1024×500) selected.';
+      }
     }
   </script>
 </body>

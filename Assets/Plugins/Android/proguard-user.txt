@@ -1,0 +1,10 @@
+# Google Mobile Ads (GMA)
+# Standard GMA SDK is used, so NextGen SDK classes are omitted from dependencies.
+# Suppress R8 missing class warnings for unused NextGen SDK references in googlemobileads-unity.aar:
+-dontwarn com.google.android.libraries.ads.mobile.sdk.**
+
+# Keep rules for Google Mobile Ads
+-keep class com.google.unity.** { *; }
+-keep public class com.google.android.gms.ads.** { public *; }
+-keep public class com.google.ads.** { public *; }
+-keepattributes *Annotation*
