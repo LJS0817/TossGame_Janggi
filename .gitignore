@@ -81,3 +81,15 @@ a-1.0-v1-IL2CPP.symbols.zip
 /Janggi_BurstDebugInformation_DoNotShip
 /Assets/AddressableAssetsData
 v1_mapping.txt
+
+# Google Mobile Ads Settings (contains local App IDs)
+/[Aa]ssets/GoogleMobileAds/Resources/
+/[Aa]ssets/GoogleMobileAds/Resources.meta
+
+# AdMob local secret keys
+/[Aa]ssets/Resources/AdMobSecrets.json*
+/[Aa]ssets/Resources/AdMobSecretConfig.asset*
+/Assets/Plugins/Android/GoogleMobileAdsPlugin.androidlib
+Assets/Plugins/Android/GoogleMobileAdsPlugin.androidlib/AndroidManifest.xml
+Assets/Resources/AdMobSecrets.example.json
+Assets/Resources/AdMobSecrets.example.json.meta

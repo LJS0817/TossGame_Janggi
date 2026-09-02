@@ -8,3 +8,8 @@
 -keep public class com.google.android.gms.ads.** { public *; }
 -keep public class com.google.ads.** { public *; }
 -keepattributes *Annotation*
+
+# App Optimization (R8 Full Mode & Repackaging)
+-repackageclasses ""
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-optimizationpasses 5

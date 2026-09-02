@@ -760,8 +760,8 @@ Label, Button, TextField {
     position: relative;
     width: 100%;
     max-width: 1020px;
-    height: 48px;
-    min-height: 48px;
+    height: 56px;
+    min-height: 56px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -782,7 +782,7 @@ Label, Button, TextField {
 
 .action-btn-wrapper {
     position: relative;
-    height: 36px;
+    height: 44px;
     justify-content: center;
 }
 
@@ -792,7 +792,7 @@ Label, Button, TextField {
     top: 0;
     right: 0;
     bottom: 0;
-    translate: 0 4px;
+    translate: 0 5px;
     border-radius: 10px;
     border-width: 0;
 }
@@ -809,10 +809,14 @@ Label, Button, TextField {
     background-color: rgb(180, 83, 9);
 }
 
+.ad-chance-btn-shadow--disabled {
+    background-color: rgb(15, 23, 42);
+}
+
 .action-btn {
     position: relative;
-    padding: 4px 14px;
-    font-size: 20px;
+    padding: 6px 18px;
+    font-size: 25px;
     -unity-font-style: bold;
     border-radius: 10px;
     border-width: 2px;
@@ -884,10 +888,19 @@ Label, Button, TextField {
 }
 
 .ad-chance-btn--disabled {
-    opacity: 0.5;
-    background-color: rgb(148, 163, 184);
-    border-color: rgb(203, 213, 225);
-    color: rgb(241, 245, 249);
+    opacity: 1;
+    background-color: rgb(30, 41, 59);
+    border-color: rgb(15, 23, 42);
+    color: rgb(100, 116, 139);
+}
+
+.ad-chance-btn--disabled:hover {
+    background-color: rgb(30, 41, 59);
+    border-color: rgb(15, 23, 42);
+}
+
+.ad-chance-btn--disabled:active {
+    translate: 0 0;
 }
 
 /* ── 중앙 보드 영역 ── */

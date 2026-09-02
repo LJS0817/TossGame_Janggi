@@ -1683,8 +1683,9 @@ namespace Janggi.UI
                         return;
                     }
                 }
-                // 타겟 외 클릭 시 제거 모드 취소
-                SetEliminationMode(false, null);
+
+                // 타겟 외 영역 클릭 시 허무하게 취소되지 않도록 제거 대상 선택 안내 유지
+                ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Select_Target"));
                 return;
             }
 
@@ -1903,18 +1904,21 @@ namespace Janggi.UI
             if (_btnAdChance == null) return;
 
             _btnAdChance.SetEnabled(enabled && !used);
+            var shadow = _btnAdChance.parent?.Q<VisualElement>(className: "ad-chance-btn-shadow");
 
             if (used)
             {
                 _btnAdChance.text = LocalizationManager.Get("Btn_Ad_Chance_Used");
                 _btnAdChance.AddToClassList("ad-chance-btn--disabled");
                 _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
+                shadow?.AddToClassList("ad-chance-btn-shadow--disabled");
             }
             else
             {
                 _btnAdChance.text = LocalizationManager.Get("Btn_Ad_Chance");
                 _btnAdChance.RemoveFromClassList("ad-chance-btn--disabled");
                 _btnAdChance.RemoveFromClassList("ad-chance-btn--active");
+                shadow?.RemoveFromClassList("ad-chance-btn-shadow--disabled");
             }
         }
 

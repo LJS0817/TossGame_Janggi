@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 using Janggi.Core;
 using Janggi.UI;
 using Janggi.AI;
-using TossGame.Toss;
 
 namespace Janggi
 {
@@ -586,36 +585,33 @@ namespace Janggi
 
             _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Loading"));
 
-            _uiController?.ShowAdPlaybackModal(() =>
+            GoogleAdManager.Instance.ShowRewardedAd(isSuccess =>
             {
-                GoogleAdManager.Instance.ShowRewardedAd(isSuccess =>
+                if (isSuccess)
                 {
-                    if (isSuccess)
+                    _hasUsedAdChance = true;
+                    _uiController?.SetAdChanceButtonState(true, false);
+
+                    // 다시 유효 대상 검색 (광고 시청 사이 보드 상태 대비)
+                    var currentTargets = _board.GetPiecesBySide(PlayerSide.Han)
+                        .FindAll(p => p.IsAlive && p.Type != PieceType.King && p.Type != PieceType.Advisor);
+
+                    if (currentTargets.Count > 0)
                     {
-                        _hasUsedAdChance = true;
-                        _uiController?.SetAdChanceButtonState(true, false);
-
-                        // 다시 유효 대상 검색 (광고 시청 사이 보드 상태 대비)
-                        var currentTargets = _board.GetPiecesBySide(PlayerSide.Han)
-                            .FindAll(p => p.IsAlive && p.Type != PieceType.King && p.Type != PieceType.Advisor);
-
-                        if (currentTargets.Count > 0)
-                        {
-                            var targetPositions = currentTargets.ConvertAll(p => p.Position);
-                            _uiController?.SetEliminationMode(true, targetPositions);
-                            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Select_Target"));
-                            MobileHapticManager.Instance.Trigger(HapticType.Success);
-                        }
-                        else
-                        {
-                            _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_No_Target"));
-                        }
+                        var targetPositions = currentTargets.ConvertAll(p => p.Position);
+                        _uiController?.SetEliminationMode(true, targetPositions);
+                        _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_Select_Target"));
+                        MobileHapticManager.Instance.Trigger(HapticType.Success);
                     }
                     else
                     {
-                        _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Cancelled"));
+                        _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Chance_No_Target"));
                     }
-                });
+                }
+                else
+                {
+                    _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Cancelled"));
+                }
             });
         }
 
