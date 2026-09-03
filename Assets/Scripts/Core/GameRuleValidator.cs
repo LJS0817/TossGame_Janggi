@@ -161,8 +161,8 @@ namespace Janggi.Core
 
             if (isDraw)
             {
-                data.Title = isPlayerWin ? "⚖️ 무승부 판정" : "⚖️ 게임 종료 (무승부)";
-                data.Explanation = "• 양측 모두 공격 기물이 소진되었거나 교착 상태(Stalemate)가 발생하여 무승부로 종료되었습니다.";
+                data.Title = isPlayerWin ? LocalizationManager.Get("Review_Title_Draw_Win") : LocalizationManager.Get("Review_Title_Draw_Lose");
+                data.Explanation = LocalizationManager.Get("Review_Exp_Draw");
                 return data;
             }
 
@@ -211,7 +211,7 @@ namespace Janggi.Core
             }
 
             // 3. 설명 문구 작성
-            data.Title = isPlayerWin ? "외통수 승리 (외통수 제압)" : "외통수 패배 (외통수 당함)";
+            data.Title = isPlayerWin ? LocalizationManager.Get("Review_Title_Checkmate_Win") : LocalizationManager.Get("Review_Title_Checkmate_Lose");
             
             var sb = new System.Text.StringBuilder();
             
@@ -224,8 +224,8 @@ namespace Janggi.Core
                     atkList.Add($"[{atk.GetFullDisplayName()}]");
                 }
                 string atkNames = string.Join(", ", atkList);
-                string kingName = king != null ? $"[{king.GetFullDisplayName()}]" : "궁";
-                sb.Append($"• 직접 장군: {atkNames}이(가) {kingName}을(를) 직접 조준 공격 중입니다.\n");
+                string kingName = king != null ? $"[{king.GetFullDisplayName()}]" : LocalizationManager.Get("Review_King_Fallback");
+                sb.Append(LocalizationManager.Get("Review_Exp_DirectAttack", atkNames, kingName));
             }
 
             // 경로 차단자
@@ -237,14 +237,14 @@ namespace Janggi.Core
                     ctrlList.Add($"[{ctrl.GetFullDisplayName()}]");
                 }
                 string ctrlNames = string.Join(", ", ctrlList);
-                sb.Append($"• 퇴로 차단: {ctrlNames}이(가) 궁의 탈출로를 통제하여 도망칠 수 없습니다.\n");
+                sb.Append(LocalizationManager.Get("Review_Exp_PathBlocked", ctrlNames));
             }
             else if (data.BlockedEscapePositions.Count > 0)
             {
-                sb.Append("• 퇴로 차단: 궁성 내 모든 인접 칸이 상대 기물의 공격 범위에 막혀 있습니다.\n");
+                sb.Append(LocalizationManager.Get("Review_Exp_AllBlocked"));
             }
 
-            sb.Append("• 수비 불가: 공격 기물을 잡거나 사이를 가로막을 수 있는 합법 수가 없습니다.");
+            sb.Append(LocalizationManager.Get("Review_Exp_NoDefense"));
 
             data.Explanation = sb.ToString();
             return data;

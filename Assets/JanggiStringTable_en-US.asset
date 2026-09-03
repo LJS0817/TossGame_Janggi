@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 493253287936
-    m_Localized: Janggi Deckbuilding Defense
+    m_Localized: Janggi Arcade
     m_Metadata:
       m_Items: []
   - m_Id: 493316202496
@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396801
-    m_Localized: "Easy (Novice)"
+    m_Localized: Easy (Novice)
     m_Metadata:
       m_Items: []
   - m_Id: 493320396802
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396803
-    m_Localized: "Normal (Standard)"
+    m_Localized: Normal (Standard)
     m_Metadata:
       m_Items: []
   - m_Id: 493320396804
@@ -51,7 +51,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396805
-    m_Localized: "Hard (Veteran)"
+    m_Localized: Hard (Veteran)
     m_Metadata:
       m_Items: []
   - m_Id: 493320396806
@@ -61,7 +61,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396807
-    m_Localized: "Hell (Master)"
+    m_Localized: Hell (Master)
     m_Metadata:
       m_Items: []
   - m_Id: 493320396808
@@ -71,11 +71,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396809
-    m_Localized: "Start Game"
+    m_Localized: Start Game
     m_Metadata:
       m_Items: []
   - m_Id: 493320396810
-    m_Localized: "How to Play / Rules"
+    m_Localized: How to Play / Rules
     m_Metadata:
       m_Items: []
   - m_Id: 493320396811
@@ -83,7 +83,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396812
-    m_Localized: "Game Rules Guide"
+    m_Localized: Game Rules Guide
     m_Metadata:
       m_Items: []
   - m_Id: 493320396813
@@ -266,11 +266,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591144
-    m_Localized: "Ad Chance"
+    m_Localized: Ad Chance
     m_Metadata:
       m_Items: []
   - m_Id: 493324591145
-    m_Localized: "Chance Used"
+    m_Localized: Chance Used
     m_Metadata:
       m_Items: []
   - m_Id: 493324591146
@@ -350,7 +350,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591166
-    m_Localized: "Ad reward granted! +5 Cost charged."
+    m_Localized: Ad reward granted! +5 Cost charged.
     m_Metadata:
       m_Items: []
   - m_Id: 493324591167
@@ -386,12 +386,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591175
-    m_Localized: "Strike Ready! Select an enemy piece to eliminate. (Except
-      King/Advisor)"
+    m_Localized: Strike Ready! Select an enemy piece to eliminate. (Except King/Advisor)
     m_Metadata:
       m_Items: []
   - m_Id: 493324591176
-    m_Localized: "Strike! Enemy [{0}] eliminated!"
+    m_Localized: Strike! Enemy [{0}] eliminated!
     m_Metadata:
       m_Items: []
   - m_Id: 493324591177
@@ -423,11 +422,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591184
-    m_Localized: "Language: English (EN)"
+    m_Localized: 'Language: English (EN)'
     m_Metadata:
       m_Items: []
   - m_Id: 493324591185
-    m_Localized: "English"
+    m_Localized: English
     m_Metadata:
       m_Items: []
   - m_Id: 493324591186
@@ -440,6 +439,57 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 493324591188
     m_Localized: Checkmate Defeat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591189
+    m_Localized: "\u2696\uFE0F Draw Decision"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591190
+    m_Localized: "\u2696\uFE0F Game Over (Draw)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591191
+    m_Localized: "\u2022 Game ended in a draw due to lack of attacking pieces or
+      stalemate."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591192
+    m_Localized: Checkmate Victory (Overpowered)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591193
+    m_Localized: Checkmate Defeat (Overpowered)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591194
+    m_Localized: "\u2022 Direct Attack: {0} is directly targeting {1}.\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591195
+    m_Localized: "\u2022 Escape Blocked: {0} controls the escape routes.\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591196
+    m_Localized: "\u2022 Escape Blocked: All adjacent cells in the palace are under
+      attack.\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591197
+    m_Localized: "\u2022 Defenseless: No legal moves to capture the attacker or block
+      the attack."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591198
+    m_Localized: King
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591199
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 835444993175552
+    m_Localized: Janggi Arcade
     m_Metadata:
       m_Items: []
   references:

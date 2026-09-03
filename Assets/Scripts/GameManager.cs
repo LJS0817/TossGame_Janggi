@@ -45,6 +45,9 @@ namespace Janggi
         {
             if (Instance == null) Instance = this;
             else if (Instance != this) Destroy(gameObject);
+
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
         }
 
         private void OnEnable()
@@ -255,6 +258,14 @@ namespace Janggi
             _uiController.RefreshBoardPieces();
             _uiController.RefreshPlayerPanels();
             _uiController.ShowStatus(LocalizationManager.Get("Msg_Summon_Success", newPiece.GetDisplayName()));
+
+            // 만약 턴 시작 시 장군 상태였는데 이번 소환으로 장군이 해제되었다면,
+            // 기물 소환 자체가 '멍군' 행위가 되어 즉시 턴을 종료합니다.
+            if (_wasCurrentSideInCheckBeforeTurn && !GameRuleValidator.IsInCheck(_board, _currentTurn))
+            {
+                Debug.Log("[Janggi] 소환으로 멍군(장군 방어) 성공! 턴을 자동 종료합니다.");
+                ProcessPostMove();
+            }
         }
 
         // ──────────────────────────────────────────────
@@ -584,9 +595,12 @@ namespace Janggi
             }
 
             _uiController?.ShowStatus(LocalizationManager.Get("Msg_Ad_Loading"));
+            _uiController?.ShowAdLoading(true);
 
             GoogleAdManager.Instance.ShowRewardedAd(isSuccess =>
             {
+                _uiController?.ShowAdLoading(false);
+                
                 if (isSuccess)
                 {
                     _hasUsedAdChance = true;

@@ -138,12 +138,22 @@ namespace Janggi.UI
         private AIDifficulty _selectedDifficulty = AIDifficulty.Normal;
 
         // 인게임 헤더 및 버튼
+        private readonly Label _gameTitle;
         private readonly Button _btnHeaderHaptic;
         private readonly Button _btnHeaderLanguage;
         private readonly Button _btnGotoMenu;
         private readonly Button _btnNewGame;
         private readonly Button _btnPassTurn;
         private readonly Button _btnAdChance;
+        
+        // 일시정지 모달 및 버튼
+        private readonly Button _btnPause;
+        private readonly VisualElement _pauseModal;
+        private readonly Button _btnContinue;
+
+        // 광고 로딩 및 시청 모달 요소
+        private readonly VisualElement _adLoadingOverlay;
+        private readonly Label _adLoadingText;
 
         // 광고 시청 모달 요소
         private readonly VisualElement _adViewModal;
@@ -239,6 +249,7 @@ namespace Janggi.UI
 
             _hanSideLabel = root.Q<Label>("han-side-label");
             _choSideLabel = root.Q<Label>("cho-side-label");
+            _gameTitle = root.Q<Label>("game-title");
             _hanCostLabel = root.Q<Label>("han-cost-label");
             _choCostLabel = root.Q<Label>("cho-cost-label");
             _hanFieldCostLabel = root.Q<Label>("han-field-cost-label");
@@ -254,6 +265,13 @@ namespace Janggi.UI
             _btnNewGame = root.Q<Button>("btn-new-game");
             _btnGotoMenu = root.Q<Button>("btn-goto-menu");
             _btnHapticToggle = root.Q<Button>("btn-haptic-toggle");
+            
+            _btnPause = root.Q<Button>("btn-pause");
+            _pauseModal = root.Q<VisualElement>("pause-modal");
+            _btnContinue = root.Q<Button>("btn-continue");
+
+            _adLoadingOverlay = root.Q<VisualElement>("ad-loading-overlay");
+            _adLoadingText = root.Q<Label>("ad-loading-text");
 
             // 4. 인라인 게임 오버 결과창 바인딩
             _gameOverInlineArea = root.Q<VisualElement>("game-over-inline-area");
@@ -365,12 +383,20 @@ namespace Janggi.UI
 
             if (_btnNewGame != null)
             {
-                _btnNewGame.clicked += () => OnRestartRequested?.Invoke();
+                _btnNewGame.clicked += () => 
+                {
+                    if (_pauseModal != null) _pauseModal.style.display = DisplayStyle.None;
+                    OnRestartRequested?.Invoke();
+                };
             }
 
             if (_btnGotoMenu != null)
             {
-                _btnGotoMenu.clicked += () => OnReturnToMenuRequested?.Invoke();
+                _btnGotoMenu.clicked += () => 
+                {
+                    if (_pauseModal != null) _pauseModal.style.display = DisplayStyle.None;
+                    OnReturnToMenuRequested?.Invoke();
+                };
             }
 
             if (_btnModalRestart != null)
@@ -388,6 +414,22 @@ namespace Janggi.UI
                 {
                     HideGameOverModal();
                     OnReturnToMenuRequested?.Invoke();
+                };
+            }
+
+            if (_btnPause != null)
+            {
+                _btnPause.clicked += () => 
+                {
+                    if (_pauseModal != null) _pauseModal.style.display = DisplayStyle.Flex;
+                };
+            }
+
+            if (_btnContinue != null)
+            {
+                _btnContinue.clicked += () => 
+                {
+                    if (_pauseModal != null) _pauseModal.style.display = DisplayStyle.None;
                 };
             }
         }
@@ -516,10 +558,12 @@ namespace Janggi.UI
                 if (_rule5Desc != null && _rule5Desc.panel != null) _rule5Desc.text = LocalizationManager.Get("Rule_5_Desc");
 
                 // 3. 인게임 헤더 및 패널
+                if (_gameTitle != null && _gameTitle.panel != null) _gameTitle.text = LocalizationManager.Get("Header_Title");
                 if (_btnHeaderLanguage != null && _btnHeaderLanguage.panel != null) _btnHeaderLanguage.text = LocalizationManager.GetHeaderLanguageToggleLabel();
                 if (_btnNewGame != null && _btnNewGame.panel != null) _btnNewGame.text = LocalizationManager.Get("Btn_Restart");
                 if (_btnGotoMenu != null && _btnGotoMenu.panel != null) _btnGotoMenu.text = LocalizationManager.Get("Btn_Menu");
                 if (_btnPassTurn != null && _btnPassTurn.panel != null) _btnPassTurn.text = LocalizationManager.Get("Btn_Pass");
+                if (_btnPause != null && _btnPause.panel != null) _btnPause.text = LocalizationManager.Get("Btn_Pause");
 
                 if (_hanSideLabel != null && _hanSideLabel.panel != null) _hanSideLabel.text = LocalizationManager.Get("Side_Han");
                 if (_choSideLabel != null && _choSideLabel.panel != null) _choSideLabel.text = LocalizationManager.Get("Side_Cho");
@@ -537,6 +581,8 @@ namespace Janggi.UI
 
                 if (_btnModalRestart != null && _btnModalRestart.panel != null) _btnModalRestart.text = LocalizationManager.Get("Btn_Modal_Restart");
                 if (_btnModalMenu != null && _btnModalMenu.panel != null) _btnModalMenu.text = LocalizationManager.Get("Btn_Modal_Menu");
+
+                if (_adLoadingText != null && _adLoadingText.panel != null) _adLoadingText.text = LocalizationManager.Get("Msg_Ad_Loading");
 
                 if (_isModalShown)
                 {
@@ -1758,6 +1804,18 @@ namespace Janggi.UI
         {
             if (_choStatusLabel != null) _choStatusLabel.text = message;
             if (_hanStatusLabel != null) _hanStatusLabel.text = message;
+        }
+
+        public void ShowAdLoading(bool show)
+        {
+            if (_adLoadingOverlay != null)
+            {
+                _adLoadingOverlay.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            }
+            if (_btnAdChance != null)
+            {
+                _btnAdChance.SetEnabled(!show && !_hasUsedAdChance);
+            }
         }
 
         private void ShowCheckWarning()

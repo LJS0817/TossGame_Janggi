@@ -463,6 +463,44 @@ Label, Button, TextField {
     letter-spacing: 2px;
 }
 
+/* ── 일시정지 버튼 ── */
+.pause-button-container {
+    position: relative;
+    top: 0;
+}
+
+.pause-btn {
+    width: auto;
+    padding: 0 16px;
+    height: 100%;
+    border-radius: 12px;
+    font-size: 24px;
+    color: rgb(51, 65, 85);
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(226, 232, 240);
+    border-width: 2px;
+    justify-content: center;
+    align-items: center;
+    transition-property: scale, background-color;
+    transition-duration: 0.1s, 0.1s;
+    margin: 0;
+}
+
+.pause-btn:hover {
+    background-color: rgb(241, 245, 249);
+    scale: 1.05;
+}
+
+.pause-btn:active {
+    scale: 0.95;
+}
+
+/* ── 일시정지 모달 카드 ── */
+.pause-modal-card {
+    padding: 24px;
+    align-items: center;
+}
+
 /* (Turn-info 텍스트 제거됨 - 보드 색상으로 턴 구분) */
 
 /* ── 플레이어 / AI 패널 ── */
@@ -668,6 +706,7 @@ Label, Button, TextField {
     border-radius: 12px;
     align-items: center;
     justify-content: center;
+    padding-left: 38px;
 }
 
 .han-panel .hand-card {
@@ -724,6 +763,10 @@ Label, Button, TextField {
     width: 38px;
     align-items: center;
     justify-content: center;
+}
+
+.han-panel .card-cost-badge {
+    background-color: var(--theme-han-primary);
 }
 
 .card-cost-text {

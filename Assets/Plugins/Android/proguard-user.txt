@@ -9,6 +9,16 @@
 -keep public class com.google.ads.** { public *; }
 -keepattributes *Annotation*
 
+# Keep rules for AndroidX WorkManager, Room, and SQLite to prevent crash on startup (R8 full mode strips required constructors)
+-keep class androidx.work.** { *; }
+-keep class androidx.room.** { *; }
+-keep class androidx.sqlite.** { *; }
+-keep class androidx.startup.** { *; }
+-dontwarn androidx.work.**
+-dontwarn androidx.room.**
+-dontwarn androidx.sqlite.**
+-dontwarn androidx.startup.**
+
 # App Optimization (R8 Full Mode & Repackaging)
 -repackageclasses ""
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*

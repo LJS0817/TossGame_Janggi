@@ -73,13 +73,11 @@
                 <ui:VisualElement class="header-top-wrapper">
                     <ui:VisualElement class="header-top-shadow"/>
                     <ui:VisualElement name="header-top" class="header-top">
-                        <ui:Label name="game-title" text="將棋" class="game-title"/>
+                        <ui:Label name="game-title" text="장기 아케이드" class="game-title"/>
                         <ui:VisualElement name="header-buttons" class="header-buttons">
-                            <ui:Button name="btn-difficulty" text="난이도: 중" class="control-btn btn-sm btn-difficulty"/>
-                            <ui:Button name="btn-header-haptic" text="진동" class="control-btn btn-sm btn-haptic"/>
-                            <ui:Button name="btn-header-language" text="KO" class="control-btn btn-sm btn-language"/>
-                            <ui:Button name="btn-new-game" text="재시작" class="control-btn btn-sm"/>
-                            <ui:Button name="btn-goto-menu" text="메뉴" class="control-btn btn-sm btn-menu"/>
+                            <ui:VisualElement name="pause-button-container" class="pause-button-container">
+                                <ui:Button name="btn-pause" text="일시정지" class="pause-btn"/>
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -253,6 +251,55 @@
                         <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-primary"/>
                         <ui:Button name="btn-close-rules" text="확인" class="modal-btn modal-btn-primary"/>
                     </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- 일시정지 모달 -->
+        <ui:VisualElement name="pause-modal" class="modal-overlay" style="display: none;">
+            <ui:VisualElement class="modal-card-wrapper" style="width: 340px;">
+                <ui:VisualElement class="modal-card-shadow"/>
+                <ui:VisualElement class="modal-card pause-modal-card">
+                    <ui:Label name="pause-modal-title" text="일시정지" class="modal-title" style="margin-bottom: 24px; text-align: center;"/>
+                    
+                    <ui:VisualElement class="menu-btn-wrapper" style="margin-bottom: 12px; width: 100%; height: 60px;">
+                        <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-primary"/>
+                        <ui:Button name="btn-continue" text="계속하기" class="modal-btn modal-btn-primary"/>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="menu-btn-wrapper" style="margin-bottom: 12px; width: 100%; height: 60px;">
+                        <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
+                        <ui:Button name="btn-difficulty" text="난이도: 중" class="modal-btn modal-btn-secondary btn-difficulty"/>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="menu-btn-wrapper" style="margin-bottom: 12px; width: 100%; height: 60px;">
+                        <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
+                        <ui:Button name="btn-header-haptic" text="진동" class="modal-btn modal-btn-secondary btn-haptic"/>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="menu-btn-wrapper" style="margin-bottom: 12px; width: 100%; height: 60px;">
+                        <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
+                        <ui:Button name="btn-header-language" text="KO" class="modal-btn modal-btn-secondary btn-language"/>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="menu-btn-wrapper" style="margin-bottom: 12px; width: 100%; height: 60px;">
+                        <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
+                        <ui:Button name="btn-new-game" text="재시작" class="modal-btn modal-btn-secondary"/>
+                    </ui:VisualElement>
+                    
+                    <ui:VisualElement class="menu-btn-wrapper" style="width: 100%; height: 60px;">
+                        <ui:VisualElement class="modal-btn-shadow modal-btn-shadow-secondary"/>
+                        <ui:Button name="btn-goto-menu" text="메뉴" class="modal-btn modal-btn-secondary btn-menu"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- 광고 로딩 오버레이 (클릭 차단 및 배너) -->
+        <ui:VisualElement name="ad-loading-overlay" class="modal-overlay" style="display: none; background-color: transparent;">
+            <ui:VisualElement class="callout-banner callout-banner--visible">
+                <ui:VisualElement class="callout-card-frame">
+                    <ui:Label name="ad-loading-text" text="광고 로딩중..." class="callout-subtitle" style="font-size: 32px; padding: 20px; text-align: center; white-space: normal;"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

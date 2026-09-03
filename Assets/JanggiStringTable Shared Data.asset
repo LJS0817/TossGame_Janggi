@@ -423,6 +423,54 @@ MonoBehaviour:
     m_Key: Badge_Checkmate_Lose
     m_Metadata:
       m_Items: []
+  - m_Id: 493324591189
+    m_Key: Review_Title_Draw_Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591190
+    m_Key: Review_Title_Draw_Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591191
+    m_Key: Review_Exp_Draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591192
+    m_Key: Review_Title_Checkmate_Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591193
+    m_Key: Review_Title_Checkmate_Lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591194
+    m_Key: Review_Exp_DirectAttack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591195
+    m_Key: Review_Exp_PathBlocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591196
+    m_Key: Review_Exp_AllBlocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591197
+    m_Key: Review_Exp_NoDefense
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591198
+    m_Key: Review_King_Fallback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591199
+    m_Key: Btn_Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 835444993175552
+    m_Key: Header_Title
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

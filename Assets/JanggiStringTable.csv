@@ -2,19 +2,19 @@ Key,Id,SharedComments,ko-KR,Comments(ko-KR),en-US,Comments(en-US)
 Menu_Title_Sub,493253287936,,장기 덱빌딩 디펜스,,Janggi Deckbuilding Defense,
 Menu_Subtitle,493316202496,,혼자하는 장기 미니게임,,Single-player Janggi Strategy,
 Menu_Diff_Section,493320396800,,AI 난이도 선택,,Select AI Difficulty,
-Diff_Easy_Title,493320396801,,하 (입문),,Easy (Novice),
+Diff_Easy_Title,493320396801,,입문,,Easy,
 Diff_Easy_Desc,493320396802,,"무작위 소환
 초보자 추천",,"Random summon
 Recommended for beginners",
-Diff_Normal_Title,493320396803,,중 (보통),,Normal (Standard),
+Diff_Normal_Title,493320396803,,보통,,Normal,
 Diff_Normal_Desc,493320396804,,"자원 비축
 표준 밸런스",,"Resource hoarding
 Balanced AI",
-Diff_Hard_Title,493320396805,,상 (숙련),,Hard (Veteran),
+Diff_Hard_Title,493320396805,,숙련,,Hard,
 Diff_Hard_Desc,493320396806,,"연계
 스폰 블로킹",,"Combo strikes
 Spawn blocking",
-Diff_Hell_Title,493320396807,,극악 (신),,Hell (Master),
+Diff_Hell_Title,493320396807,,극악,,Master,
 Diff_Hell_Desc,493320396808,,"외통수 올인
 완벽한 수비",,"Checkmate all-in
 Flawless defense",
@@ -127,3 +127,22 @@ Header_Language_Toggle,493324591185,,한국어,,English,
 Badge_Stalemate,493324591186,,교착 상태,,Stalemate,
 Badge_Checkmate_Win,493324591187,,외통수 제압,,Checkmate Victory,
 Badge_Checkmate_Lose,493324591188,,외통수 패배,,Checkmate Defeat,
+Review_Title_Draw_Win,493324591189,,⚖️ 무승부 판정,,⚖️ Draw Decision,
+Review_Title_Draw_Lose,493324591190,,⚖️ 게임 종료 (무승부),,⚖️ Game Over (Draw),
+Review_Exp_Draw,493324591191,,• 양측 모두 공격 기물이 소진되었거나 교착 상태(Stalemate)가 발생하여 무승부로 종료되었습니다.,,• Game ended in a draw due to lack of attacking pieces or stalemate.,
+Review_Title_Checkmate_Win,493324591192,,외통수 승리 (외통수 제압),,Checkmate Victory (Overpowered),
+Review_Title_Checkmate_Lose,493324591193,,외통수 패배 (외통수 당함),,Checkmate Defeat (Overpowered),
+Review_Exp_DirectAttack,493324591194,,"• 직접 장군: {0}이(가) {1}을(를) 직접 조준 공격 중입니다.
+",,"• Direct Attack: {0} is directly targeting {1}.
+",
+Review_Exp_PathBlocked,493324591195,,"• 퇴로 차단: {0}이(가) 궁의 탈출로를 통제하여 도망칠 수 없습니다.
+",,"• Escape Blocked: {0} controls the escape routes.
+",
+Review_Exp_AllBlocked,493324591196,,"• 퇴로 차단: 궁성 내 모든 인접 칸이 상대 기물의 공격 범위에 막혀 있습니다.
+",,"• Escape Blocked: All adjacent cells in the palace are under attack.
+",
+Review_Exp_NoDefense,493324591197,,• 수비 불가: 공격 기물을 잡거나 사이를 가로막을 수 있는 합법 수가 없습니다.,,• Defenseless: No legal moves to capture the attacker or block the attack.,
+Review_King_Fallback,493324591198,,궁,,King,
+Btn_Pause,493324591199,,일시정지,,Pause,
+Msg_Ad_Loading,493324591201,,광고 로딩중...,,Loading Ad...,
+Header_Title,493324591200,,장기 아케이드,,Janggi Arcade,
