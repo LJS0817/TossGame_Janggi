@@ -15,8 +15,8 @@ namespace Janggi.EditorScripts
 
         static void UpdateTable()
         {
-            if (SessionState.GetBool("BtnPauseAdded_3", false)) return;
-            SessionState.SetBool("BtnPauseAdded_3", true);
+            if (SessionState.GetBool("BtnPauseAdded_4", false)) return;
+            SessionState.SetBool("BtnPauseAdded_4", true);
 
             // Get the collection
             var collection = LocalizationEditorSettings.GetStringTableCollection("JanggiStringTable");
@@ -101,9 +101,41 @@ namespace Janggi.EditorScripts
                     EditorUtility.SetDirty(collection.SharedData);
                 }
 
+                // 4. Add Side_Cho_Short, Side_Han_Short, Format_Full_Piece
+                AddOrUpdateKey(collection, "Side_Cho_Short", "초(楚)", "Cho");
+                AddOrUpdateKey(collection, "Side_Han_Short", "한(漢)", "Han");
+                AddOrUpdateKey(collection, "Format_Full_Piece", "{0} {1}", "{0} {1}");
+
                 AssetDatabase.SaveAssets();
                 Debug.Log("[LocalizationUpdater] Keys added to JanggiStringTable assets successfully!");
             }
+        }
+
+        private static void AddOrUpdateKey(StringTableCollection collection, string key, string koVal, string enVal)
+        {
+            var entry = collection.SharedData.GetEntry(key);
+            if (entry == null)
+            {
+                collection.SharedData.AddKey(key);
+            }
+
+            foreach (var table in collection.StringTables)
+            {
+                var t = table as StringTable;
+                if (t == null) continue;
+
+                if (t.LocaleIdentifier.Code.StartsWith("ko"))
+                {
+                    t.AddEntry(key, koVal);
+                    EditorUtility.SetDirty(t);
+                }
+                else if (t.LocaleIdentifier.Code.StartsWith("en"))
+                {
+                    t.AddEntry(key, enVal);
+                    EditorUtility.SetDirty(t);
+                }
+            }
+            EditorUtility.SetDirty(collection.SharedData);
         }
     }
 }

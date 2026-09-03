@@ -257,7 +257,7 @@ namespace Janggi
             _uiController.ClearSelection();
             _uiController.RefreshBoardPieces();
             _uiController.RefreshPlayerPanels();
-            _uiController.ShowStatus(LocalizationManager.Get("Msg_Summon_Success", newPiece.GetDisplayName()));
+            _uiController.ShowStatus(LocalizationManager.Get("Msg_Summon_Success", LocalizationManager.GetPieceName(newPiece.Type, newPiece.Side)));
 
             // 만약 턴 시작 시 장군 상태였는데 이번 소환으로 장군이 해제되었다면,
             // 기물 소환 자체가 '멍군' 행위가 되어 즉시 턴을 종료합니다.
@@ -290,7 +290,7 @@ namespace Janggi
             _uiController.SetDiscardMode(false);
             _uiController.ClearSelection();
             _uiController.RefreshPlayerPanels();
-            _uiController.ShowStatus(LocalizationManager.Get("Msg_Discard_Success", discardedType.GetKoreanName(PlayerSide.Cho)));
+            _uiController.ShowStatus(LocalizationManager.Get("Msg_Discard_Success", LocalizationManager.GetPieceName(discardedType, PlayerSide.Cho)));
 
             Debug.Log($"[Janggi] 패 버리기 완료: {discardedType} -> 남은 코스트: {_choState.CurrentCost}");
         }
@@ -519,7 +519,7 @@ namespace Janggi
 
                         _uiController.RefreshBoardPieces();
                         _uiController.RefreshPlayerPanels();
-                        _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Summoned", aiNewPiece.GetDisplayName(), _hanState.CurrentCost));
+                        _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Summoned", LocalizationManager.GetPieceName(aiNewPiece.Type, aiNewPiece.Side), _hanState.CurrentCost));
 
                         Debug.Log($"[Janggi] AI {pieceType} 소환 완료 (소모: {pieceType.GetCost()}, 남은 코스트: {_hanState.CurrentCost})");
                         yield return new WaitForSeconds(0.5f);
@@ -534,7 +534,7 @@ namespace Janggi
 
             if (bestPiece != null)
             {
-                _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Moved", bestPiece.GetDisplayName()));
+                _uiController.ShowStatus(LocalizationManager.Get("Msg_AI_Moved", LocalizationManager.GetPieceName(bestPiece.Type, bestPiece.Side)));
                 yield return new WaitForSeconds(0.3f);
 
                 ExecuteMove(bestPiece, bestTargetPos);

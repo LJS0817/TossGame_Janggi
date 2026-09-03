@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: JanggiStringTable_en-US
+  m_Name: New Table_en-US
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
   m_LocaleId:
     m_Code: en-US
-  m_SharedData: {fileID: 11400000, guid: 9016a8dd527514c918f86a41e0fba6dd, type: 2}
+  m_SharedData: {fileID: 11400000, guid: cd58f84f42a9c594baf4a85401e473dc, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
   - m_Id: 493253287936
-    m_Localized: Janggi Arcade
+    m_Localized: Janggi Deckbuilding Defense
     m_Metadata:
       m_Items: []
   - m_Id: 493316202496
@@ -31,17 +31,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396801
-    m_Localized: Easy (Novice)
+    m_Localized: Easy
     m_Metadata:
       m_Items: []
   - m_Id: 493320396802
     m_Localized: 'Random summon
 
-      Recommended for beginners'
+      For beginners'
     m_Metadata:
       m_Items: []
   - m_Id: 493320396803
-    m_Localized: Normal (Standard)
+    m_Localized: Normal
     m_Metadata:
       m_Items: []
   - m_Id: 493320396804
@@ -51,7 +51,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396805
-    m_Localized: Hard (Veteran)
+    m_Localized: Hard
     m_Metadata:
       m_Items: []
   - m_Id: 493320396806
@@ -61,7 +61,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396807
-    m_Localized: Hell (Master)
+    m_Localized: Master
     m_Metadata:
       m_Items: []
   - m_Id: 493320396808
@@ -91,9 +91,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493320396814
-    m_Localized: "\u2022 Gain +2 Cost at start of turn (Max 10 Cost)\n\u2022 [Optional]
-      Spend cost to summon 1 piece from hand\n\u2022 [Mandatory] Move 1 allied piece
-      on board (Ends turn)"
+    m_Localized: "\u2022 Gain +2 Cost at start of turn (Max 10 Cost)\r\n\u2022 Gain
+      +1 Cost when capturing an enemy piece\r\n\u2022 [Optional] Spend cost to summon
+      1 piece from hand\r\n\u2022 [Mandatory] Move 1 allied piece on board (Ends
+      turn)"
     m_Metadata:
       m_Items: []
   - m_Id: 493320396815
@@ -101,9 +102,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591104
-    m_Localized: "\u2022 Pawn/Soldier: Empty cell on 4th front rank\n\u2022 Cannon:
-      Empty cell on 2 cannon starting positions\n\u2022 Chariot/Horse/Elephant: Empty
-      cell on 1st back rank\n\u2022 Cannot summon to cells that cause direct check"
+    m_Localized: "\u2022 Pawn/Soldier: Empty cell on 4th front rank\r\n\u2022 Cannon:
+      Empty cell on 2 cannon starting positions\r\n\u2022 Chariot/Horse/Elephant:
+      Empty cell on 1st back rank\r\n\u2022 Cannot summon to cells that cause direct
+      check"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591105
@@ -111,9 +113,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591106
-    m_Localized: "\u2022 Total cost of allied pieces on board is capped at 20\n\u2022
-      Chariot(6), Cannon(4), Horse(2), Elephant(2), Pawn(1)\n\u2022 Pieces must be
-      lost before summoning more"
+    m_Localized: "\u2022 Total cost of allied pieces on board is capped at 20\r\n\u2022
+      Chariot(6), Cannon(4), Horse(2), Elephant(2), Pawn(1)\r\n\u2022 Pieces must
+      be lost before summoning more"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591107
@@ -129,7 +131,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591110
-    m_Localized: "\u2022 Pass your turn without moving by clicking [Pass Turn].\n\u2022
+    m_Localized: "\u2022 Pass your turn without moving by clicking [Pass Turn].\r\n\u2022
       You cannot pass while in Check."
     m_Metadata:
       m_Items: []
@@ -265,20 +267,20 @@ MonoBehaviour:
     m_Localized: '{0}'
     m_Metadata:
       m_Items: []
-  - m_Id: 493324591144
-    m_Localized: Ad Chance
-    m_Metadata:
-      m_Items: []
-  - m_Id: 493324591145
-    m_Localized: Chance Used
-    m_Metadata:
-      m_Items: []
   - m_Id: 493324591146
     m_Localized: Play Again
     m_Metadata:
       m_Items: []
   - m_Id: 493324591147
     m_Localized: Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591144
+    m_Localized: Ad Chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591145
+    m_Localized: Chance Used
     m_Metadata:
       m_Items: []
   - m_Id: 493324591148
@@ -345,12 +347,12 @@ MonoBehaviour:
     m_Localized: Difficulty changed to [{0}].
     m_Metadata:
       m_Items: []
-  - m_Id: 493324591165
-    m_Localized: Loading ad...
+  - m_Id: 493324591201
+    m_Localized: Loading Ad...
     m_Metadata:
       m_Items: []
   - m_Id: 493324591166
-    m_Localized: Ad reward granted! +5 Cost charged.
+    m_Localized: Ad watched successfully!
     m_Metadata:
       m_Items: []
   - m_Id: 493324591167
@@ -442,11 +444,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591189
-    m_Localized: "\u2696\uFE0F Draw Decision"
+    m_Localized: Draw Decision
     m_Metadata:
       m_Items: []
   - m_Id: 493324591190
-    m_Localized: "\u2696\uFE0F Game Over (Draw)"
+    m_Localized: Game Over (Draw)
     m_Metadata:
       m_Items: []
   - m_Id: 493324591191
@@ -463,16 +465,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 493324591194
-    m_Localized: "\u2022 Direct Attack: {0} is directly targeting {1}.\n"
+    m_Localized: "\u2022 Direct Attack: {0} is directly targeting {1}.\r\n"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591195
-    m_Localized: "\u2022 Escape Blocked: {0} controls the escape routes.\n"
+    m_Localized: "\u2022 Escape Blocked: {0} controls the escape routes.\r\n"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591196
     m_Localized: "\u2022 Escape Blocked: All adjacent cells in the palace are under
-      attack.\n"
+      attack.\r\n"
     m_Metadata:
       m_Items: []
   - m_Id: 493324591197
@@ -488,8 +490,20 @@ MonoBehaviour:
     m_Localized: Pause
     m_Metadata:
       m_Items: []
-  - m_Id: 835444993175552
+  - m_Id: 493324591200
     m_Localized: Janggi Arcade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591202
+    m_Localized: Cho
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591203
+    m_Localized: Han
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493324591204
+    m_Localized: '{0} {1}'
     m_Metadata:
       m_Items: []
   references:

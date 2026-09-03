@@ -22,7 +22,7 @@ namespace Janggi.Core
     /// </summary>
     public static class LocalizationManager
     {
-        public const string TableName = "JanggiStringTable";
+        public const string TableName = "New Table";
         private const string LanguagePrefKey = "Janggi_Language_Setting";
 
         public static event Action OnLanguageChanged;
@@ -174,6 +174,40 @@ namespace Janggi.Core
             }
 
             return key;
+        }
+
+        /// <summary>
+        /// 진영의 간략 표시명(한국어: "초(楚)" / "한(漢)", 영어: "Cho" / "Han")을 Localization 테이블에서 조회합니다.
+        /// </summary>
+        public static string GetSideName(PlayerSide side)
+        {
+            string key = side == PlayerSide.Cho ? "Side_Cho_Short" : "Side_Han_Short";
+            string val = Get(key);
+            if (!string.IsNullOrEmpty(val) && val != key)
+            {
+                return val;
+            }
+
+            // Fallback: 기존 Msg_Side_..._Short 키 조회
+            return side == PlayerSide.Cho ? Get("Msg_Side_Cho_Short") : Get("Msg_Side_Han_Short");
+        }
+
+        /// <summary>
+        /// 현재 언어에 맞게 진영과 기물 종류가 조합된 완성형 표시명을 반환합니다 (예: ko: "초(楚) 차", en: "Cho Chariot").
+        /// Localization 테이블의 'Format_Full_Piece'를 활용합니다.
+        /// </summary>
+        public static string GetFullPieceName(PieceType type, PlayerSide side)
+        {
+            string sName = GetSideName(side);
+            string pName = GetPieceName(type, side);
+
+            string format = Get("Format_Full_Piece", sName, pName);
+            if (!string.IsNullOrEmpty(format) && format != "Format_Full_Piece")
+            {
+                return format;
+            }
+
+            return $"{sName} {pName}";
         }
 
         public static string GetPieceName(PieceType type, PlayerSide side = PlayerSide.Cho)

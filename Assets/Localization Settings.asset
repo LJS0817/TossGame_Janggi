@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_ProjectLocaleIdentifier:
-    m_Code: en
+    m_Code: en-US
   m_PreloadBehavior: 1
   m_InitializeSynchronously: 0
   references:
@@ -53,7 +53,7 @@ MonoBehaviour:
       type: {class: LocalizedAssetDatabase, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
         m_DefaultTableReference:
-          m_TableCollectionName: 
+          m_TableCollectionName: New Table
         m_CustomTableProvider:
           rid: -2
         m_CustomTablePostprocessor:
@@ -64,7 +64,7 @@ MonoBehaviour:
       type: {class: LocalizedStringDatabase, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
       data:
         m_DefaultTableReference:
-          m_TableCollectionName: 
+          m_TableCollectionName: New Table
         m_CustomTableProvider:
           rid: -2
         m_CustomTablePostprocessor:

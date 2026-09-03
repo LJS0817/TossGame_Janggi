@@ -35,12 +35,11 @@ namespace Janggi.Core
         }
 
         /// <summary>
-        /// 진영과 한자를 모두 포함한 상세 표시명을 반환합니다 (예: 초(楚) 차, 한(漢) 궁).
+        /// 현재 언어에 맞게 진영과 기물명을 모두 포함한 상세 표시명을 반환합니다 (예: ko: "초(楚) 차", en: "Cho Chariot").
         /// </summary>
         public string GetFullDisplayName()
         {
-            string sideName = Side == PlayerSide.Cho ? "초(楚)" : "한(漢)";
-            return $"{sideName} {GetDisplayName()}";
+            return LocalizationManager.GetFullPieceName(Type, Side);
         }
 
         /// <summary>

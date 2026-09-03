@@ -359,7 +359,14 @@ namespace Janggi.UI
 
             if (_btnAdChance != null)
             {
-                _btnAdChance.clicked += () => OnAdChanceRequested?.Invoke();
+                _btnAdChance.RegisterCallback<UnityEngine.UIElements.PointerDownEvent>(evt => 
+                {
+                    if (_btnAdChance.enabledSelf)
+                    {
+                        OnAdChanceRequested?.Invoke();
+                        evt.StopPropagation();
+                    }
+                });
             }
 
             if (_btnDifficulty != null)
@@ -683,6 +690,7 @@ namespace Janggi.UI
             // 외통수 분석 텍스트 채우기 및 보드 하이라이트 표시
             if (reviewData != null)
             {
+                reviewData.RebuildExplanation();
                 if (_inlineReviewSection != null) _inlineReviewSection.style.display = DisplayStyle.Flex;
                 if (_inlineReviewDesc != null) _inlineReviewDesc.text = reviewData.Explanation;
                 RenderReviewHighlights(reviewData);

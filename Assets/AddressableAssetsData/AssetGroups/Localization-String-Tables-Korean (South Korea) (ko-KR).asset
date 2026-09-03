@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Korean (South Korea) (ko-KR)
   m_GUID: 591c446ba1d4e40cca461badc8bb2d59
   m_SerializeEntries:
-  - m_GUID: c96d747a0d1bd4980adc7d6c7e2ac70f
-    m_Address: JanggiStringTable_ko-KR
+  - m_GUID: 31d2894b2beccd04aae6f37a4107210f
+    m_Address: New Table_ko-KR
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ko-KR

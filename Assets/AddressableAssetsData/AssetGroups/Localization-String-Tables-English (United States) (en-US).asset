@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (United States) (en-US)
   m_GUID: 5f3687ff1ab2b49dc893c5db0619b423
   m_SerializeEntries:
-  - m_GUID: fc418a4c0194a461d9eff4eed8703923
-    m_Address: JanggiStringTable_en-US
+  - m_GUID: 49a32c7f755e3db4697154460ad9450a
+    m_Address: New Table_en-US
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-US

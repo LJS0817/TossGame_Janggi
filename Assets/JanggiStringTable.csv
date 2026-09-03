@@ -5,7 +5,7 @@ Menu_Diff_Section,493320396800,,AI 난이도 선택,,Select AI Difficulty,
 Diff_Easy_Title,493320396801,,입문,,Easy,
 Diff_Easy_Desc,493320396802,,"무작위 소환
 초보자 추천",,"Random summon
-Recommended for beginners",
+For beginners",
 Diff_Normal_Title,493320396803,,보통,,Normal,
 Diff_Normal_Desc,493320396804,,"자원 비축
 표준 밸런스",,"Resource hoarding
@@ -50,7 +50,7 @@ Rule_5_Title,493324591109,,5. 한 수 쉼 (한 턴 쉬기),,5. Pass Turn,
 Rule_5_Desc,493324591110,,"• 기물을 이동하지 않고 [한 수 쉼] 버튼을 눌러 턴을 상대에게 넘길 수 있습니다.
 • 단, 장군(Check) 상태에서는 쉴 수 없습니다.",,"• Pass your turn without moving by clicking [Pass Turn].
 • You cannot pass while in Check.",
-Header_Diff_Prefix,493324591111,,"난이도: ",,"Difficulty: ",
+Header_Diff_Prefix,493324591111,,난이도: ,,Difficulty: ,
 Btn_Restart,493324591112,,재시작,,Restart,
 Btn_Menu,493324591113,,메뉴,,Menu,
 Side_Cho,493324591114,,楚 (플레이어),,Cho (Player),
@@ -103,7 +103,7 @@ Msg_AI_Thinking,493324591160,,적 AI(漢)가 수를 고민 중입니다...,,Enem
 Msg_AI_Summoned,493324591161,,적 AI(漢)가 [{0}] 소환! (AI 남은 코스트: {1}),,Enemy AI (Han) summoned [{0}]! (Cost left: {1}),
 Msg_AI_Moved,493324591162,,적 AI(漢)가 [{0}]을(를) 이동합니다.,,Enemy AI moves [{0}].,
 Msg_Diff_Changed,493324591163,,난이도가 [{0}]로 변경되었습니다.,,Difficulty changed to [{0}].,
-Msg_Ad_Loading,493324591165,,광고를 불러오는 중입니다...,,Loading ad...,
+Msg_Ad_Loading,493324591201,,광고 로딩중...,,Loading Ad...,
 Msg_Ad_Success,493324591166,,광고 시청 완료!,,Ad watched successfully!,
 Msg_Ad_Cancelled,493324591167,,광고 시청이 취소되었습니다.,,Ad was cancelled.,
 Msg_Already_Summoned,493324591168,,이번 턴 소환을 이미 완료했습니다.,,Already summoned a piece this turn.,
@@ -127,9 +127,9 @@ Header_Language_Toggle,493324591185,,한국어,,English,
 Badge_Stalemate,493324591186,,교착 상태,,Stalemate,
 Badge_Checkmate_Win,493324591187,,외통수 제압,,Checkmate Victory,
 Badge_Checkmate_Lose,493324591188,,외통수 패배,,Checkmate Defeat,
-Review_Title_Draw_Win,493324591189,,⚖️ 무승부 판정,,⚖️ Draw Decision,
-Review_Title_Draw_Lose,493324591190,,⚖️ 게임 종료 (무승부),,⚖️ Game Over (Draw),
-Review_Exp_Draw,493324591191,,• 양측 모두 공격 기물이 소진되었거나 교착 상태(Stalemate)가 발생하여 무승부로 종료되었습니다.,,• Game ended in a draw due to lack of attacking pieces or stalemate.,
+Review_Title_Draw_Win,493324591189,,무승부 판정,,Draw Decision,
+Review_Title_Draw_Lose,493324591190,,게임 종료 (무승부),,Game Over (Draw),
+Review_Exp_Draw,493324591191,,• 양측 모두 공격 기물이 소진되었거나 교착 상태가 발생하여 무승부로 종료되었습니다.,,• Game ended in a draw due to lack of attacking pieces or stalemate.,
 Review_Title_Checkmate_Win,493324591192,,외통수 승리 (외통수 제압),,Checkmate Victory (Overpowered),
 Review_Title_Checkmate_Lose,493324591193,,외통수 패배 (외통수 당함),,Checkmate Defeat (Overpowered),
 Review_Exp_DirectAttack,493324591194,,"• 직접 장군: {0}이(가) {1}을(를) 직접 조준 공격 중입니다.
@@ -144,5 +144,7 @@ Review_Exp_AllBlocked,493324591196,,"• 퇴로 차단: 궁성 내 모든 인접
 Review_Exp_NoDefense,493324591197,,• 수비 불가: 공격 기물을 잡거나 사이를 가로막을 수 있는 합법 수가 없습니다.,,• Defenseless: No legal moves to capture the attacker or block the attack.,
 Review_King_Fallback,493324591198,,궁,,King,
 Btn_Pause,493324591199,,일시정지,,Pause,
-Msg_Ad_Loading,493324591201,,광고 로딩중...,,Loading Ad...,
 Header_Title,493324591200,,장기 아케이드,,Janggi Arcade,
+Side_Cho_Short,493324591202,,초(楚),,Cho,
+Side_Han_Short,493324591203,,한(漢),,Han,
+Format_Full_Piece,493324591204,,{0} {1},,{0} {1},

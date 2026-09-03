@@ -161,8 +161,7 @@ namespace Janggi.Core
 
             if (isDraw)
             {
-                data.Title = isPlayerWin ? LocalizationManager.Get("Review_Title_Draw_Win") : LocalizationManager.Get("Review_Title_Draw_Lose");
-                data.Explanation = LocalizationManager.Get("Review_Exp_Draw");
+                data.RebuildExplanation();
                 return data;
             }
 
@@ -210,43 +209,8 @@ namespace Janggi.Core
                 }
             }
 
-            // 3. 설명 문구 작성
-            data.Title = isPlayerWin ? LocalizationManager.Get("Review_Title_Checkmate_Win") : LocalizationManager.Get("Review_Title_Checkmate_Lose");
-            
-            var sb = new System.Text.StringBuilder();
-            
-            // 직접 공격자
-            if (data.DirectAttackers.Count > 0)
-            {
-                var atkList = new List<string>();
-                foreach (var atk in data.DirectAttackers)
-                {
-                    atkList.Add($"[{atk.GetFullDisplayName()}]");
-                }
-                string atkNames = string.Join(", ", atkList);
-                string kingName = king != null ? $"[{king.GetFullDisplayName()}]" : LocalizationManager.Get("Review_King_Fallback");
-                sb.Append(LocalizationManager.Get("Review_Exp_DirectAttack", atkNames, kingName));
-            }
-
-            // 경로 차단자
-            if (data.PathControllers.Count > 0)
-            {
-                var ctrlList = new List<string>();
-                foreach (var ctrl in data.PathControllers)
-                {
-                    ctrlList.Add($"[{ctrl.GetFullDisplayName()}]");
-                }
-                string ctrlNames = string.Join(", ", ctrlList);
-                sb.Append(LocalizationManager.Get("Review_Exp_PathBlocked", ctrlNames));
-            }
-            else if (data.BlockedEscapePositions.Count > 0)
-            {
-                sb.Append(LocalizationManager.Get("Review_Exp_AllBlocked"));
-            }
-
-            sb.Append(LocalizationManager.Get("Review_Exp_NoDefense"));
-
-            data.Explanation = sb.ToString();
+            // 3. 설명 문구 작성 (현재 언어 기준)
+            data.RebuildExplanation();
             return data;
         }
     }
@@ -265,5 +229,54 @@ namespace Janggi.Core
         public List<BoardPosition> BlockedEscapePositions { get; set; } = new List<BoardPosition>();
         public string Title { get; set; }
         public string Explanation { get; set; }
+
+        /// <summary>
+        /// 현재 설정된 언어에 맞춰 제목(Title)과 복기 설명문(Explanation)을 다시 작성합니다.
+        /// </summary>
+        public void RebuildExplanation()
+        {
+            if (IsDraw)
+            {
+                Title = IsPlayerWin ? LocalizationManager.Get("Review_Title_Draw_Win") : LocalizationManager.Get("Review_Title_Draw_Lose");
+                Explanation = LocalizationManager.Get("Review_Exp_Draw");
+                return;
+            }
+
+            Title = IsPlayerWin ? LocalizationManager.Get("Review_Title_Checkmate_Win") : LocalizationManager.Get("Review_Title_Checkmate_Lose");
+
+            var sb = new System.Text.StringBuilder();
+
+            // 1. 직접 공격자
+            if (DirectAttackers.Count > 0)
+            {
+                var atkList = new List<string>();
+                foreach (var atk in DirectAttackers)
+                {
+                    atkList.Add($"[{atk.GetFullDisplayName()}]");
+                }
+                string atkNames = string.Join(", ", atkList);
+                string kingName = KingPiece != null ? $"[{KingPiece.GetFullDisplayName()}]" : $"[{LocalizationManager.Get("Review_King_Fallback")}]";
+                sb.Append(LocalizationManager.Get("Review_Exp_DirectAttack", atkNames, kingName));
+            }
+
+            // 2. 경로 차단자
+            if (PathControllers.Count > 0)
+            {
+                var ctrlList = new List<string>();
+                foreach (var ctrl in PathControllers)
+                {
+                    ctrlList.Add($"[{ctrl.GetFullDisplayName()}]");
+                }
+                string ctrlNames = string.Join(", ", ctrlList);
+                sb.Append(LocalizationManager.Get("Review_Exp_PathBlocked", ctrlNames));
+            }
+            else if (BlockedEscapePositions.Count > 0)
+            {
+                sb.Append(LocalizationManager.Get("Review_Exp_AllBlocked"));
+            }
+
+            sb.Append(LocalizationManager.Get("Review_Exp_NoDefense"));
+            Explanation = sb.ToString();
+        }
     }
 }

@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 3b279ac16601f45fd97b048c49e12fd7
   m_SerializeEntries:
-  - m_GUID: 9016a8dd527514c918f86a41e0fba6dd
-    m_Address: Assets/JanggiStringTable Shared Data.asset
+  - m_GUID: cd58f84f42a9c594baf4a85401e473dc
+    m_Address: Assets/Locale/New Table Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

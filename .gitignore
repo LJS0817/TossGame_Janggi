@@ -78,8 +78,6 @@ a-1.0-v1-IL2CPP.symbols.zip
 /v1_BackUpThisFolder_ButDontShipItWithYourGame
 장기 아케이드_BurstDebugInformation_DoNotShip/tempburstlibs/arm64-v8a/lib_burst_generated.txt
 /Janggi_BurstDebugInformation_DoNotShip
-/Janggi_BurstDebugInformation_DoNotShip
-/Assets/AddressableAssetsData
 v1_mapping.txt
 
 # Google Mobile Ads Settings (contains local App IDs)
@@ -89,9 +87,4 @@ v1_mapping.txt
 # AdMob local secret keys
 /[Aa]ssets/Resources/AdMobSecrets.json*
 /[Aa]ssets/Resources/AdMobSecretConfig.asset*
-/Assets/Plugins/Android/GoogleMobileAdsPlugin.androidlib
-Assets/Plugins/Android/GoogleMobileAdsPlugin.androidlib/AndroidManifest.xml
-Assets/Resources/AdMobSecrets.example.json
-Assets/Resources/AdMobSecrets.example.json.meta
-Assets/Plugins/Android/GoogleMobileAdsPlugin.androidlib/AndroidManifest.xml
 /scratch
