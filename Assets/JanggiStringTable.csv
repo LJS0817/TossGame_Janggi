@@ -103,7 +103,9 @@ Msg_AI_Thinking,493324591160,,적 AI(漢)가 수를 고민 중입니다...,,Enem
 Msg_AI_Summoned,493324591161,,적 AI(漢)가 [{0}] 소환! (AI 남은 코스트: {1}),,Enemy AI (Han) summoned [{0}]! (Cost left: {1}),
 Msg_AI_Moved,493324591162,,적 AI(漢)가 [{0}]을(를) 이동합니다.,,Enemy AI moves [{0}].,
 Msg_Diff_Changed,493324591163,,난이도가 [{0}]로 변경되었습니다.,,Difficulty changed to [{0}].,
-Msg_Ad_Loading,493324591201,,광고 로딩중...,,Loading Ad...,
+Msg_Ad_Loading,493324591201,,"광고
+로딩 중...",,"Loading
+Ad...",
 Msg_Ad_Success,493324591166,,광고 시청 완료!,,Ad watched successfully!,
 Msg_Ad_Cancelled,493324591167,,광고 시청이 취소되었습니다.,,Ad was cancelled.,
 Msg_Already_Summoned,493324591168,,이번 턴 소환을 이미 완료했습니다.,,Already summoned a piece this turn.,

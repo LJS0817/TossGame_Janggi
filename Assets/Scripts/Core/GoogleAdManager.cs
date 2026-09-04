@@ -312,14 +312,57 @@ namespace Janggi.Core
             }
             else
             {
-                Debug.LogWarning("[AdMob] 표시 가능한 보상형 전면 광고가 아직 준비되지 않았습니다. 즉시 로드를 재시도합니다.");
-                LoadRewardedAd();
-                OnUserEarnedReward(false);
+                Debug.LogWarning("[AdMob] 표시 가능한 보상형 전면 광고가 아직 준비되지 않았습니다. 즉시 로드를 재시도하고 대기합니다.");
+                if (!_isLoadingAd)
+                {
+                    LoadRewardedAd();
+                }
+                StartCoroutine(WaitAndShowAdCoroutine());
             }
 #else
             StartCoroutine(SimulateAdWatchCoroutine(true));
 #endif
         }
+
+#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+        private IEnumerator WaitAndShowAdCoroutine()
+        {
+            float timeout = 10f; // 최대 10초 대기
+            float elapsed = 0f;
+            
+            // 로딩 중이거나 아직 광고가 준비 안 된 동안 대기
+            while (elapsed < timeout)
+            {
+                if (_rewardedInterstitialAd != null && _rewardedInterstitialAd.CanShowAd())
+                {
+                    break;
+                }
+                
+                // 만약 로딩 중이 아닌데(실패 등으로 끝남) 준비도 안 되었다면 다시 로드 요청
+                if (!_isLoadingAd)
+                {
+                    LoadRewardedAd();
+                }
+
+                elapsed += Time.unscaledDeltaTime; // Time.timeScale 영향 없이 실제 시간으로 대기
+                yield return null;
+            }
+
+            if (_rewardedInterstitialAd != null && _rewardedInterstitialAd.CanShowAd())
+            {
+                _rewardedInterstitialAd.Show((Reward reward) =>
+                {
+                    Debug.Log($"[AdMob] 유저 보상 획득 완료! (타입: {reward.Type}, 수량: {reward.Amount})");
+                    _rewardEarned = true;
+                });
+            }
+            else
+            {
+                Debug.LogError("[AdMob] 광고 로드 대기 시간 초과 또는 로드 실패.");
+                OnUserEarnedReward(false);
+            }
+        }
+#endif
 
 #if UNITY_EDITOR
         private bool _showEditorAdModal = false;

@@ -366,7 +366,7 @@ namespace Janggi.UI
                         OnAdChanceRequested?.Invoke();
                         evt.StopPropagation();
                     }
-                });
+                }, TrickleDown.TrickleDown);
             }
 
             if (_btnDifficulty != null)
